@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+
+    <div id="pdf-container">
+        <form id="pdfUploadForm">
+            <h1>Upload and Extract Text from a PDF File</h1>
+            <label for="pdfFile">Choose a PDF file:</label>
+            <input type="file" id="file" name="pdfFile" accept="application/pdf" required>
+            <button type="button" id="loadFile">Analyse Statement</button>
+        </form>
+    </div>
+    <!-- JS file -->
+    <!-- Using the type=module to be able to work with PDF.js library -->
+    <script type="module" src="assets/js/script.js"></script>
+</body>
+</html>
