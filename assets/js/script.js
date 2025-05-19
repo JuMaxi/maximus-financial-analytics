@@ -119,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function findAccountNameIntoFinancialReportsPages(statements, accountName) {
         // Get the account name initial position
+        console.log(accountName);
         let positionAccountName = statements.indexOf(accountName);
         // Get the account name final position
         positionAccountName += accountName.length;
@@ -173,20 +174,70 @@ document.addEventListener("DOMContentLoaded", function() {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
     // https://stackoverflow.com/questions/3559070/are-there-dictionaries-in-javascript-like-python
     function saveValuesAndAccountNamesToMap(accountName, values, data) {
-        data.set(accountName, [values[0], values[1]]);
+        // If array of values has 3 positions, it means the index 0 is a note, not a value, and I don't need it to calculations
+        if (values.length > 2) {
+            data.set(accountName, [values[1], values[2]]);
+        } else if (accountName !== "Current tax receivable" || accountName !== "Trade and other receivables") {
+            data.set(accountName, [values[0], values[1]]);
+        }
+
+        // Exception to handle the counts that are not right in the extracted text from the report
+        if (accountName === "Current tax receivable") {
+            data.set("Trade and other receivables", [values[0], values[2]]);
+            data.set(accountName, values[1]);
+        }
     }
 
     // Profitability Ratios
-    function calculateGrossProfitMargin(data) {
-        const grossProfit = [];
-        let grossProfit2025 = data.get("Gross profit")[0] / data.get("Revenue")[0] * 100;
-        let grossProfit2024 = data.get("Gross profit")[1] / data.get("Revenue")[1] * 100;
-        grossProfit2025 = grossProfit2025.toFixed(1) + "%";
-        grossProfit2024 = grossProfit2024.toFixed(1) + "%";
+    // Account1 / Revenue * 100
+    function calculateProfitIndicators(account1, data) {
+        const indicators = [];
+
+        for (let i = 0; i <= 1; i++) {
+            let indicator = data.get(account1)[i] / data.get("Revenue")[i] * 100;
+            indicator = indicator.toFixed(1) + "%";
+            indicators.push(indicator);
+        }
+        console.log(indicators);
+        return indicators;
     }
 
+    function calculateAverageAssets(data) {
+        let assets = [];
+        for (let i = 0; i <= 1; i++) {
+            let asset = data.get("Intangible assets")[i];
+            asset += data.get("Goodwill")[i];
+            asset += data.get("Property, plant and equipment")[i];
+            asset += data.get("Deferred tax asset")[i];
+            asset += data.get("Cash and cash equivalents")[i];
+            asset += data.get("Trade and other receivables")[i]; // Essa conta esta com problema, esta misturada com a seguinte
+            asset += data.get("Current tax receivable")[i];
+            assets.push(asset);
+        }
+        
+        let average = (assets[0] + assets[1]) / 2;
+        console.log(average);
+        return average;
+    }
+
+    function calculateAverageEquity(data) {
+        let average = (data.get("Total equity")[0] + data.get("Total equity")[1]) / 2;
+        console.log(average)
+        return average;
+    }
+
+    // Return on Assets (ROA)
+    function calculateReturnAssets(data) {
+        calculateAverageAssets(data);
+    }
+
+
+    
     function callIndicatorsCalculations(data) {
-        calculateGrossProfitMargin(data);
+        const grossProfit = calculateProfitIndicators("Gross profit", data); // 79.7% and 77%
+        const operatingMargin = calculateProfitIndicators("Operating profit", data); // 19.4% and 14%
+        const profitMargin = calculateProfitIndicators("Profit after tax", data); // 13.2% and 8.6%
+        const returnAssets = calculateReturnAssets(data);
     }
     
 })
