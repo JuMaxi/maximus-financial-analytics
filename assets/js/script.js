@@ -4,9 +4,10 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 //explicitly telling it where to find the worker file. Required when working with modules.
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Global variables
 
-    // Variable to the file pdf
-    const fileInput = document.getElementById("file");
+    // This variable is storing the account names + values extracted from the financial reports
+    const data = new Map();
     // Variable the the button analyze
     const loadFile = document.getElementById("loadFile");
 
@@ -15,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to handle the file (user input)
     function handleFileUpload() {
+        // Variable to the file pdf
+        const fileInput = document.getElementById("file");
         // Save the file position 0 in a const variable
         const file = fileInput.files[0];
         // Check if the file is empty or is not a pdf
@@ -33,12 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
             // Call the function to load the pdf
             loadPdf(typedArray);
         }
-
-        /*
-            The array buffer is a chunk of binary data in memory. A low-level representation of binary data in JavaScript.
-            Read the file as ArrayBuffer
-        */
-        
         reader.readAsArrayBuffer(file);
     }
 
@@ -47,20 +44,17 @@ document.addEventListener("DOMContentLoaded", function() {
     async function loadPdf(typedArray) {
         const pdf = await pdfjsLib.getDocument(typedArray).promise;
         // Call the process page function having as a parameter the pdf file loaded
-        const statements = await processPage(pdf);
+        const statements = await getFinancialReportsPages(pdf);
 
-        let firstAccount = findAccountName(statements, "Revenue");
-        let secondAccount = findAccountName(statements, "Depreciation and amortisation");
-        let thirdAccount = findAccountName(statements, "Cash and cash equivalents");
-
+        handleAccountsName(statements);
     }
 
-    // Function to process the pages
+    // Function to get the content from the pages that contains the financial reports
     // Using the async here, so it is waiting the page being loaded before execute the following code
-    async function processPage(pdf) {
+    async function getFinancialReportsPages(pdf) {
         let statements = "";
         for(let pagNum = 1; pagNum <= pdf.numPages; pagNum++) {
-            const pageText = await extractPageText(pagNum, pdf);
+            const pageText = await extractFinancialReportsPageText(pagNum, pdf);
 
             if (
                 pageText.includes("Consolidated income statement") &&
@@ -72,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 while(pageNumStatements <= pdf.numPages)
                 {
-                    const pageStatement = await extractPageText(pageNumStatements, pdf);
+                    const pageStatement = await extractFinancialReportsPageText(pageNumStatements, pdf);
 
                     if (
                         pageStatement.includes("Notes") &&
@@ -88,7 +82,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    async function extractPageText(pagNum, pdf) {
+    // This function extracts the text from the selecteds financial report pages
+    async function extractFinancialReportsPageText(pagNum, pdf) {
         const page = await pdf.getPage(pagNum); // wait for page to load
         const pageContent = await page.getTextContent(); // wait for page to load
 
@@ -103,7 +98,26 @@ document.addEventListener("DOMContentLoaded", function() {
         return pageText;
     }
 
-    function findAccountName(statements, accountName) {
+    // Function to create an array to account names and call the function to find it into the report
+    function handleAccountsName(statements) {
+        // Creating this array to save account names needed to calculate the indicators
+        const accountNames = ["Revenue", "Gross profit", "Operating profit", "Profit after tax", 
+            "Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
+            "Cash and cash equivalents", "Trade and other receivables", "Current tax receivable",
+            "Total equity", "Trade and other payables", "Lease liabilities", "Current tax payable",
+            "Loans and borrowings", "Provisions", "Finance costs", "Cash generated from operating activities",
+            "Net cash flow from investing activities"
+        ];
+        
+        // Calling the account name function to find the account name into the report
+        for (let accountName of accountNames) {
+            findAccountNameIntoFinancialReportsPages(statements, accountName);
+        }
+
+        callIndicatorsCalculations(data);
+    }
+
+    function findAccountNameIntoFinancialReportsPages(statements, accountName) {
         // Get the account name initial position
         let positionAccountName = statements.indexOf(accountName);
         // Get the account name final position
@@ -113,9 +127,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let i = findFinalPositionAccount(statements, positionAccountName);
 
         // Convert the account values to integers
-        let data = convertAccountValuesToInt(statements, positionAccountName, i);
-       
-        console.log(data);
+        let values = convertAccountValuesToInt(statements, positionAccountName, i);
+        
+        saveValuesAndAccountNamesToMap(accountName, values, data);
     }
 
     function findFinalPositionAccount(statements, positionAccountName) {
@@ -156,5 +170,23 @@ document.addEventListener("DOMContentLoaded", function() {
         return data;
     }
 
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+    // https://stackoverflow.com/questions/3559070/are-there-dictionaries-in-javascript-like-python
+    function saveValuesAndAccountNamesToMap(accountName, values, data) {
+        data.set(accountName, [values[0], values[1]]);
+    }
 
+    // Profitability Ratios
+    function calculateGrossProfitMargin(data) {
+        const grossProfit = [];
+        let grossProfit2025 = data.get("Gross profit")[0] / data.get("Revenue")[0] * 100;
+        let grossProfit2024 = data.get("Gross profit")[1] / data.get("Revenue")[1] * 100;
+        grossProfit2025 = grossProfit2025.toFixed(1) + "%";
+        grossProfit2024 = grossProfit2024.toFixed(1) + "%";
+    }
+
+    function callIndicatorsCalculations(data) {
+        calculateGrossProfitMargin(data);
+    }
+    
 })
