@@ -262,24 +262,36 @@ document.addEventListener("DOMContentLoaded", function() {
         return average;
     }
 
-    // Return on Assets (ROA)
-    function calculateReturnAssets(data) {
-        let average = calculateAverageAssets(data);
-        return average;
+    // Return on Assets (ROA) and Return on Equity (ROE)
+    function calculateReturns(average, data) {
+        let indicators = [];
+
+        for (let i = 0; i <= 1; i++) {
+            let returnAssets = (data.get("Profit after tax")[i] / average) * 100; 
+            returnAssets = returnAssets.toFixed(1) + "%";
+            indicators.push(returnAssets);
+        }
+        console.log(indicators);
+        return indicators;
     }
 
-    // Return on Equity (ROE)
-    function calculateReturnEquity(data) {
-        let average = calculateAverageEquity(data);
-        return average;
+    // Liquidity Ratios
+    function calculateLiquidityRatios() {
+        let indicators
     }
-    
+
     function callIndicatorsCalculations(data) {
+        // Profitability Ratios
         const grossProfit = calculateProfitIndicators("Gross profit", data); // 79.7% and 77%
         const operatingMargin = calculateProfitIndicators("Operating profit", data); // 19.4% and 14%
         const profitMargin = calculateProfitIndicators("Profit after tax", data); // 13.2% and 8.6%
-        const returnAssets = calculateReturnAssets(data);
-        const returnEquity = calculateReturnEquity(data);
+        const averageAssets = calculateAverageAssets(data); // 671.093,50
+        const returnAssets = calculateReturns(averageAssets, data); // 8.7% and 5.1%
+        const averageEquity = calculateAverageEquity(data); // 297.381,50
+        const returnEquity = calculateReturns(averageEquity, data); // 19.6% and 11.4%
+
+        // Liquidity Ratios
+
     }
     
 })
