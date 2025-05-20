@@ -104,8 +104,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const accountNames = ["Revenue", "Gross profit", "Operating profit", "Profit after tax", 
             "Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
             "Cash and cash equivalents", "Trade and other receivables", "Current tax receivable",
-            "Trade and other payables", "Lease liabilities CL", "Lease liabilities NCL",
-            "Current tax payable", "Loans and borrowings CL", "Loans and borrowings NCL", 
+            "Trade and other payables", "Lease liabilities",
+            "Current tax payable", "Loans and borrowings", 
             "Provisions", "Finance costs", "Cash generated from operating activities",
             "Net cash flow from investing activities", "Share capital","Foreign exchange reserve",
             "Other reserves", "Retained earnings"
@@ -113,20 +113,8 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Calling the account name function to find the account name into the report
         for (let accountName of accountNames) {
-
-            let groupName = "";
-            if (accountName === "Lease liabilities CL" 
-                || accountName === "Loans and borrowings CL") {
-                groupName = "Current liabilities";
-            } else if (accountName === "Lease liabilities NCL"
-                || accountName === "Loans and borrowings NCL") {
-                groupName = "Non-current liabilities";
-                
-            }
-
             getAccountByName(statements, accountName);
         }
-
         callIndicatorsCalculations(data);
     }
 
@@ -145,16 +133,8 @@ document.addEventListener("DOMContentLoaded", function() {
         saveValuesAndAccountNamesToMap(accountName, values, data);
     }
 
-    // Check if the account has different groups
-    function getAccountByGroup(){
-        let groupName = "";
-
-        if (accountName === "Lease liabilities CL") {
-            
-        }
-    }
     // Get the groupName position and return statement just after the group name index
-    function getGroupName(statements, groupName){
+    function getGroupNameIndex(statements, groupName){
         let positionGroup = statements.indexOf(groupName);
         statements = statements.substring(positionGroup);
         return statements;
@@ -217,7 +197,6 @@ document.addEventListener("DOMContentLoaded", function() {
             data.set("Trade and other receivables", [values[0], values[2]]);
             data.set(accountName, [values[1], values[3]]);
         }
-        console.log(data);
     }
 
     function cleanValuesArray(values) {
@@ -256,34 +235,51 @@ document.addEventListener("DOMContentLoaded", function() {
             asset += data.get("Property, plant and equipment")[i];
             asset += data.get("Deferred tax asset")[i];
             asset += data.get("Cash and cash equivalents")[i];
-            asset += data.get("Trade and other receivables")[i]; // Essa conta esta com problema, esta misturada com a seguinte
+            asset += data.get("Trade and other receivables")[i];
             asset += data.get("Current tax receivable")[i];
             assets.push(asset);
         }
         
-        let average = (assets[0] + assets[1]) / 2;
+        let average = (assets[0] + assets[1]) / 2; // 671.093,50
         console.log(average);
+        average = average.toFixed(2);
         return average;
     }
 
     function calculateAverageEquity(data) {
-        let average = (data.get("Total equity")[0] + data.get("Total equity")[1]) / 2;
+        let totalEquity = [];
+        for (let i = 0; i <= 1; i++) {
+            let equity = data.get("Share capital")[i];
+            equity += data.get("Foreign exchange reserve")[i];
+            equity += data.get("Other reserves")[i];
+            equity += data.get("Retained earnings")[i];
+            totalEquity.push(equity);
+        }
+
+        let average = (totalEquity[0] + totalEquity[1]) / 2; // 297.381,50
+        average = average.toFixed(2);
         console.log(average)
         return average;
     }
 
     // Return on Assets (ROA)
     function calculateReturnAssets(data) {
-        calculateAverageAssets(data);
+        let average = calculateAverageAssets(data);
+        return average;
     }
 
-
+    // Return on Equity (ROE)
+    function calculateReturnEquity(data) {
+        let average = calculateAverageEquity(data);
+        return average;
+    }
     
     function callIndicatorsCalculations(data) {
         const grossProfit = calculateProfitIndicators("Gross profit", data); // 79.7% and 77%
         const operatingMargin = calculateProfitIndicators("Operating profit", data); // 19.4% and 14%
         const profitMargin = calculateProfitIndicators("Profit after tax", data); // 13.2% and 8.6%
         const returnAssets = calculateReturnAssets(data);
+        const returnEquity = calculateReturnEquity(data);
     }
     
 })
