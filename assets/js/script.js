@@ -104,22 +104,34 @@ document.addEventListener("DOMContentLoaded", function() {
         const accountNames = ["Revenue", "Gross profit", "Operating profit", "Profit after tax", 
             "Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
             "Cash and cash equivalents", "Trade and other receivables", "Current tax receivable",
-            "Total equity", "Trade and other payables", "Lease liabilities", "Current tax payable",
-            "Loans and borrowings", "Provisions", "Finance costs", "Cash generated from operating activities",
-            "Net cash flow from investing activities"
+            "Trade and other payables", "Lease liabilities CL", "Lease liabilities NCL",
+            "Current tax payable", "Loans and borrowings CL", "Loans and borrowings NCL", 
+            "Provisions", "Finance costs", "Cash generated from operating activities",
+            "Net cash flow from investing activities", "Share capital","Foreign exchange reserve",
+            "Other reserves", "Retained earnings"
         ];
         
         // Calling the account name function to find the account name into the report
         for (let accountName of accountNames) {
-            findAccountNameIntoFinancialReportsPages(statements, accountName);
+
+            let groupName = "";
+            if (accountName === "Lease liabilities CL" 
+                || accountName === "Loans and borrowings CL") {
+                groupName = "Current liabilities";
+            } else if (accountName === "Lease liabilities NCL"
+                || accountName === "Loans and borrowings NCL") {
+                groupName = "Non-current liabilities";
+                
+            }
+
+            getAccountByName(statements, accountName);
         }
 
         callIndicatorsCalculations(data);
     }
 
-    function findAccountNameIntoFinancialReportsPages(statements, accountName) {
+    function getAccountByName(statements, accountName) {
         // Get the account name initial position
-        console.log(accountName);
         let positionAccountName = statements.indexOf(accountName);
         // Get the account name final position
         positionAccountName += accountName.length;
@@ -133,6 +145,21 @@ document.addEventListener("DOMContentLoaded", function() {
         saveValuesAndAccountNamesToMap(accountName, values, data);
     }
 
+    // Check if the account has different groups
+    function getAccountByGroup(){
+        let groupName = "";
+
+        if (accountName === "Lease liabilities CL") {
+            
+        }
+    }
+    // Get the groupName position and return statement just after the group name index
+    function getGroupName(statements, groupName){
+        let positionGroup = statements.indexOf(groupName);
+        statements = statements.substring(positionGroup);
+        return statements;
+    }
+    
     function findFinalPositionAccount(statements, positionAccountName) {
         // Add one position after the account name last character
         let i = positionAccountName + 1;
@@ -143,7 +170,8 @@ document.addEventListener("DOMContentLoaded", function() {
             !isNaN(Number(statements[i])) ||
             statements[i] === "(" ||
             statements[i] === ")" ||
-            statements[i] === ","
+            statements[i] === "," ||
+            statements[i] === "-"
         ) {
             i++;
         }
@@ -162,7 +190,8 @@ document.addEventListener("DOMContentLoaded", function() {
             .trim())
             .split("  ")
             .map(v => v.replace(/ /g, "")
-            .replace(",", "")
+            .replace("-", "0")
+            .replace(/,/g, "")
             .replace(")", "")
             .replace("(", "-")
             
@@ -174,20 +203,37 @@ document.addEventListener("DOMContentLoaded", function() {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
     // https://stackoverflow.com/questions/3559070/are-there-dictionaries-in-javascript-like-python
     function saveValuesAndAccountNamesToMap(accountName, values, data) {
-        // If array of values has 3 positions, it means the index 0 is a note, not a value, and I don't need it to calculations
-        if (values.length > 2) {
-            data.set(accountName, [values[1], values[2]]);
-        } else if (accountName !== "Current tax receivable" || accountName !== "Trade and other receivables") {
+        
+        if (accountName !== "Current tax receivable" && accountName !== "Trade and other receivables") {
+            // If array of values has 3 positions, it means the index 0 is a note, not a value, and I don't need it to calculations
+            if (values.length > 2) {
+                values = cleanValuesArray(values);
+            }
             data.set(accountName, [values[0], values[1]]);
         }
 
         // Exception to handle the counts that are not right in the extracted text from the report
         if (accountName === "Current tax receivable") {
             data.set("Trade and other receivables", [values[0], values[2]]);
-            data.set(accountName, values[1]);
+            data.set(accountName, [values[1], values[3]]);
         }
+        console.log(data);
     }
 
+    function cleanValuesArray(values) {
+        // Clean the notes number
+        if (values[0] <= 10 && values[0] > 0) {
+            values.shift();
+        }
+
+        // Clean the totals that are not necessary for the calculations
+        if (values.length > 2) {
+            while (values.length > 2) {
+                values.pop();
+            }
+        }
+        return values;
+    }
     // Profitability Ratios
     // Account1 / Revenue * 100
     function calculateProfitIndicators(account1, data) {
