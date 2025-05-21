@@ -345,8 +345,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function calculateNonCurrentLiabilities() {
         let nonCurrentLiabilities = [];
         for (let i = 0; i <= 1; i++) {
-            let liabilities = data.get("Non - Current liabilitiesLoans and borrowings")[i];
-            liabilities += data.get("Non - Current liabilitiesLease liabilities")[i];
+            let liabilities = data.get("Non - current liabilitiesLoans and borrowings")[i];
+            liabilities += data.get("Non - current liabilitiesLease liabilities")[i];
             liabilities += data.get("Provisions")[i];
 
             nonCurrentLiabilities.push(liabilities);
@@ -388,7 +388,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Solvency (Leverage) Ratios
-
+    function calculateSolvencyRatios(account1, account2) {
+        let indicators = [];
+        for (let i = 0; i <= 1; i++) {
+            let indicator = (account1[i] / account2[i]) * 100;
+            indicator = indicator.toFixed(1) + "%";
+            indicators.push(indicator);
+        }
+        console.log(indicators);
+        return indicators;
+    }
 
     function callIndicatorsCalculations() {
         // Profitability Ratios
@@ -407,6 +416,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const cashRatio = calculateCashRatio(); // 25.1% and 41.1%
 
         // Solvency (Leverage) Ratios
+        const totalLiabilities = calculateCurrentLiabilities() + calculateNonCurrentLiabilities(); // 377507 and 369917
+        const totalAssets =  calculateCurrentAssets() + calculateNonCurrentAssets(); // 660254 and 681933
+        const totalEquity = calculateEquity(); // 282747 and 312016
+        const debtToEquityRatio = calculateSolvencyRatios(totalLiabilities, totalEquity);
 
     }
     
