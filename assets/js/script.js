@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /*
         This function finds the index to the group account and uses a substring function to cut the statement after this index
-        Then it call the getAccountByName function that handles other functions to find the account name and values into 
+        Then it calls the getAccountByName function that handles other functions to find the account name and values into 
         the statement and save it to the data Map.
     */
     function getAccountByGroupAndName(statements, groupName, accountName){
@@ -242,12 +242,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         return values;
     }
-    
+
     // Profitability Ratios
     // Account1 / Revenue * 100
-    function calculateProfitIndicators(account1, data) {
+    function calculateProfitIndicators(account1) {
         const indicators = [];
-
         for (let i = 0; i <= 1; i++) {
             let indicator = data.get(account1)[i] / data.get("Revenue")[i] * 100;
             indicator = indicator.toFixed(1) + "%";
@@ -257,26 +256,46 @@ document.addEventListener("DOMContentLoaded", function() {
         return indicators;
     }
 
-    function calculateAverageAssets(data) {
-        let assets = [];
+    function calculateCurrentAssets() {
+        let currentAssets = [];
         for (let i = 0; i <= 1; i++) {
             let asset = data.get("Intangible assets")[i];
             asset += data.get("Goodwill")[i];
             asset += data.get("Property, plant and equipment")[i];
             asset += data.get("Deferred tax asset")[i];
-            asset += data.get("Cash and cash equivalents")[i];
+            currentAssets.push(asset);
+        }
+        return currentAssets;
+    }
+
+    function calculateNonCurrentAssets() {
+        let nonCurrentAssets = [];
+        for (let i = 0; i <= 1; i++) {
+            let asset = data.get("Cash and cash equivalents")[i];
             asset += data.get("Trade and other receivables")[i];
             asset += data.get("Current tax receivable")[i];
-            assets.push(asset);
+            nonCurrentAssets.push(asset);
+        }
+        return nonCurrentAssets;
+    }
+
+    function calculateAverageAssets() {
+        let totalAssets = [];
+        let currentAssets = calculateCurrentAssets();
+        let nonCurrentAssets = calculateNonCurrentAssets();
+
+        for (let i = 0; i <= 1; i++) {
+            let assets = currentAssets[i] + nonCurrentAssets[i];
+            totalAssets.push(assets);
         }
         
-        let average = (assets[0] + assets[1]) / 2; // 671.093,50
+        let average = (totalAssets[0] + totalAssets[1]) / 2; // 671.093,50
         console.log(average);
         average = average.toFixed(2);
         return average;
     }
 
-    function calculateAverageEquity(data) {
+    function calculateEquity() {
         let totalEquity = [];
         for (let i = 0; i <= 1; i++) {
             let equity = data.get("Share capital")[i];
@@ -285,6 +304,11 @@ document.addEventListener("DOMContentLoaded", function() {
             equity += data.get("Retained earnings")[i];
             totalEquity.push(equity);
         }
+        return totalEquity;
+    }
+
+    function calculateAverageEquity() {
+        let totalEquity = calculateEquity();
 
         let average = (totalEquity[0] + totalEquity[1]) / 2; // 297.381,50
         average = average.toFixed(2);
@@ -293,9 +317,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Return on Assets (ROA) and Return on Equity (ROE)
-    function calculateReturns(average, data) {
+    function calculateReturns(average) {
         let indicators = [];
-
         for (let i = 0; i <= 1; i++) {
             let returnAssets = (data.get("Profit after tax")[i] / average) * 100; 
             returnAssets = returnAssets.toFixed(1) + "%";
@@ -306,22 +329,84 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Liquidity Ratios
-    function calculateLiquidityRatios() {
-        let indicators
+    function calculateCurrentLiabilities() {
+        let currentLiabilities = [];
+        for (let i = 0; i <= 1; i++) {
+            let liabilities = data.get("Trade and other payables")[i];
+            liabilities += data.get("Current liabilitiesLoans and borrowings")[i];
+            liabilities += data.get("Current liabilitiesLease liabilities")[i];
+            liabilities += data.get("Current tax payable")[i];
+
+            currentLiabilities.push(liabilities);
+        }
+        return currentLiabilities;
+    }   
+
+    function calculateNonCurrentLiabilities() {
+        let nonCurrentLiabilities = [];
+        for (let i = 0; i <= 1; i++) {
+            let liabilities = data.get("Non - Current liabilitiesLoans and borrowings")[i];
+            liabilities += data.get("Non - Current liabilitiesLease liabilities")[i];
+            liabilities += data.get("Provisions")[i];
+
+            nonCurrentLiabilities.push(liabilities);
+        }
+        return nonCurrentLiabilities;
     }
 
-    function callIndicatorsCalculations(data) {
+    function calculateLiquidityRatios() {
+        let indicators = [];
+        let currentLiabilities = calculateCurrentLiabilities();
+
+        for (let i = 0; i <= 1; i++) {
+            let currentAssets = data.get("Cash and cash equivalents")[i];
+            currentAssets += data.get("Trade and other receivables")[i];
+            currentAssets += data.get("Current tax receivable")[i];
+
+            let ratio = (currentAssets / currentLiabilities[i]) * 100;
+            ratio = Math.abs(ratio).toFixed(1) + "%";
+            indicators.push(ratio);
+        }
+        console.log(indicators);
+        return indicators;
+    }
+
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs
+    function calculateCashRatio() {
+        let indicators = [];
+        let currentLiabilities = calculateCurrentLiabilities();
+
+        for (let i = 0; i <= 1; i++) {
+            let cashAndEquivalents = data.get("Cash and cash equivalents")[i];
+
+            let ratio = (cashAndEquivalents / currentLiabilities[i]) * 100;
+            ratio = Math.abs(ratio).toFixed(1) + "%";
+            indicators.push(ratio);
+        }
+        console.log(indicators);
+        return indicators;
+    }
+
+    // Solvency (Leverage) Ratios
+
+
+    function callIndicatorsCalculations() {
         // Profitability Ratios
-        const grossProfit = calculateProfitIndicators("Gross profit", data); // 79.7% and 77%
-        const operatingMargin = calculateProfitIndicators("Operating profit", data); // 19.4% and 14%
-        const profitMargin = calculateProfitIndicators("Profit after tax", data); // 13.2% and 8.6%
-        const averageAssets = calculateAverageAssets(data); // 671.093,50
-        const returnAssets = calculateReturns(averageAssets, data); // 8.7% and 5.1%
-        const averageEquity = calculateAverageEquity(data); // 297.381,50
-        const returnEquity = calculateReturns(averageEquity, data); // 19.6% and 11.4%
+        const grossProfit = calculateProfitIndicators("Gross profit"); // 79.7% and 77%
+        const operatingMargin = calculateProfitIndicators("Operating profit"); // 19.4% and 14%
+        const profitMargin = calculateProfitIndicators("Profit after tax"); // 13.2% and 8.6%
+        const averageAssets = calculateAverageAssets(); // 671.093,50
+        const returnAssets = calculateReturns(averageAssets); // 8.7% and 5.1%
+        const averageEquity = calculateAverageEquity(); // 297.381,50
+        const returnEquity = calculateReturns(averageEquity); // 19.6% and 11.4%
 
         // Liquidity Ratios
-        
+        const currentRatio = calculateLiquidityRatios(); // 47.5% and 67.7
+        // Since this company doesn't have intentory, the values are equal to current ratio. It is a services company.
+        const quickRatio = calculateLiquidityRatios(); // 47.5% and 67.7
+        const cashRatio = calculateCashRatio(); // 25.1% and 41.1%
+
+        // Solvency (Leverage) Ratios
 
     }
     
