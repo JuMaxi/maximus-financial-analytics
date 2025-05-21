@@ -130,6 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
         ];
         
+        
         for (let group of groupedAccounts) {
             getAccountByGroupAndName(statements, group.groupName, group.accountName);
         }
@@ -138,11 +139,6 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let accountName of accountNames) {
             getAccountByName(statements, accountName);
         }
-
-        console.log("Test b");
-        console.log(data.get("Current liabilitiesLoans and borrowings"));
-        console.log(data.get("Non - current liabilitiesLoans and borrowings"));
-        console.log("fim test b");
 
         callIndicatorsCalculations(data);
     }
@@ -162,7 +158,11 @@ document.addEventListener("DOMContentLoaded", function() {
         saveValuesAndAccountNamesToMap(accountName, values, data, group);
     }
 
-    // Get the groupName position and return statement just after the group name index
+    /*
+        This function finds the index to the group account and uses a substring function to cut the statement after this index
+        Then it call the getAccountByName function that handles other functions to find the account name and values into 
+        the statement and save it to the data Map.
+    */
     function getAccountByGroupAndName(statements, groupName, accountName){
         let positionGroup = statements.indexOf(groupName);
         let cutStatements = statements.substring(positionGroup);
@@ -242,6 +242,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         return values;
     }
+    
     // Profitability Ratios
     // Account1 / Revenue * 100
     function calculateProfitIndicators(account1, data) {
