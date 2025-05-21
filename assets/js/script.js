@@ -104,21 +104,50 @@ document.addEventListener("DOMContentLoaded", function() {
         const accountNames = ["Revenue", "Gross profit", "Operating profit", "Profit after tax", 
             "Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
             "Cash and cash equivalents", "Trade and other receivables", "Current tax receivable",
-            "Trade and other payables", "Lease liabilities",
-            "Current tax payable", "Loans and borrowings", 
+            "Trade and other payables",
+            "Current tax payable",
             "Provisions", "Finance costs", "Cash generated from operating activities",
             "Net cash flow from investing activities", "Share capital","Foreign exchange reserve",
             "Other reserves", "Retained earnings"
         ];
+
+        const groupedAccounts = [
+            {
+                groupName: "Current liabilities",
+                accountName: "Loans and borrowings"
+            },
+            {
+                groupName: "Current liabilities",
+                accountName: "Lease liabilities"
+            },
+            {
+                groupName: "Non - current liabilities",
+                accountName: "Loans and borrowings"
+            },
+            {
+                groupName: "Non - current liabilities",
+                accountName: "Lease liabilities"
+            },
+        ];
         
+        for (let group of groupedAccounts) {
+            getAccountByGroupAndName(statements, group.groupName, group.accountName);
+        }
+
         // Calling the account name function to find the account name into the report
         for (let accountName of accountNames) {
             getAccountByName(statements, accountName);
         }
+
+        console.log("Test b");
+        console.log(data.get("Current liabilitiesLoans and borrowings"));
+        console.log(data.get("Non - current liabilitiesLoans and borrowings"));
+        console.log("fim test b");
+
         callIndicatorsCalculations(data);
     }
 
-    function getAccountByName(statements, accountName) {
+    function getAccountByName(statements, accountName, group = "") {
         // Get the account name initial position
         let positionAccountName = statements.indexOf(accountName);
         // Get the account name final position
@@ -130,14 +159,14 @@ document.addEventListener("DOMContentLoaded", function() {
         // Convert the account values to integers
         let values = convertAccountValuesToInt(statements, positionAccountName, i);
         
-        saveValuesAndAccountNamesToMap(accountName, values, data);
+        saveValuesAndAccountNamesToMap(accountName, values, data, group);
     }
 
     // Get the groupName position and return statement just after the group name index
-    function getGroupNameIndex(statements, groupName){
+    function getAccountByGroupAndName(statements, groupName, accountName){
         let positionGroup = statements.indexOf(groupName);
-        statements = statements.substring(positionGroup);
-        return statements;
+        let cutStatements = statements.substring(positionGroup);
+        getAccountByName(cutStatements, accountName, groupName);
     }
     
     function findFinalPositionAccount(statements, positionAccountName) {
@@ -182,14 +211,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
     // https://stackoverflow.com/questions/3559070/are-there-dictionaries-in-javascript-like-python
-    function saveValuesAndAccountNamesToMap(accountName, values, data) {
+    function saveValuesAndAccountNamesToMap(accountName, values, data, group = "") {
         
         if (accountName !== "Current tax receivable" && accountName !== "Trade and other receivables") {
             // If array of values has 3 positions, it means the index 0 is a note, not a value, and I don't need it to calculations
             if (values.length > 2) {
                 values = cleanValuesArray(values);
             }
-            data.set(accountName, [values[0], values[1]]);
+            data.set(group + accountName, [values[0], values[1]]);
         }
 
         // Exception to handle the counts that are not right in the extracted text from the report
@@ -291,6 +320,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const returnEquity = calculateReturns(averageEquity, data); // 19.6% and 11.4%
 
         // Liquidity Ratios
+        
 
     }
     
