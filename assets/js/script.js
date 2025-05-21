@@ -279,11 +279,8 @@ document.addEventListener("DOMContentLoaded", function() {
         return nonCurrentAssets;
     }
 
-    function calculateAverageAssets() {
+    function calculateAverageAssets(currentAssets, nonCurrentAssets) {
         let totalAssets = [];
-        let currentAssets = calculateCurrentAssets();
-        let nonCurrentAssets = calculateNonCurrentAssets();
-
         for (let i = 0; i <= 1; i++) {
             let assets = currentAssets[i] + nonCurrentAssets[i];
             totalAssets.push(assets);
@@ -307,9 +304,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return totalEquity;
     }
 
-    function calculateAverageEquity() {
-        let totalEquity = calculateEquity();
-
+    function calculateAverageEquity(totalEquity) {
         let average = (totalEquity[0] + totalEquity[1]) / 2; // 297.381,50
         average = average.toFixed(2);
         console.log(average)
@@ -354,6 +349,15 @@ document.addEventListener("DOMContentLoaded", function() {
         return nonCurrentLiabilities;
     }
 
+    function calculateTotalCurrentAndNonCurrentAccounts(currentAccount, nonCurrentAccount) {
+        let totalAccounts = [];
+        for (let i = 0; i <=1; i++) {
+            let total = currentAccount[i] + nonCurrentAccount[i];
+            totalAccounts.push(total);
+        }
+        return totalAccounts;
+    }
+
     function calculateLiquidityRatios() {
         let indicators = [];
         let currentLiabilities = calculateCurrentLiabilities();
@@ -363,8 +367,8 @@ document.addEventListener("DOMContentLoaded", function() {
             currentAssets += data.get("Trade and other receivables")[i];
             currentAssets += data.get("Current tax receivable")[i];
 
-            let ratio = (currentAssets / currentLiabilities[i]) * 100;
-            ratio = Math.abs(ratio).toFixed(1) + "%";
+            let ratio = (currentAssets / currentLiabilities[i]);
+            ratio = Math.abs(ratio).toFixed(2);
             indicators.push(ratio);
         }
         console.log(indicators);
@@ -379,8 +383,8 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let i = 0; i <= 1; i++) {
             let cashAndEquivalents = data.get("Cash and cash equivalents")[i];
 
-            let ratio = (cashAndEquivalents / currentLiabilities[i]) * 100;
-            ratio = Math.abs(ratio).toFixed(1) + "%";
+            let ratio = (cashAndEquivalents / currentLiabilities[i]);
+            ratio = Math.abs(ratio).toFixed(2);
             indicators.push(ratio);
         }
         console.log(indicators);
@@ -391,8 +395,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function calculateSolvencyRatios(account1, account2) {
         let indicators = [];
         for (let i = 0; i <= 1; i++) {
-            let indicator = (account1[i] / account2[i]) * 100;
-            indicator = indicator.toFixed(1) + "%";
+            let indicator = (account1[i] / account2[i]);
+            indicator = Math.abs(indicator).toFixed(2);
             indicators.push(indicator);
         }
         console.log(indicators);
@@ -400,26 +404,34 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function callIndicatorsCalculations() {
+        // Totals and averages
+        const currentAssets = calculateCurrentAssets();
+        const nonCurrentAssets = calculateNonCurrentAssets();
+        const currentLiabilities = calculateCurrentLiabilities();
+        const nonCurrentLiabilities = calculateNonCurrentLiabilities();
+        const averageAssets = calculateAverageAssets(currentAssets, nonCurrentAssets); // 671.093,50
+        const totalEquity = calculateEquity(); // 282747 and 312016
+        const averageEquity = calculateAverageEquity(totalEquity); // 297.381,50
+        const totalAssets =  calculateTotalCurrentAndNonCurrentAccounts(currentAssets, nonCurrentAssets); // 660254 and 681933
+        const totalLiabilities = calculateTotalCurrentAndNonCurrentAccounts(currentLiabilities, nonCurrentLiabilities); // 377507 and 369917
+
         // Profitability Ratios
         const grossProfit = calculateProfitIndicators("Gross profit"); // 79.7% and 77%
         const operatingMargin = calculateProfitIndicators("Operating profit"); // 19.4% and 14%
         const profitMargin = calculateProfitIndicators("Profit after tax"); // 13.2% and 8.6%
-        const averageAssets = calculateAverageAssets(); // 671.093,50
         const returnAssets = calculateReturns(averageAssets); // 8.7% and 5.1%
-        const averageEquity = calculateAverageEquity(); // 297.381,50
         const returnEquity = calculateReturns(averageEquity); // 19.6% and 11.4%
 
         // Liquidity Ratios
-        const currentRatio = calculateLiquidityRatios(); // 47.5% and 67.7
+        const currentRatio = calculateLiquidityRatios(); // 0.47 and 0.68
         // Since this company doesn't have intentory, the values are equal to current ratio. It is a services company.
-        const quickRatio = calculateLiquidityRatios(); // 47.5% and 67.7
-        const cashRatio = calculateCashRatio(); // 25.1% and 41.1%
+        const quickRatio = calculateLiquidityRatios(); // 0.47 and 0.68
+        const cashRatio = calculateCashRatio(); // 0.25 and 0.41
 
         // Solvency (Leverage) Ratios
-        const totalLiabilities = calculateCurrentLiabilities() + calculateNonCurrentLiabilities(); // 377507 and 369917
-        const totalAssets =  calculateCurrentAssets() + calculateNonCurrentAssets(); // 660254 and 681933
-        const totalEquity = calculateEquity(); // 282747 and 312016
-        const debtToEquityRatio = calculateSolvencyRatios(totalLiabilities, totalEquity);
+        const debtToEquityRatio = calculateSolvencyRatios(totalLiabilities, totalEquity); // 1.34 and 1.19
+        const debtRatio = calculateSolvencyRatios(totalLiabilities, totalAssets); // 0.57 and 0.54
+        const equityRatio = calculateSolvencyRatios(totalEquity, totalAssets); // 0.42 and 0.45
 
     }
     
