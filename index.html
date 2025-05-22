@@ -87,115 +87,35 @@
 
     <!-- Main content -->
     <main>
-        <!-- Horizontal timeline to financial journey -->    
-        <section class="timeline">
-            <div class="container py-5">
-                <h2 class="text-center mb-4">Financial Journey Timeline</h2>
-                <div class="timeline-horizontal d-flex flex-row justify-content-between align-items-start gap-4 position-relative">
-                    <!-- Green line inside the timeline container -->
-                    <div class="timeline-line-horizontal"></div>
-                    <div class="timeline-item text-center mx-2">
-                        <img src="https://via.placeholder.com/200x150?text=Data+Collection" alt="Step 1" class="mb-2 img-fluid rounded shadow">
-                        <div class="timeline-title fw-bold mb-1">Data Collection</div>
-                        <p class="timeline-text small">We gather accurate and up-to-date financial reports from trusted corporate sources.</p>
-                    </div>
-                    <div class="timeline-item text-center mx-2">
-                        <img src="https://via.placeholder.com/200x150?text=Analysis" alt="Step 2" class="mb-2 img-fluid rounded shadow">
-                        <div class="timeline-title fw-bold mb-1">In-depth Analysis</div>
-                        <p class="timeline-text small">Our tools and experts break down complex data into understandable metrics and trends.</p>
-                    </div>
-                    <div class="timeline-item text-center mx-2">
-                        <img src="assets/images/businessman-3300907_640.jpg" alt="Step 3" class="mb-2 img-fluid rounded shadow">
-                        <div class="timeline-title fw-bold mb-1">Data Visualization</div>
-                        <p class="timeline-text small">We present insights through charts, ratios, and graphs for better decision-making.</p>
-                    </div>
-                    <div class="timeline-item text-center mx-2">
-                        <img src="https://via.placeholder.com/200x150?text=Decision+Support" alt="Step 4" class="mb-2 img-fluid rounded shadow">
-                        <div class="timeline-title fw-bold mb-1">Decision Support</div>
-                        <p class="timeline-text small">Users access clear recommendations to guide investment and business strategies.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
- 
-        <!-- Section to finance articles content-->
-        <section class="py-5 px-1">
-            <div class="container">
-                <div class="row justify-content-center mb-2">
-                    <div class="col-12 col-md-4 mb-4 d-flex flex-column align-items-center">
-                        <a href="#"><img src="assets/images/gardening/tools.webp" class="img-fluid mb-4" alt="Garden tools on the grass."></a>
-                        <a href="#"><h4 class="py-2 px-3">Q1 2025 Review - Tech Giants Compared</h4></a>
-                        <p class="text-center">How leading tech firms performed this quarter Revenue, Margins, and key moves</p>
-                    </div>
-                    <div class="col-12 col-md-4 mb-4 d-flex flex-column align-items-center">
-                        <a href="#"><img src="assets/images/gardening/compost-gardening.webp" class="img-fluid mb-4" alt="Hands holding soil."></a>
-                        <a href="#"><h4 class="py-2 px-3">What ROE Says About Profitability</h4></a>
-                        <p class="text-center">A guide to ROE and how it helps assess a company’s financial health</p>
-                    </div>
-                    <div class="col-12 col-md-4 mb-4 d-flex flex-column align-items-center">
-                        <a href="#"><img src="assets/images/gardening/bee-gardening.webp" class="img-fluid mb-4" alt="A bee on a orange flower."></a>
-                        <a href="#"><h4 class="py-2 px-3">Debt vs. Equity in Retail</h4></a>
-                        <p class="text-center">See how top retailers fund growth—and what it means for risk and return</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+       
 
-        <!-- Section link to article finance -->
-        <section class="mb-4">
-            <div class="container-fluid">
-                <!-- Title and Description -->
-                <div class="row">
-                    <div class="col-12 col-lg-6 calendar d-flex flex-column justify-content-center align-items-center">
-                        <h2>Unlock Clarity in Financial Reports with One Click</h2>
-                        <p class="text-center">Our analysis tool breaks down complex data into clear, actionable insights designed for investors, entrepreneurs, and decision-makers.</p>
-                        <a href="#" class="btn-secondary-custom">Start Analyzing now</a>
-                    </div>
-                    <div class="col-12 col-lg-6 px-0">
-                        <img src="assets/images/hands-laptop.webp" alt="Hands typing in a laptop" class="img-fluid">
-                    </div>    
-                </div>
-            </div>
-        </section>       
+         
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="fixed-bottom">
         <div class="container-fluid">
             <!--On screens with less than 992px the content justify center. 992px and up justify between -->
             <div class="row justify-content-center justify-content-lg-between">
     
                 <!-- Column 1: Links and Social Media -->
-                <div class="col-12 col-lg-3 mb-4 text-center links">
-                    <ul class="list-unstyled mt-3">
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                    <div class="mt-3 social-media">
-                        <a href="#" class="me-3" target="_blank" aria-label="Visit our facebook page."><i class="fa-brands fa-facebook fa-lg"></i></a>
-                        <a href="#" class="me-3" target="_blank" aria-label="Visit our instagram page."><i class="fa-brands fa-instagram fa-lg"></i></a>
-                        <a href="#" class="me-3" target="_blank" aria-label="Visit our twitter page."><i class="fa-brands fa-twitter fa-lg"></i></a>
-                        <a href="#" class="me-3" target="_blank" aria-label="Visit our pinterest page."><i class="fa-brands fa-pinterest fa-lg"></i></a>
-                    </div>
-                </div>
-
-                <!-- Column 1: Newsletter Form -->
-                <div class="col-12 col-lg-6 mb-4 text-center mt-lg-4">
-                    <h4 class="text-center text-white">Sign up to our Newsletter:</h4>
-                    <form class="d-flex flex-column flex-sm-row mt-3" action="subscribe-thankyou.html" method="GET">
-                        <input type="email" id="newsletter" class="form-control me-sm-2 mb-2 mb-sm-0 rounded-0" placeholder="Enter your email" required>
-                        <button type="submit" class="btn subscribe rounded-0 text-white">Subscribe</button>
-                    </form>
-                </div>
-
-                <!-- Column 3: Responsive Image -->
-                <div class="col-12 col-lg-3 d-flex align-items-center links">
-                    <img src="assets/images/homepage/logo.webp" class="img-fluid footer-img" alt="Fox, butterflies, bird and flowers">
-                </div>
+            <div class="col-12 col-lg-3 text-center mb-0">
+                <ul class="list-unstyled mt-3">
+                    <li><a href="about.html" class="links">About Us</a></li>
+                    <li><a href="contact.html" class="links">Contact Us</a></li>
+                </ul>
             </div>
-            <div class="row bottom-fixed text-center text-white">
-                <p>&copy; 2025 Blooming Harmony. All rights reserved.</p>
+            <div class="col-12 col-lg-3 text-center mb-0 mt-3 text-white">
+                <p>&copy; 2025 Maximus Financial Analytics. All rights reserved.</p>
             </div>
+            <div class="col-12 col-lg-3 text-center mb-0 mt-3">
+                <a href="#" class="me-3 social-media" target="_blank" aria-label="Visit our facebook page."><i class="fa-brands fa-facebook fa-lg"></i></a>
+                <a href="#" class="me-3 social-media" target="_blank" aria-label="Visit our instagram page."><i class="fa-brands fa-instagram fa-lg"></i></a>
+                <a href="#" class="me-3 social-media" target="_blank" aria-label="Visit our twitter page."><i class="fa-brands fa-twitter fa-lg"></i></a>
+                <a href="#" class="me-3 social-media" target="_blank" aria-label="Visit our pinterest page."><i class="fa-brands fa-pinterest fa-lg"></i></a>
+            </div>
+            </div>
+            
         </div>
     </footer>
 
