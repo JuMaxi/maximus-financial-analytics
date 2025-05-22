@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+    --primary-color: #121212;
+    --accent-color: #3498DB;
+    --secondary-color:  #F5F7FA;
+    --links-color: #f5f5f5;
+    --secondary-background: #ECECEC;
+}
+
+body {
+    background-color: var(--secondary-color);
+    font-family: 'Merriweather', serif;
+    color: var(--primary-color);
+}
+
+nav {
+    background-color: var(--primary-color);
+}
+
+h1, h2, h3, h4, h5, h6, nav, .navbar-brand {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.nav-item > a {
+    color: var(--links-color);
+    font-weight: bolder;
+}
+
+/* To make the active link more visible */
+.active {
+    color: var(--accent-color) !important; /* Active link color */
+}
+
+.nav-item > a:hover{
+    color: var(--accent-color);
+}
+
+header {
+    padding-top: 78px; /* As the navbar is fixed, using this padding for the header do not overlap the navbar */
+    margin: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-primary-custom {
+  background-color: var(--accent-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary-custom:hover {
+  background-color: #2c80b4; /* slightly darker accent */
+  transform: translateY(-2px);
+}
+
+.btn-secondary-custom {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--accent-color);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-secondary-custom:hover {
+  background-color: var(--accent-color);
+  color: var(--secondary-color);
+}
+
+/* Horizontal timeline */
+.timeline-horizontal {
+position: relative;
+    flex-wrap: nowrap!important;
+    overflow-x: auto;
+    padding-top: 48px;
+    padding-bottom: 24px;
+}
+
+.timeline-item {
+    min-width: 220px;
+}
+
+.timeline-line-horizontal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 44px; /* Adjust this value to align with the center of the dots */
+    height: 4px;
+    background: #198754;
+    z-index: 1;
+    width: 100%;
+}
+
+@media (max-width: 991.98px) {
+    .timeline-horizontal {
+        flex-direction: column !important;
+        gap: 2rem !important;
+        padding-top: 0;
+    }
+    .timeline-line-horizontal {
+        display: none;
+    }
+}

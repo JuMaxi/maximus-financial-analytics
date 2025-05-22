@@ -437,6 +437,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const averageEquity = calculateAverageEquity(totalEquity); // 297.381,50
         const netCurrentLiabilities = calculateNetCurrentLiabilities(currentAssets, currentLiabilities); // 160.432 and 71.545
 
+        // 16 indicators
         // Profitability Ratios
         const grossProfit = calculateProfitIndicators("Gross profit"); // 79.7% and 77%
         const operatingMargin = calculateProfitIndicators("Operating profit"); // 19.4% and 14%
