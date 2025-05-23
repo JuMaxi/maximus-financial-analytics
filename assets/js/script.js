@@ -4,7 +4,19 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 //explicitly telling it where to find the worker file. Required when working with modules.
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Show uploaded file name
+    const fileInput = document.getElementById("file");
+    const fileNameDisplay = document.getElementById("fileNameDisplay");
+    fileInput.addEventListener("change", function() {
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.textContent = `Selected file: ${fileInput.files[0].name}`;
+        } else {
+            fileNameDisplay.textContent = "";
+        }
+    });
+    
     // Global variables
+
 
     // This variable is storing the account names + values extracted from the financial reports
     const data = new Map();
