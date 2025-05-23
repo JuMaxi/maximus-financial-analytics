@@ -55,18 +55,18 @@
     <!-- Hero Section -->
     <header>
         <div class="container hero-section d-flex flex-column justify-content-center align-items-center text-center min-vh-100">
-            <h1 class="p-3">Transforming Financial Reports into Actionable Insights.</h2>
+            <h1 class="p-3 m-4">Transforming Financial Reports into Actionable Insights.</h2>
             <p class="lead p-2">
-                Upload your financial report below, then click "Start Analysis" to uncover key trends, ratios, and performance insights in seconds.
+                Upload your financial report below, then click "Start Analyzing" <br>to uncover key trends, ratios, and performance insights in seconds.
             </p>
-            <div id="pdf-container">
+            <div id="pdf-container" class="m-5">
                 <form id="pdfUploadForm" class="d-flex flex-column flex-sm-row align-items-center w-100 px-1">
                      <label for="file" class="custom-file-label"> Choose PDF
                         <input type="file" id="file" name="pdfFile" accept="application/pdf" required style="display:none;">
                     </label>
-                    <div id="fileNameDisplay" class="file-name-box"></div>
+                    <div id="fileNameDisplay" class="file-name-box">&nbsp;</div>
                 </form>
-                <button type="button" id="loadFile" class="btn-primary-custom">Start Analysis</button>
+                <button type="button" id="loadFile" class="btn-primary-custom">Start Analyzing</button>
             </div>
         </div>
     </header>
@@ -74,7 +74,10 @@
     <!-- Main content -->
     <main>
        
-
+        <div id="processingMessage" class="text-light mt-3" style="display: none;">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Processing file...
+        </div>
          
     </main>
 

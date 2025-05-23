@@ -14,9 +14,10 @@ document.addEventListener("DOMContentLoaded", function() {
             fileNameDisplay.textContent = "";
         }
     });
-    
-    // Global variables
 
+    // Global variables
+    const loadFileBtn = document.getElementById('loadFile');
+    const processingMessage = document.getElementById('processingMessage');
 
     // This variable is storing the account names + values extracted from the financial reports
     const data = new Map();
@@ -32,10 +33,21 @@ document.addEventListener("DOMContentLoaded", function() {
         const fileInput = document.getElementById("file");
         // Save the file position 0 in a const variable
         const file = fileInput.files[0];
+
+        // Show "Processing..." message and disable button
+        processingMessage.style.display = 'block';
+        loadFile.disabled = true;
+        loadFile.textContent = 'Processing...';
+
         // Check if the file is empty or is not a pdf
         if (!file || file.type !== 'application/pdf') {
             alert("Please select a PDF file.");
-            return;
+
+        // Reset UI state
+        processingMessage.style.display = 'none';
+        loadFile.disabled = false;
+        loadFile.textContent = 'Start Analyzing';
+        return;
         }
 
         // Read the file using file reader
@@ -46,9 +58,30 @@ document.addEventListener("DOMContentLoaded", function() {
             const typedArray = new Uint8Array(e.target.result);
 
             // Call the function to load the pdf
-            loadPdf(typedArray);
+            processPdf(typedArray);
         }
         reader.readAsArrayBuffer(file);
+    }
+
+    // Delay function to make sure users notice the "Processing..." state
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Async wrapper to handle UI reset after processing
+    async function processPdf(typedArray) {
+        try {
+            await delay(1500); // Delay 1.5 seconds before real processing
+            await loadPdf(typedArray); // make sure loadPdf is async or returns a Promise
+        } catch (err) {
+            alert("Error processing PDF.");
+            console.error(err);
+        } finally {
+            // Always reset the UI
+            processingMessage.style.display = 'none';
+            loadFile.disabled = false;
+            loadFile.textContent = 'Start Analyzing';
+        }
     }
 
     // Function to load the file
