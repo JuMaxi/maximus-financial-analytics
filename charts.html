@@ -19,7 +19,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
-
+    <link rel="stylesheet" href="assets/css/charts.css">
     
 </head>
 <body>
@@ -70,7 +70,12 @@
         <!-- Gauge charts to indicators -->
         <section>
             <div class="container my-5 py-5 text-center">
-                <div class="row justify-content-center" id="gaugeChartContainer"></div>
+                <div class="chart-container">
+                    <canvas id="gaugeChart"></canvas>
+                    <div class="needle" id="needle"></div>
+                    <div class="needle-center"></div>
+                    <div class="gauge-value" id="gaugeValue"></div>
+                </div>
             </div>
         </section>
     </main>

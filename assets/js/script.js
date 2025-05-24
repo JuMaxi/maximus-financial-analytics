@@ -187,8 +187,11 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let accountName of accountNames) {
             getAccountByName(statements, accountName);
         }
-        SaveIndicatorsToObject();
 
+        // Save the indicators values to a variable and returning it to be used in the charts.js and charts.html pages
+        const indicators = SaveIndicatorsToObject();
+        localStorage.setItem('indicators', JSON.stringify(indicators)); // storing indicators to use it in the charts.js file
+        window.location.href = "charts.html";
     }
 
     function getAccountByName(statements, accountName, group = "") {
