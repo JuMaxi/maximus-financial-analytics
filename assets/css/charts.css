@@ -58,6 +58,8 @@ canvas {
     transform: translateX(-50%);
     font-size: 24px;
     font-weight: bold;
-    color: var(--accent-color);
+    color: var(--secondary-color);
+    z-index: 60; /* Makes the value in front of the needle*/
 }
+
 
