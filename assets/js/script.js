@@ -73,6 +73,8 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             await delay(1500); // Delay 1.5 seconds before real processing
             await loadPdf(typedArray); // make sure loadPdf is async or returns a Promise
+            // Save your data Map to localStorage for charts.html
+            localStorage.setItem('chartData', JSON.stringify(Array.from(data.entries())));
         } catch (err) {
             alert("Error processing PDF.");
             console.error(err);
@@ -82,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
             loadFile.disabled = false;
             loadFile.textContent = 'Start Analyzing';
         }
+        window.location.href = "charts.html";
     }
 
     // Function to load the file
@@ -184,8 +187,8 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let accountName of accountNames) {
             getAccountByName(statements, accountName);
         }
+        SaveIndicatorsToObject();
 
-        callIndicatorsCalculations(data);
     }
 
     function getAccountByName(statements, accountName, group = "") {
@@ -271,6 +274,7 @@ document.addEventListener("DOMContentLoaded", function() {
             data.set("Trade and other receivables", [values[0], values[2]]);
             data.set(accountName, [values[1], values[3]]);
         }
+
     }
 
     function cleanValuesArray(values) {
@@ -469,7 +473,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return indicators;
     }
 
-    function callIndicatorsCalculations() {
+    function SaveIndicatorsToObject() {
         // Totals and averages
         const nonCurrentAssets = calculateNonCurrentAssets();
         const currentAssets = calculateCurrentAssets();
@@ -510,6 +514,25 @@ document.addEventListener("DOMContentLoaded", function() {
         const freeCashFlow = calculateFreeCashFlow(); // £104.565 and £89.036
         const cashFlowDebtRatio = calculateCashFlowToDebtRatio(currentLiabilities); // 0.48 and 0.59
 
+        const indicators = {
+            "Gross Profit": grossProfit,
+            "Operating Margin": operatingMargin,
+            "Profit Margin": profitMargin,
+            "Return on Assets": returnAssets,
+            "Return on Equity": returnEquity,
+            "Current Ratio": currentRatio,
+            "Quick Ratio": quickRatio,
+            "Cash Ratio": cashRatio,
+            "Debt to Equity Ratio": debtToEquityRatio,
+            "Debt Ratio": debtRatio,
+            "Equity Ratio": equityRatio,
+            "Interest Coverage Ratio": interestCoverageRatio,
+            "Assets Turn Over": assetsTurnover,
+            "Operating Cash Flow Ratio": operatingCashFlowRatio,
+            "Free Cash Flow": freeCashFlow,
+            "Cash Flow Debt Ratio": cashFlowDebtRatio
+        };
+        console.log(indicators);
+        return indicators;
     }
-    
 })

@@ -54,32 +54,54 @@
             </div>
         </div>
     </nav>
-    <!-- Hero Section -->
-    <header>
-        <div class="container hero-section d-flex flex-column justify-content-center align-items-center text-center min-vh-100">
-            <h1 class="p-3 m-4">Transforming Financial Reports into Actionable Insights.</h2>
-            <p class="lead p-2">
-                Upload your financial report below, then click "Start Analyzing" <br>to uncover key trends, ratios, and performance insights in seconds.
-            </p>
-            <div id="pdf-container" class="m-5">
-                <form id="pdfUploadForm" class="d-flex flex-column flex-sm-row align-items-center w-100 px-1">
-                     <label for="file" class="custom-file-label"> Choose PDF
-                        <input type="file" id="file" name="pdfFile" accept="application/pdf" required style="display:none;">
-                    </label>
-                    <div id="fileNameDisplay" class="file-name-box">&nbsp;</div>
-                </form>
-                <button type="button" id="loadFile" class="btn-primary-custom">Start Analyzing</button>
-            </div>
-        </div>
-    </header>
 
     <!-- Main content -->
     <main>
-        <!-- Showing message while processing the file -->
-        <div id="processingMessage" class="text-light mt-3" style="display: none;">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Processing file...
-        </div>
+        <!-- Bar Charts -->
+        <section>
+            <div class="container my-5 py-5 text-center">
+                <h1 class="p-3 mb-5">Transforming Financial Reports into Actionable Insights.</h1>
+                
+                <div class="row justify-content-center">
+                    <!-- First Chart -->
+                    <div class="col-12 col-xl-6 d-flex justify-content-center mb-4">
+                        <div class="chart-wrapper">
+                        <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Second Chart -->
+                    <div class="col-12 col-xl-6 d-flex justify-content-center mb-4">
+                        <div class="chart-wrapper">
+                        <canvas id="myChartAssets"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <!-- First Chart -->
+                    <div class="col-12 col-xl-6 d-flex justify-content-center mb-4">
+                        <div class="chart-wrapper">
+                            <canvas id="myChartEquity"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Second Chart -->
+                    <div class="col-12 col-xl-6 d-flex justify-content-center mb-4">
+                        <div class="chart-wrapper">
+                            <canvas id="myChartCash"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gauge charts to indicators -->
+        <section>
+            <div class="container my-5 py-5 text-center">
+                <div class="row justify-content-center" id="gaugeChartContainer"></div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -101,9 +123,10 @@
 
     <!-- JavaScript -->
     <!-- Using the type=module to be able to work with PDF.js library -->
-    <script type="module" src="assets/js/script.js"></script>
+    <script src="assets/js/charts.js"></script>
 
     <!-- Chart.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </body>
 </html>
