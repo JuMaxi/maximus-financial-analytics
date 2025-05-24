@@ -80,13 +80,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Gauge chart
-    function initChart(key, index) {
-        const ctx2 = document.getElementById("gaugeChart").getContext("2d");
-        console.log(indicators);
-        const indicator = indicators[key][index];
-        
-        let gaugeChart = new Chart(ctx2, {
-            type: "doughnut",
+    function initChart(key, year, index) {
+        const ctx2 = document.getElementById(`gaugeChart${key}${year}`).getContext("2d");
+        const indicator = indicators[key].values[index];
+        new Chart(ctx2, {
+            type: indicators[key].chartType,
             data: {
                 labels: ["Red Zone", "Yellow Zone", "Green Zone"],
                 datasets: [
@@ -126,18 +124,70 @@ document.addEventListener("DOMContentLoaded", function() {
             },
         });
         
-        updateNeedle(indicator);
+        updateNeedle(indicator, key, year);
 
         // Show the value in the gauge
-        document.getElementById('gaugeValue').textContent = indicator;
+        document.getElementById(`gaugeValue${key}${year}`).textContent = indicator;
     }
 
     // Function to change the needle
-    function updateNeedle(value) {
-        const angle = 270 + ((value * 100) / 100) * 180; // 270 to 450 degrees
-        const needle = document.getElementById('needle');
+    function updateNeedle(indicador, key, year) {
+        const angle = 270 + ((indicador * 100) / 100) * 180; // 270 to 450 degrees
+        const needle = document.getElementById(`needle${key}${year}`);
         needle.style.transform = `translate(-50%, 0%) rotate(${angle}deg)`;
     }
+
+    function addGaugeChartCanvas(key, year) {
+        // Find the container where you want to add the gauge chart
+        const container = document.querySelector("#chartsGauge");
+        if (!container) return;
+
+        // Create a wrapper for the gauge chart
+        const wrapperDiv = document.createElement('div');
+        wrapperDiv.className = "chart-container";
+        wrapperDiv.id = `gaugeContainer${key}${year}`;
+
+        // Create the canvas element
+        const canvas = document.createElement('canvas');
+        canvas.id = `gaugeChart${key}${year}`;
+
+        // Create the needle, center, and value elements
+        const needle = document.createElement('div');
+        needle.className = "needle";
+        needle.id = `needle${key}${year}`;
+
+        const needleCenter = document.createElement('div');
+        needleCenter.className = "needle-center";
+        needleCenter.id = `needleCenter${key}${year}`;
+
+        const gaugeValue = document.createElement('div');
+        gaugeValue.className = "gauge-value";
+        gaugeValue.id = `gaugeValue${key}${year}`;
+
+        // Append all elements to the wrapper
+        wrapperDiv.appendChild(canvas);
+        wrapperDiv.appendChild(needle);
+        wrapperDiv.appendChild(needleCenter);
+        wrapperDiv.appendChild(gaugeValue);
+
+        // Add the wrapper to the container
+        container.appendChild(wrapperDiv);
+    }    
+
+    function createGaugeChart() {
+        for (let key in indicators) {
+
+            if (indicators[key].chartType === "doughnut") {
+                addGaugeChartCanvas(key, "2025");
+                addGaugeChartCanvas(key, "2024");
+
+                initChart(key, "2025", 0);
+                initChart(key, "2024", 1);
+            }
+            
+        }
+    }
+
 
     addChartCanvas("chart1");
     addChartCanvas("chart2");
@@ -152,7 +202,6 @@ document.addEventListener("DOMContentLoaded", function() {
     createChart(["Share capital", "Other reserves", "Retained earnings", "Foreign exchange reserve"], "chart3", "Equity Composition");
     createChart(["Cash generated from operating activities", "Net cash flow from investing activities"], "chart4", "Cash Flow Movement");
 
-    // Initialize the chart when page loads
-    initChart("Current Ratio", 0);
+    createGaugeChart();
 
 });

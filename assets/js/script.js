@@ -518,22 +518,70 @@ document.addEventListener("DOMContentLoaded", function() {
         const cashFlowDebtRatio = calculateCashFlowToDebtRatio(currentLiabilities); // 0.48 and 0.59
 
         const indicators = {
-            "Gross Profit": grossProfit,
-            "Operating Margin": operatingMargin,
-            "Profit Margin": profitMargin,
-            "Return on Assets": returnAssets,
-            "Return on Equity": returnEquity,
-            "Current Ratio": currentRatio,
-            "Quick Ratio": quickRatio,
-            "Cash Ratio": cashRatio,
-            "Debt to Equity Ratio": debtToEquityRatio,
-            "Debt Ratio": debtRatio,
-            "Equity Ratio": equityRatio,
-            "Interest Coverage Ratio": interestCoverageRatio,
-            "Assets Turn Over": assetsTurnover,
-            "Operating Cash Flow Ratio": operatingCashFlowRatio,
-            "Free Cash Flow": freeCashFlow,
-            "Cash Flow Debt Ratio": cashFlowDebtRatio
+            "Gross Profit": {
+                values: grossProfit,
+                chartType: "nao sei ainda"
+            },
+            "Operating Margin": {
+                values: operatingMargin,
+                chartType: "nao sei ainda"
+            },
+            "Profit Margin":{
+                values: profitMargin,
+                chartType: "nao sei ainda"
+            },
+            "Return on Assets": {
+                values: returnAssets,
+                chartType: "nao sei ainda"
+            },
+            "Return on Equity": {
+                values: returnEquity,
+                chartType: "nao sei ainda",
+            },
+            "Current Ratio": {
+                values: currentRatio,
+                chartType: "doughnut"
+            },
+            "Quick Ratio": {
+                values: quickRatio,
+                chartType: "doughnut"
+            },
+            "Cash Ratio": {
+                values: cashRatio,
+                chartType: "doughnut"
+            },
+            "Debt to Equity Ratio": {
+                values: debtToEquityRatio,
+                chartType: "nao sei ainda"
+            },
+            "Debt Ratio": {
+                values: debtRatio,
+                chartType: "doughnut"
+            },
+            "Equity Ratio": {
+                values: equityRatio,
+                chartType: "doughnut"
+            },
+            "Interest Coverage Ratio": {
+                values: interestCoverageRatio,
+                chartType: "nao sei ainda",
+            },
+            "Assets Turn Over": {
+                values: assetsTurnover,
+                chartType: "doughnut",
+            },
+            "Operating Cash Flow Ratio": {
+                values: operatingCashFlowRatio,
+                chartType: "nao sei ainda"
+            },
+            "Free Cash Flow": {
+                values: freeCashFlow,
+                chartType: "nao sei ainda"
+            },
+            "Cash Flow Debt Ratio": {
+                values: cashFlowDebtRatio,
+                chartType: "doughnut"
+            }
         };
         console.log(indicators);
         return indicators;
