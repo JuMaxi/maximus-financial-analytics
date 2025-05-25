@@ -13,38 +13,40 @@ canvas {
 
 .chart-container {
     position: relative;
-    width: 400px;
-    height: 250px;
-    margin: 20px auto;
+    width: 100%;         /* Use full width of the column */
+    max-width: 250px;     /* Optional: limit max size */
+    margin: 0 auto;       /* Center inside column */
 }
 .needle {
     position: absolute;
-    bottom: 10%;
+    bottom: 18%;
     left: 50%;
-    width: 4px;
-    height: 150px;
+    width: 2px; /* thinner for small charts */
+    height: 94px; /* reduce height */
     background: var(--secondary-color);
     transform-origin: bottom center;
     transform: translate(-50%, 0%) rotate(270deg);
     transition: transform 1s ease-in-out;
     z-index: 10;
 }
+
 .needle::after {
     content: '';
     position: absolute;
-    top: -8px;
-    left: -6px;
-    width: 16px;
-    height: 16px;
+    top: -6px;
+    left: -5px;
+    width: 12px;
+    height: 12px;
     background: var(--primary-color);
     border-radius: 50%;
 }
+
 .needle-center {
     position: absolute;
-    bottom: 10%;
+    bottom: 18%;
     left: 50%;
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     background: var(--primary-color);
     border-radius: 50%;
     transform: translate(-50%, 50%);
@@ -56,10 +58,9 @@ canvas {
     top: 70%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 24px;
+    font-size: 16px; /* scaled down */
     font-weight: bold;
     color: var(--secondary-color);
-    z-index: 60; /* Makes the value in front of the needle*/
+    z-index: 60;
 }
-
 

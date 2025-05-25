@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Create the Bootstrap column div
         const colDiv = document.createElement('div');
-        colDiv.className = "col-12 col-md-6 d-flex justify-content-center mb-4";
+        colDiv.className = "col-12 col-lg-6 d-flex justify-content-center mb-4";
 
         // Create the chart wrapper div
         const wrapperDiv = document.createElement('div');
@@ -108,9 +108,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const container = document.querySelector("#chartsGauge");
         if (!container) return;
 
+        // Create a Bootstrap column wrapper
+        const colDiv = document.createElement('div');
+        colDiv.className = "col-12 col-sm-6 col-lg-3 mb-4"; // Responsive column
+
         // Create a wrapper for the gauge chart
         const wrapperDiv = document.createElement('div');
-        wrapperDiv.className = "chart-container";
+        wrapperDiv.className = "chart-container"; // Your custom styling
         wrapperDiv.id = `gaugeContainer${key}${year}`;
 
         // Create the canvas element
@@ -130,14 +134,15 @@ document.addEventListener("DOMContentLoaded", function() {
         gaugeValue.className = "gauge-value";
         gaugeValue.id = `gaugeValue${key}${year}`;
 
-        // Append all elements to the wrapper
+        // Append elements to the wrapper
         wrapperDiv.appendChild(canvas);
         wrapperDiv.appendChild(needle);
         wrapperDiv.appendChild(needleCenter);
         wrapperDiv.appendChild(gaugeValue);
 
-        // Add the wrapper to the container
-        container.appendChild(wrapperDiv);
+        // Append the wrapper to the column, then to the container
+        colDiv.appendChild(wrapperDiv);
+        container.appendChild(colDiv);
     }    
 
     // Function to selected indicators to create gauge charts
