@@ -551,7 +551,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             "Gross Profit": {
                 values: grossProfit,
-                chartType: "nao sei",
+                chartType: "bar",
                 group: "profit"
             },
             "Operating Margin": {
@@ -606,8 +606,8 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             "Interest Coverage Ratio": {
                 values: interestCoverageRatio,
-                chartType: "",
-                group: "solvency"
+                chartType: "bar",
+                group: "cash flow"
             },
             "Assets Turn Over": {
                 values: assetsTurnover,
@@ -616,7 +616,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             "Operating Cash Flow Ratio": {
                 values: operatingCashFlowRatio,
-                chartType: "radar",
+                chartType: "bar",
                 group: "cash flow"
             },
             "Free Cash Flow": {
@@ -626,7 +626,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             "Cash Flow Debt Ratio": {
                 values: cashFlowDebtRatio,
-                chartType: "radar", 
+                chartType: "bar", 
                 group: "cash flow"
             }
         };

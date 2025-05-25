@@ -367,7 +367,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     createRadarChart("myRadarChart", "profit");
-    createRadarChart("myRadarChart2", "solvency");
     createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
     createLineChart("myLineChart", "Free Cash Flow");    
     // Create html elements dinamically via JS to Bar Charts
@@ -384,6 +383,7 @@ document.addEventListener("DOMContentLoaded", function() {
     createChart("chart1Bar", "solvency", "Solvency Ratios");
     createChart("chart2Bar", "accounts", "Revenue X Profit");
     createChart("chart3Bar", "cash insights", "Cash Flow Insights");
+    createChart("chart4Bar", "cash flow", "Cash Flow and Solvency");
   
     
     // Create Gauge Charts (ratio indicators)
