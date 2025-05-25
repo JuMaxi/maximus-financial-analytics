@@ -551,7 +551,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             "Gross Profit": {
                 values: grossProfit,
-                chartType: "bar",
+                chartType: "doughnut",
                 group: "profit"
             },
             "Operating Margin": {

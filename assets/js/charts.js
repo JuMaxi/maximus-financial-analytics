@@ -35,8 +35,6 @@ document.addEventListener("DOMContentLoaded", function() {
         // Add the column to the container
         container.appendChild(colDiv);
     }
-  
-
 
     // Function to create Gauge chart
     function createGaugeChart(key, year, index) {
@@ -187,6 +185,46 @@ document.addEventListener("DOMContentLoaded", function() {
         new Chart(ctx, config);
     }
 
+    function createDoughnutChart(canvasId, group, chartTitle) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+
+        let doughnut = Object.keys(indicators).filter(k => indicators[k].chartType === "doughnut" && indicators[k].group === group).map(k => indicators[k]);
+        let values2025 = doughnut.map(v => v.values[0]);
+        let values2024 = doughnut.map(v => v.values[1]);
+        
+
+        //values = checkIfValueIsNegative(values);
+
+        const dataToChart = {
+            labels: ["Gross Profit 2025", "Gross Profit 2024"],
+            datasets: [{
+                // label: "Total",
+                data: [values2025, values2024],
+                backgroundColor: ['#3498db', '#2ecc71'],
+                borderWidth: 0,
+            }]
+        };
+
+        const config = {
+            type: "doughnut",
+            data: dataToChart,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: "top"
+                    },
+                    title: {
+                        display: true,
+                        text: chartTitle
+                    }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    }
+
     function checkIfValueIsNegative(values) {
         for (let i = 0; i < values.length; i++) {
             if (values[i] < 0) {
@@ -271,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function() {
         new Chart(ctx, config);
     }
 
-    function createChart(canvasId, group, chartTitle) {
+    function chartBarChart(canvasId, group, chartTitle) {
         // Create html elements dinamically via JS to Bar Charts
         addBarChartCanvas(canvasId, "#chartsBar");
         const ctx = document.getElementById(canvasId).getContext('2d');
@@ -369,7 +407,7 @@ document.addEventListener("DOMContentLoaded", function() {
     createRadarChart("myRadarChart", "profit");
     createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
     createLineChart("myLineChart", "Free Cash Flow");    
-    // Create html elements dinamically via JS to Bar Charts
+
 
 
     // Create html elements dinamically via JS to Pie Charts
@@ -380,10 +418,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Create Bar Charts (accounts not indicators)
-    createChart("chart1Bar", "solvency", "Solvency Ratios");
-    createChart("chart2Bar", "accounts", "Revenue X Profit");
-    createChart("chart3Bar", "cash insights", "Cash Flow Insights");
-    createChart("chart4Bar", "cash flow", "Cash Flow and Solvency");
+    chartBarChart("chart1Bar", "solvency", "Solvency Ratios");
+    chartBarChart("chart2Bar", "accounts", "Revenue X Profit");
+    chartBarChart("chart3Bar", "cash insights", "Cash Flow Insights");
+    chartBarChart("chart4Bar", "cash flow", "Cash Flow and Solvency");
   
     
     // Create Gauge Charts (ratio indicators)
@@ -396,6 +434,8 @@ document.addEventListener("DOMContentLoaded", function() {
         "Cash and cash equivalents", "Trade and other receivables", "Current tax Receivable"], 1, "chart2Pie", 2024, "Assets BreakDown");
     createPieChart(["Share capital", "Other reserves", "Retained earnings", "Foreign exchange reserve"], 0, "chart3Pie", 2025, "Equity Composition");
     createPieChart(["Share capital", "Other reserves", "Retained earnings", "Foreign exchange reserve"], 1, "chart4Pie", 2024, "Equity Composition");
-
+    
+    // Create Doughnut Chart
+    createDoughnutChart("myDoughnutChart", "profit", "Gross Profit");
 
 });
