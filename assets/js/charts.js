@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Create the Bootstrap column div
         const colDiv = document.createElement('div');
-        colDiv.className = "col-12 col-xl-6 d-flex justify-content-center mb-4";
+        colDiv.className = "col-12 col-md-6 d-flex justify-content-center mb-4";
 
         // Create the chart wrapper div
         const wrapperDiv = document.createElement('div');
