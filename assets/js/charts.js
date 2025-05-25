@@ -8,7 +8,15 @@ const indicators = storedIndicators ? JSON.parse(storedIndicators) : {};
 
 // Chart.js code
 document.addEventListener("DOMContentLoaded", function() {
+    // function updateTotalRevenueValue() {
+    //     const revenue2025 = indicators["Revenue"].values[0];
+    //     const revenue2024 = indicators["Revenue"].values[1];
 
+    //     document.getElementById('totalRevenue2025').textContent = revenue2025;
+    //     document.getElementById('totalRevenue2024').textContent = revenue2024;
+    // }
+
+    // updateTotalRevenueValue();
     // Function to create bar chart html elements dinamically via JS
     function addBarChartCanvas(canvasId, containerSelector) {
 
@@ -136,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function selectIndicatorToGaugeChart() {
         for (let key in indicators) {
 
-            if (indicators[key].chartType === "doughnut") {
+            if (indicators[key].chartType === "doughnut" && indicators[key].group === "gauge") {
                 addGaugeChartCanvas(key, "2025");
                 addGaugeChartCanvas(key, "2024");
 
@@ -407,8 +415,6 @@ document.addEventListener("DOMContentLoaded", function() {
     createRadarChart("myRadarChart", "profit");
     createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
     createLineChart("myLineChart", "Free Cash Flow");    
-
-
 
     // Create html elements dinamically via JS to Pie Charts
     addBarChartCanvas("chart1Pie", "#chartsPie");

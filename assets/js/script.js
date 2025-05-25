@@ -577,17 +577,17 @@ document.addEventListener("DOMContentLoaded", function() {
             "Current Ratio": {
                 values: currentRatio,
                 chartType: "doughnut",
-                group: ""
+                group: "gauge"
             },
             "Quick Ratio": {
                 values: quickRatio,
                 chartType: "doughnut",
-                group: ""
+                group: "gauge"
             },
             "Cash Ratio": {
                 values: cashRatio,
                 chartType: "doughnut",
-                group: ""
+                group: "gauge"
             },
             "Debt to Equity Ratio": {
                 values: debtToEquityRatio,
@@ -612,7 +612,7 @@ document.addEventListener("DOMContentLoaded", function() {
             "Assets Turn Over": {
                 values: assetsTurnover,
                 chartType: "doughnut",
-                group: ""
+                group: "gauge"
             },
             "Operating Cash Flow Ratio": {
                 values: operatingCashFlowRatio,
@@ -630,7 +630,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 group: "cash flow"
             }
         };
-        console.log(indicators);
         return indicators;
     }
 })
