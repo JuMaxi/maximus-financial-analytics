@@ -458,7 +458,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function calculateFreeCashFlow() {
         let indicators = [];
         for (let i = 0; i <= 1; i++) {
-            let indicator = "£ " + (data.get("Cash generated from operating activities")[i] + data.get("Net cash flow from investing activities")[i]).toFixed(2);
+            let indicator = (data.get("Cash generated from operating activities")[i] + data.get("Net cash flow from investing activities")[i]).toFixed(2);
             indicators.push(indicator);
         }
         console.log(indicators);
@@ -520,23 +520,23 @@ document.addEventListener("DOMContentLoaded", function() {
         const indicators = {
             "Gross Profit": {
                 values: grossProfit,
-                chartType: "nao sei ainda"
+                chartType: "radar"
             },
             "Operating Margin": {
                 values: operatingMargin,
-                chartType: "nao sei ainda"
+                chartType: "radar"
             },
             "Profit Margin":{
                 values: profitMargin,
-                chartType: "nao sei ainda"
+                chartType: "radar"
             },
             "Return on Assets": {
                 values: returnAssets,
-                chartType: "nao sei ainda"
+                chartType: "radar"
             },
             "Return on Equity": {
                 values: returnEquity,
-                chartType: "nao sei ainda",
+                chartType: "radar",
             },
             "Current Ratio": {
                 values: currentRatio,

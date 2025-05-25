@@ -8,9 +8,10 @@ const indicators = storedIndicators ? JSON.parse(storedIndicators) : {};
 
 // Chart.js code
 document.addEventListener("DOMContentLoaded", function() {
-    const containerSelector = "#chartsRow";
 
-    function addChartCanvas(canvasId) {
+    // Function to create bar chart html elements dinamically via JS
+    function addBarChartCanvas(canvasId, containerSelector) {
+
         // Find the container where you want to add the chart
         const container = document.querySelector(containerSelector);
         if (!container) return;
@@ -35,12 +36,15 @@ document.addEventListener("DOMContentLoaded", function() {
         container.appendChild(colDiv);
     }
   
-    function createChart(accounts, canvasId, charTitle) {
+    function createChart(accounts, canvasId, chartTitle) {
         const ctx = document.getElementById(canvasId).getContext('2d');
         
         // Build data arrays for each year using .map()
-        const data2025 = accounts.map(acc => data.get(acc) ? data.get(acc)[0] : 0);
-        const data2024 = accounts.map(acc => data.get(acc) ? data.get(acc)[1] : 0);
+        let data2025 = accounts.map(acc => data.get(acc) ? data.get(acc)[0] : 0);
+        data2025 = checkIfValueIsNegative(data2025);
+        let data2024 = accounts.map(acc => data.get(acc) ? data.get(acc)[1] : 0);
+        data2024 = checkIfValueIsNegative(data2024);
+
 
         new Chart(ctx, {
             type: "bar",
@@ -72,15 +76,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     },
                     title: {
                         display: true,
-                        text: charTitle
+                        text: chartTitle
                     }
                 }
             }
         });
     }
 
-    // Gauge chart
-    function initChart(key, year, index) {
+    // Function to create Gauge chart
+    function createGaugeChart(key, year, index) {
         const ctx2 = document.getElementById(`gaugeChart${key}${year}`).getContext("2d");
         const indicator = indicators[key].values[index];
         new Chart(ctx2, {
@@ -124,19 +128,20 @@ document.addEventListener("DOMContentLoaded", function() {
             },
         });
         
-        updateNeedle(indicator, key, year);
+        updateNeedleGuageChart(indicator, key, year);
 
         // Show the value in the gauge
         document.getElementById(`gaugeValue${key}${year}`).textContent = indicator;
     }
 
-    // Function to change the needle
-    function updateNeedle(indicador, key, year) {
+    // Function to change the gauge chart needle
+    function updateNeedleGuageChart(indicador, key, year) {
         const angle = 270 + ((indicador * 100) / 100) * 180; // 270 to 450 degrees
         const needle = document.getElementById(`needle${key}${year}`);
         needle.style.transform = `translate(-50%, 0%) rotate(${angle}deg)`;
     }
 
+    // Function to create gauge chart html elements dinamically via JS
     function addGaugeChartCanvas(key, year) {
         // Find the container where you want to add the gauge chart
         const container = document.querySelector("#chartsGauge");
@@ -174,34 +179,217 @@ document.addEventListener("DOMContentLoaded", function() {
         container.appendChild(wrapperDiv);
     }    
 
-    function createGaugeChart() {
+    // Function to selected indicators to create gauge charts
+    function selectIndicatorToGaugeChart() {
         for (let key in indicators) {
 
             if (indicators[key].chartType === "doughnut") {
                 addGaugeChartCanvas(key, "2025");
                 addGaugeChartCanvas(key, "2024");
 
-                initChart(key, "2025", 0);
-                initChart(key, "2024", 1);
-            }
-            
+                createGaugeChart(key, "2025", 0);
+                createGaugeChart(key, "2024", 1);
+            } 
         }
     }
 
+    // Function to create Pie chart
+    function createPieChart(accounts, index, canvasId, year, chartTitle) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
 
-    addChartCanvas("chart1");
-    addChartCanvas("chart2");
-    addChartCanvas("chart3");
-    addChartCanvas("chart4");
+        // Build data arrays for each year using .map()
+        let values = accounts.map(acc => data.get(acc) ? data.get(acc)[index] : 0);
 
-    createChart(["Revenue", "Gross profit", "Operating profit", "Profit after tax"], "chart1", "Revenue X Profit" );
-    createChart(["Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
-        "Cash and cash equivalents", "Cash and cash equivalents", "Trade and other receivables", 
-        "Current tax Receivable"], "chart2", "Assets Breakdown"
-    );
-    createChart(["Share capital", "Other reserves", "Retained earnings", "Foreign exchange reserve"], "chart3", "Equity Composition");
-    createChart(["Cash generated from operating activities", "Net cash flow from investing activities"], "chart4", "Cash Flow Movement");
+        values = checkIfValueIsNegative(values);
 
-    createGaugeChart();
+        const dataToChart = {
+            labels: accounts,
+            datasets: [{
+                label: "Total",
+                data: values,
+                backgroundColor: ['#3498db', '#2ecc71'],
+                borderWidth: 0,
+            }]
+        };
+
+        const config = {
+            type: "pie",
+            data: dataToChart,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: "top"
+                    },
+                    title: {
+                        display: true,
+                        text: `${chartTitle} ${year}`
+                    }
+                }
+            }
+        };
+
+        new Chart(ctx, config);
+    }
+
+    function checkIfValueIsNegative(values) {
+        for (let i = 0; i < values.length; i++) {
+            if (values[i] < 0) {
+                values[i] = Math.abs(values[i]);
+            }
+        }
+        return values;
+    }
+
+    function createLineChart(canvasId, key) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+
+        const dataLine = {
+            labels:  ["2024", "2025"],
+            datasets: [
+                {
+                    label: 'Free cash flow indicator from 2024 to 2025',
+                    data: [indicators[key].values[1], indicators[key].values[0]],
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                },
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: dataLine,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Free Cash Flow'
+                    }
+                }
+            },
+        };
+
+        new Chart(ctx, config);
+    }
+
+    function createBubbleChart(canvasId, key1, key2) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+
+        const dataBubble = {
+            datasets: [{
+                label: 'Revenue X Profit after tax',
+                data: [{
+                    x: data.get(key1)[0],
+                    y: data.get(key2)[0],
+                    r: 13 // size ball
+                }, {
+                    x: data.get(key1)[1],
+                    y: data.get(key2)[1],
+                    r: 8
+                }],
+                backgroundColor: 'rgb(255, 99, 132)'
+            }]
+        }
+        
+        const config = {
+            type: 'bubble',
+            data: dataBubble,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Gross Margin'
+                    }
+                }
+            },
+        };
+
+        new Chart(ctx, config);
+    }
+
+    function createRadarChart(canvasId, accounts) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        let data2025 = accounts.map(acc => indicators[acc].values ? indicators[acc].values : 0);
+
+        const dataRadar = {
+           labels: accounts,
+            datasets: [{
+                label: '2025',
+                data: "nada",
+                fill: true,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgb(255, 99, 132)',
+                pointBackgroundColor: 'rgb(255, 99, 132)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(255, 99, 132)'
+            }, {
+                label: '2024',
+                data: [28, 48, 40, 19, 96],
+                fill: true,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgb(54, 162, 235)',
+                pointBackgroundColor: 'rgb(54, 162, 235)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(54, 162, 235)'
+            }]
+        };
+
+        const config = {
+            type: 'radar',
+            data: dataRadar,
+            options: {
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                }
+            },
+        };
+
+        new Chart(ctx, config);
+    }
+
+    createRadarChart("myRadarChart", ["Gross Profit", "Operating Margin", "Profit Margin", "Return on Assets", "Return on Equity"]);
+    createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
+    createLineChart("myLineChart", "Free Cash Flow");    
+    // Create html elements dinamically via JS to Bar Charts
+    addBarChartCanvas("chart1Bar", "#chartsBar");
+    addBarChartCanvas("chart2Bar", "#chartsBar");
+
+    // Create html elements dinamically via JS to Pie Charts
+    addBarChartCanvas("chart1Pie", "#chartsPie");
+    addBarChartCanvas("chart2Pie", "#chartsPie");
+    addBarChartCanvas("chart3Pie", "#chartsPie");
+    addBarChartCanvas("chart4Pie", "#chartsPie");
+
+
+
+    // Create Bar Charts (accounts not indicators)
+    createChart(["Revenue", "Gross profit", "Operating profit", "Profit after tax"], "chart1Bar", "Revenue X Profit" );
+    createChart(["Cash generated from operating activities", "Net cash flow from investing activities"], "chart2Bar", "Cash Flow Insights");
+  
+    
+    // Create Gauge Charts (ratio indicators)
+    selectIndicatorToGaugeChart();
+
+    // Create Pie Charts (accounts not indicators)
+    createPieChart(["Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
+        "Cash and cash equivalents", "Trade and other receivables", "Current tax Receivable"], 0, "chart1Pie", 2025, "Assets BreakDown");
+    createPieChart(["Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
+        "Cash and cash equivalents", "Trade and other receivables", "Current tax Receivable"], 1, "chart2Pie", 2024, "Assets BreakDown");
+    createPieChart(["Share capital", "Other reserves", "Retained earnings", "Foreign exchange reserve"], 0, "chart3Pie", 2025, "Equity Composition");
+    createPieChart(["Share capital", "Other reserves", "Retained earnings", "Foreign exchange reserve"], 1, "chart4Pie", 2024, "Equity Composition");
+
 
 });
