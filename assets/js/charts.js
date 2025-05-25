@@ -36,52 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         container.appendChild(colDiv);
     }
   
-    function createChart(accounts, canvasId, chartTitle) {
-        const ctx = document.getElementById(canvasId).getContext('2d');
-        
-        // Build data arrays for each year using .map()
-        let data2025 = accounts.map(acc => data.get(acc) ? data.get(acc)[0] : 0);
-        data2025 = checkIfValueIsNegative(data2025);
-        let data2024 = accounts.map(acc => data.get(acc) ? data.get(acc)[1] : 0);
-        data2024 = checkIfValueIsNegative(data2024);
 
-
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: accounts,
-                datasets: [
-                    {
-                        label: "2025",
-                        data: data2025,
-                        backgroundColor: "#3498db"
-                    },
-                    {
-                        label: "2024",
-                        data: data2024,
-                        backgroundColor: "#2ecc71"
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: "top",
-                    },
-                    title: {
-                        display: true,
-                        text: chartTitle
-                    }
-                }
-            }
-        });
-    }
 
     // Function to create Gauge chart
     function createGaugeChart(key, year, index) {
@@ -316,15 +271,66 @@ document.addEventListener("DOMContentLoaded", function() {
         new Chart(ctx, config);
     }
 
-    function createRadarChart(canvasId, accounts) {
+    function createChart(canvasId, group, chartTitle) {
+        // Create html elements dinamically via JS to Bar Charts
+        addBarChartCanvas(canvasId, "#chartsBar");
         const ctx = document.getElementById(canvasId).getContext('2d');
-        let data2025 = accounts.map(acc => indicators[acc].values ? indicators[acc].values : 0);
+
+        let bars = Object.keys(indicators).filter(k => indicators[k].chartType === "bar" && indicators[k].group === group).map(k => indicators[k]);
+        let labels = Object.keys(indicators).filter(k => indicators[k].chartType === "bar" && indicators[k].group === group);
+        let values2025 = bars.map(v => v.values[0]);
+        let values2024 = bars.map(v => v.values[1]);
+        
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "2025",
+                        data: values2025,
+                        backgroundColor: "#3498db"
+                    },
+                    {
+                        label: "2024",
+                        data: values2024,
+                        backgroundColor: "#2ecc71"
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: "top",
+                    },
+                    title: {
+                        display: true,
+                        text: chartTitle
+                    }
+                }
+            }
+        });
+    }    
+    
+    function createRadarChart(canvasId, group) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        let radars = Object.keys(indicators).filter(k => indicators[k].chartType === "radar" && indicators[k].group === group).map(k => indicators[k]);
+        let labels = Object.keys(indicators).filter(k => indicators[k].chartType === "radar" && indicators[k].group === group);
+        let values2025 = radars.map(v => v.values[0]);
+        let values2024 = radars.map(v => v.values[1]);
+
 
         const dataRadar = {
-           labels: accounts,
+           labels: labels,
             datasets: [{
                 label: '2025',
-                data: "nada",
+                data: values2025,
                 fill: true,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgb(255, 99, 132)',
@@ -334,7 +340,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 pointHoverBorderColor: 'rgb(255, 99, 132)'
             }, {
                 label: '2024',
-                data: [28, 48, 40, 19, 96],
+                data: values2024,
                 fill: true,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgb(54, 162, 235)',
@@ -360,12 +366,12 @@ document.addEventListener("DOMContentLoaded", function() {
         new Chart(ctx, config);
     }
 
-    createRadarChart("myRadarChart", ["Gross Profit", "Operating Margin", "Profit Margin", "Return on Assets", "Return on Equity"]);
+    createRadarChart("myRadarChart", "profit");
+    createRadarChart("myRadarChart2", "solvency");
     createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
     createLineChart("myLineChart", "Free Cash Flow");    
     // Create html elements dinamically via JS to Bar Charts
-    addBarChartCanvas("chart1Bar", "#chartsBar");
-    addBarChartCanvas("chart2Bar", "#chartsBar");
+
 
     // Create html elements dinamically via JS to Pie Charts
     addBarChartCanvas("chart1Pie", "#chartsPie");
@@ -374,10 +380,10 @@ document.addEventListener("DOMContentLoaded", function() {
     addBarChartCanvas("chart4Pie", "#chartsPie");
 
 
-
     // Create Bar Charts (accounts not indicators)
-    createChart(["Revenue", "Gross profit", "Operating profit", "Profit after tax"], "chart1Bar", "Revenue X Profit" );
-    createChart(["Cash generated from operating activities", "Net cash flow from investing activities"], "chart2Bar", "Cash Flow Insights");
+    createChart("chart1Bar", "solvency", "Solvency Ratios");
+    createChart("chart2Bar", "accounts", "Revenue X Profit");
+    createChart("chart3Bar", "cash insights", "Cash Flow Insights");
   
     
     // Create Gauge Charts (ratio indicators)

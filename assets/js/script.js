@@ -397,7 +397,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function calculateProfitIndicators(account1) {
         let indicators = [];
         for (let i = 0; i <= 1; i++) {
-            let indicator = ((data.get(account1)[i] / data.get("Revenue")[i]) * 100).toFixed(1) + "%";
+            let indicator = ((data.get(account1)[i] / data.get("Revenue")[i]) * 100).toFixed(1);
             indicators.push(indicator);
         }
         console.log(indicators);
@@ -407,7 +407,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function calculateReturns(average) {
         let indicators = [];
         for (let i = 0; i <= 1; i++) {
-            let returnAssets = ((data.get("Profit after tax")[i] / average) * 100).toFixed(1) + "%"; 
+            let returnAssets = ((data.get("Profit after tax")[i] / average) * 100).toFixed(1); 
             indicators.push(returnAssets);
         }
         console.log(indicators);
@@ -517,70 +517,117 @@ document.addEventListener("DOMContentLoaded", function() {
         const freeCashFlow = calculateFreeCashFlow(); // £104.565 and £89.036
         const cashFlowDebtRatio = calculateCashFlowToDebtRatio(currentLiabilities); // 0.48 and 0.59
 
+        // "Cash generated from operating activities", "Net cash flow from investing activities"
         const indicators = {
+            "Revenue": {
+                values: [data.get("Revenue")[0], data.get("Revenue")[1]],
+                chartType: "bar",
+                group: "accounts"
+            },
+            "Gross profit": {
+                values: [data.get("Gross profit")[0], data.get("Gross profit")[1]],
+                chartType: "bar",
+                group: "accounts"
+            },
+            "Operating profit": {
+                values: [data.get("Operating profit")[0], data.get("Operating profit")[1]],
+                chartType: "bar",
+                group: "accounts"
+            },     
+            "Profit after tax": {
+                values: [data.get("Profit after tax")[0], data.get("Profit after tax")[1]],
+                chartType: "bar",
+                group: "accounts"
+            },            
+            "Cash generated from operating activities": {
+                values: [data.get("Cash generated from operating activities")[0], data.get("Cash generated from operating activities")[1]],
+                chartType: "bar",
+                group: "cash insights"
+            },
+            "Net cash flow from investing activities": {
+                values: [data.get("Net cash flow from investing activities")[0], data.get("Net cash flow from investing activities")[1]],
+                chartType: "bar",
+                group: "cash insights"
+            },
             "Gross Profit": {
                 values: grossProfit,
-                chartType: "radar"
+                chartType: "nao sei",
+                group: "profit"
             },
             "Operating Margin": {
-                values: operatingMargin,
-                chartType: "radar"
+                values: operatingMargin,    
+                chartType: "radar",
+                group: "profit"
             },
             "Profit Margin":{
                 values: profitMargin,
-                chartType: "radar"
+                chartType: "radar",
+                group: "profit"
             },
             "Return on Assets": {
                 values: returnAssets,
-                chartType: "radar"
+                chartType: "radar",
+                group: "profit"
             },
             "Return on Equity": {
                 values: returnEquity,
                 chartType: "radar",
+                group: "profit"
             },
             "Current Ratio": {
                 values: currentRatio,
-                chartType: "doughnut"
+                chartType: "doughnut",
+                group: ""
             },
             "Quick Ratio": {
                 values: quickRatio,
-                chartType: "doughnut"
+                chartType: "doughnut",
+                group: ""
             },
             "Cash Ratio": {
                 values: cashRatio,
-                chartType: "doughnut"
+                chartType: "doughnut",
+                group: ""
             },
             "Debt to Equity Ratio": {
                 values: debtToEquityRatio,
-                chartType: "nao sei ainda"
+                chartType: "bar",
+                group: "solvency"
             },
             "Debt Ratio": {
                 values: debtRatio,
-                chartType: "doughnut"
+                chartType: "bar",
+                group: "solvency"
             },
             "Equity Ratio": {
                 values: equityRatio,
-                chartType: "doughnut"
+                chartType: "bar",
+                group: "solvency"
             },
             "Interest Coverage Ratio": {
                 values: interestCoverageRatio,
-                chartType: "nao sei ainda",
+                chartType: "",
+                group: "solvency"
             },
             "Assets Turn Over": {
                 values: assetsTurnover,
                 chartType: "doughnut",
+                group: ""
             },
             "Operating Cash Flow Ratio": {
                 values: operatingCashFlowRatio,
-                chartType: "nao sei ainda"
+                chartType: "radar",
+                group: "cash flow"
             },
             "Free Cash Flow": {
                 values: freeCashFlow,
-                chartType: "nao sei ainda"
+                chartType: "line",
+                group: "cash flow"
             },
             "Cash Flow Debt Ratio": {
                 values: cashFlowDebtRatio,
-                chartType: "doughnut"
+                chartType: "radar", 
+                group: "cash flow"
             }
         };
         console.log(indicators);
