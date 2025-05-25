@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 label: "Total",
                 data: values,
-                backgroundColor: ['#3498db', '#2ecc71'],
+                backgroundColor: ["#2ecc71", "#3498db", "#f1c40f", "#e74c3c", "#9b59b6", "#bdc3c7"],
                 borderWidth: 0,
             }]
         };
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 // label: "Total",
                 data: [values2025, values2024],
-                backgroundColor: ['#3498db', '#2ecc71'],
+                backgroundColor: ['#00BFFF', '#FFA500'],
                 borderWidth: 0,
             }]
         };
@@ -340,12 +340,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     {
                         label: "2025",
                         data: values2025,
-                        backgroundColor: "#3498db"
+                        backgroundColor: "#00BFFF"
                     },
                     {
                         label: "2024",
                         data: values2024,
-                        backgroundColor: "#2ecc71"
+                        backgroundColor: "#FFA500"
                     }
                 ]
             },
