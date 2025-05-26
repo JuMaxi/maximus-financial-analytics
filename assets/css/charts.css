@@ -2,15 +2,9 @@ body {
     padding: 25px;
 }
 
-/* Charts */
-.chart-wrapper {
-  width: 100%;
-  max-width: 600px;
-}
-
-canvas {
-  width: 100% !important;
-  height: auto !important;
+.bar-charts {
+    width: 100% !important;
+    min-height: 300px;
 }
 
 /* Gauge chart style */

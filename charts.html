@@ -63,16 +63,29 @@
                 <div class="row">
                     <!-- Bar Charts (left side) -->
                     <div class="col-12 col-lg-8">
-                        <div class="row" id="chartsBar">
-                            <!-- Bar chart canvases will be added here -->
+                        <div class="row">
+                            <!-- First row of bar charts -->
+                            <div class="col-12 col-md-6 mb-4 bar-charts">
+                                <canvas id="chartBar1"></canvas>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4 bar-charts">
+                                <canvas id="chartBar2"></canvas>
+                            </div>
+                            <!-- Second row of bar charts -->
+                            <div class="col-12 col-md-6 mb-4 bar-charts">
+                                <canvas id="chartBar3"></canvas>
+                            </div>
+                            <div class="col-12 col-md-6 mb-4 bar-charts">
+                                <canvas id="chartBar4"></canvas>
+                            </div>    
                         </div>
                     </div>
-
                     <!-- Doughnut Chart (right side) -->
-                    <div class="col-12 col-lg-4 d-flex justify-content-center align-items-start">
-                        <canvas id="myDoughnutChart" width="300" height="300"></canvas>
+                    <div class="col-12 col-lg-4 d-flex align-items-center justify-content-center mb-4 mb-lg-0">
+                        <canvas id="myDoughnutChart"></canvas>
                     </div>
                 </div>
+
             </div>
         </section>
     
@@ -89,7 +102,8 @@
         <section>
             <div class="container-fluid py-5">
                 <div class="row" id="chartsPie">
-                    <!-- Pie charts will be added here dynamically -->
+                    <canvas id="chartPie1"></canvas>
+                    <canvas id="chartPie2"></canvas>
                 </div>
             </div>
         </section>

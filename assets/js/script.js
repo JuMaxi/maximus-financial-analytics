@@ -518,26 +518,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const cashFlowDebtRatio = calculateCashFlowToDebtRatio(currentLiabilities); // 0.48 and 0.59
 
         const indicators = {
-            "Share capital": {
-                values: [data.get("Share capital")[0], data.get("Share capital")[1]],
-                chartType: "bar",
-                group: "equity2"
-            },
-            "Other reserves": {
-                values: [data.get("Other reserves")[0], data.get("Other reserves")[1]],
-                chartType: "bar",
-                group: "equity"
-            },
-            "Retained earnings": {
-                values: [data.get("Retained earnings")[0], data.get("Retained earnings")[1]],
-                chartType: "bar",
-                group: "equity"
-            },
-            "Foreign exchange reserve": {
-                values: [data.get("Foreign exchange reserve")[0], data.get("Foreign exchange reserve")[1]],
-                chartType: "bar",
-                group: "equity2"
-            },
+            
             "Revenue": {
                 values: [data.get("Revenue")[0], data.get("Revenue")[1]],
                 chartType: "bar",
@@ -558,6 +539,41 @@ document.addEventListener("DOMContentLoaded", function() {
                 chartType: "bar",
                 group: "accounts"
             },            
+            "Intangible assets": {
+                values: [data.get("Intangible assets")[0], data.get("Intangible assets")[1]],
+                chartType: "pie",
+                group: "Assets BreakDown"
+            },
+            "Goodwill": {
+                values: [data.get("Goodwill")[0], data.get("Goodwill")[1]],
+                chartType: "pie",
+                group: "Assets BreakDown"
+            },
+            "Property, plant and equipment": {
+                values: [data.get("Property, plant and equipment")[0], data.get("Property, plant and equipment")[1]],
+                chartType: "pie",
+                group: "Assets BreakDown"
+            },
+            "Deferred tax asset": {
+                values: [data.get("Deferred tax asset")[0], data.get("Deferred tax asset")[1]],
+                chartType: "pie",
+                group: "Assets BreakDown"
+            },
+            "Cash and cash equivalents": {
+                values: [data.get("Cash and cash equivalents")[0], data.get("Cash and cash equivalents")[1]],
+                chartType: "pie",
+                group: "Assets BreakDown"
+            },
+            "Trade and other receivables": {
+                values: [data.get("Trade and other receivables")[0], data.get("Trade and other receivables")[1]],
+                chartType: "pie",
+                group: "Assets BreakDown"
+            },
+            "Current tax Receivable": {
+                values: [data.get("Current tax receivable")[0], data.get("Current tax receivable")[1]],
+                chartType: "pie",
+                group: "Assets BreakDown"
+            },
             "Cash generated from operating activities": {
                 values: [data.get("Cash generated from operating activities")[0], data.get("Cash generated from operating activities")[1]],
                 chartType: "bar",
@@ -567,6 +583,26 @@ document.addEventListener("DOMContentLoaded", function() {
                 values: [data.get("Net cash flow from investing activities")[0], data.get("Net cash flow from investing activities")[1]],
                 chartType: "bar",
                 group: "cash insights"
+            },
+            "Share capital": {
+                values: [data.get("Share capital")[0], data.get("Share capital")[1]],
+                chartType: "bar",
+                group: "equity2"
+            },
+            "Other reserves": {
+                values: [data.get("Other reserves")[0], data.get("Other reserves")[1]],
+                chartType: "bar",
+                group: "equity"
+            },
+            "Retained earnings": {
+                values: [data.get("Retained earnings")[0], data.get("Retained earnings")[1]],
+                chartType: "bar",
+                group: "equity"
+            },
+            "Foreign exchange reserve": {
+                values: [data.get("Foreign exchange reserve")[0], data.get("Foreign exchange reserve")[1]],
+                chartType: "bar",
+                group: "equity2"
             },
             "Gross Profit": {
                 values: grossProfit,

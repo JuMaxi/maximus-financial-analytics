@@ -32,32 +32,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // }
 
     // updateTotalRevenueValue();
-    // Function to create bar chart html elements dinamically via JS
-    function addBarChartCanvas(canvasId, containerSelector) {
-
-        // Find the container where you want to add the chart
-        const container = document.querySelector(containerSelector);
-        if (!container) return;
-
-        // Create the Bootstrap column div
-        const colDiv = document.createElement('div');
-        colDiv.className = "col-12 col-lg-6 d-flex justify-content-center mb-4";
-
-        // Create the chart wrapper div
-        const wrapperDiv = document.createElement('div');
-        wrapperDiv.className = "chart-wrapper";
-
-        // Create the canvas element
-        const canvas = document.createElement('canvas');
-        canvas.id = canvasId;
-
-        // Put the canvas inside the wrapper, and the wrapper inside the column
-        wrapperDiv.appendChild(canvas);
-        colDiv.appendChild(wrapperDiv);
-
-        // Add the column to the container
-        container.appendChild(colDiv);
-    }
 
     // Function to create Gauge chart
     function createGaugeChart(key, year, index) {
@@ -170,16 +144,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Function to create Pie chart
-    function createPieChart(accounts, index, canvasId, year, chartTitle) {
+    function createPieChart(canvasId, group, index, year) {
         const ctx = document.getElementById(canvasId).getContext('2d');
-
-        // Build data arrays for each year using .map()
-        let values = accounts.map(acc => data.get(acc) ? data.get(acc)[index] : 0);
+        console.log(indicators);
+        let bars = Object.keys(indicators).filter(k => indicators[k].chartType === "pie" && indicators[k].group === group).map(k => indicators[k]);
+        let labels = Object.keys(indicators).filter(k => indicators[k].chartType === "pie" && indicators[k].group === group);
+        let values = bars.map(v => v.values[index]);
 
         values = checkIfValueIsNegative(values);
 
         const dataToChart = {
-            labels: accounts,
+            labels: labels,
             datasets: [{
                 label: "Total",
                 data: values,
@@ -199,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     },
                     title: {
                         display: true,
-                        text: `${chartTitle} ${year}`
+                        text: `${group} ${year}`
                     }
                 }
             }
@@ -223,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 // label: "Total",
                 data: [values2025, values2024],
-                backgroundColor: [backgroundChart1, backgroundChart2],
+                backgroundColor: [backgroundChart4, backgroundChart3],
                 borderWidth: 0,
             }]
         };
@@ -333,8 +308,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function chartBarChart(canvasId, group, chartTitle) {
-        // Create html elements dinamically via JS to Bar Charts
-        addBarChartCanvas(canvasId, "#chartsBar");
         const ctx = document.getElementById(canvasId).getContext('2d');
 
         let bars = Object.keys(indicators).filter(k => indicators[k].chartType === "bar" && indicators[k].group === group).map(k => indicators[k]);
@@ -361,6 +334,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -481,28 +455,22 @@ document.addEventListener("DOMContentLoaded", function() {
     createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
     createLineChart("myLineChart", "Free Cash Flow");    
 
-    // Create html elements dinamically via JS to Pie Charts
-    addBarChartCanvas("chart1Pie", "#chartsPie");
-    addBarChartCanvas("chart2Pie", "#chartsPie");
-
 
     // Create Bar Charts (accounts not indicators)
-    chartBarChart("chart1Bar", "solvency", "Solvency Ratios");
-    chartBarChart("chart2Bar", "accounts", "Revenue X Profit");
-    chartBarChart("chart3Bar", "cash insights", "Cash Flow Insights");
-    chartBarChart("chart4Bar", "cash flow", "Cash Flow and Solvency");
+    chartBarChart("chartBar1", "solvency", "Solvency Ratios");
+    chartBarChart("chartBar2", "accounts", "Revenue X Profit");
+    chartBarChart("chartBar3", "cash insights", "Cash Flow Insights");
+    chartBarChart("chartBar4", "cash flow", "Cash Flow and Solvency");
   
     
     // Create Gauge Charts (ratio indicators)
     selectIndicatorToGaugeChart();
 
     // Create Pie Charts (accounts not indicators)
-    createPieChart(["Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
-        "Cash and cash equivalents", "Trade and other receivables", "Current tax Receivable"], 0, "chart1Pie", 2025, "Assets BreakDown");
-    createPieChart(["Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
-        "Cash and cash equivalents", "Trade and other receivables", "Current tax Receivable"], 1, "chart2Pie", 2024, "Assets BreakDown");
+    createPieChart("chartPie1", "Assets BreakDown", 0, 2025);
+    createPieChart("chartPie2", "Assets BreakDown", 1, 2024);
 
-
+    // Create Horizontal Bar Charts
     createBarHorizontalChart("myHorizontalBarChart1", "equity", "Equity Composition Other Reserves and Retained Earnings");
     createBarHorizontalChart("myHorizontalBarChart2", "equity2", "Equity Composition Share Capital and Foreign Exchange");
     
