@@ -8,6 +8,19 @@ const indicators = storedIndicators ? JSON.parse(storedIndicators) : {};
 
 // Chart.js code
 document.addEventListener("DOMContentLoaded", function() {
+    // Global variables
+    // Purple-magenta-blue range palette
+    const backgroundChart1 = "#960f88";
+    const backgroundChart2 = "#441375";
+    const backgroundChart3 = "#246C9A";
+    const backgroundChart4 = "#CD74F3";
+    const backgroundChart5 = "#a0486a";
+    const backgroundChart6 = "#36a2eb";
+    const backgroundChart7 = "#e5aed6";
+    const backgroundChart8 = "#BFD7F6"; 
+    const backgroundChart9 = "#7A51A1";
+    const backgroundChart10 = "#5E0C50";
+
     // function updateTotalRevenueValue() {
     //     const revenue2025 = indicators["Revenue"].values[0];
     //     const revenue2024 = indicators["Revenue"].values[1];
@@ -53,14 +66,9 @@ document.addEventListener("DOMContentLoaded", function() {
             data: {
                 labels: ["Red Zone", "Yellow Zone", "Green Zone"],
                 datasets: [
-                    // Background segments (red, yellow, green)
                     {
                         data: [40, 80, 30],
-                        backgroundColor: [
-                            "#dc3545", // Red
-                            "#ffc107", // Yellow  
-                            "#28a745" // Green
-                        ],
+                        backgroundColor: [backgroundChart8, backgroundChart9, backgroundChart10],
                         cutout: "60%",
                         borderWidth: 0,
                     }
@@ -173,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 label: "Total",
                 data: values,
-                backgroundColor: ["#2ecc71", "#3498db", "#f1c40f", "#e74c3c", "#9b59b6", "#bdc3c7"],
+                backgroundColor: [backgroundChart1, backgroundChart2, backgroundChart3, backgroundChart4, backgroundChart5, backgroundChart6, backgroundChart7],
                 borderWidth: 0,
             }]
         };
@@ -213,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 // label: "Total",
                 data: [values2025, values2024],
-                backgroundColor: ['#00BFFF', '#FFA500'],
+                backgroundColor: [backgroundChart1, backgroundChart2],
                 borderWidth: 0,
             }]
         };
@@ -257,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     label: 'Free cash flow indicator from 2024 to 2025',
                     data: [indicators[key].values[1], indicators[key].values[0]],
                     fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
+                    borderColor: backgroundChart3,
                     tension: 0.1
                 },
             ]
@@ -298,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     y: data.get(key2)[1],
                     r: 8
                 }],
-                backgroundColor: 'rgb(255, 99, 132)'
+                backgroundColor: backgroundChart4
             }]
         }
         
@@ -340,12 +348,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     {
                         label: "2025",
                         data: values2025,
-                        backgroundColor: "#00BFFF"
+                        backgroundColor: backgroundChart2
                     },
                     {
                         label: "2024",
                         data: values2024,
-                        backgroundColor: "#FFA500"
+                        backgroundColor:  backgroundChart1
                     }
                 ]
             },
@@ -380,30 +388,30 @@ document.addEventListener("DOMContentLoaded", function() {
         const dataRadar = {
            labels: labels,
             datasets: [{
-                label: '2025',
+                label: "2025",
                 data: values2025,
                 fill: true,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgb(255, 99, 132)',
-                pointBackgroundColor: 'rgb(255, 99, 132)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgb(255, 99, 132)'
+                backgroundColor: "rgb(221, 107, 246, 0.2)",
+                borderColor: backgroundChart5,
+                pointBackgroundColor: backgroundChart5,
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: backgroundChart5
             }, {
-                label: '2024',
+                label: "2024",
                 data: values2024,
                 fill: true,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgb(54, 162, 235)',
-                pointBackgroundColor: 'rgb(54, 162, 235)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgb(54, 162, 235)'
+                backgroundColor: "rgb(54, 162, 235, 0.2)",
+                borderColor: backgroundChart6,
+                pointBackgroundColor: backgroundChart6,
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: backgroundChart6
             }]
         };
 
         const config = {
-            type: 'radar',
+            type: "radar",
             data: dataRadar,
             options: {
                 elements: {
