@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const backgroundChart8 = "#BFD7F6"; 
     const backgroundChart9 = "#7A51A1";
     const backgroundChart10 = "#5E0C50";
+    const backgroundChart11 = "#8A3E8F";
+    const backgroundChart12 = "#3A5F8A";
 
     // function updateTotalRevenueValue() {
     //     const revenue2025 = indicators["Revenue"].values[0];
@@ -425,6 +427,56 @@ document.addEventListener("DOMContentLoaded", function() {
         new Chart(ctx, config);
     }
 
+    function createBarHorizontalChart(canvasId, group, chartTitle) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+
+        let bars = Object.keys(indicators).filter(k => indicators[k].chartType === "bar" && indicators[k].group === group).map(k => indicators[k]);
+        let labels = Object.keys(indicators).filter(k => indicators[k].chartType === "bar" && indicators[k].group === group);
+        let values2025 = bars.map(v => v.values[0]);
+        let values2024 = bars.map(v => v.values[1]);
+
+        const dataBar = {
+            labels: labels,
+            datasets: [
+                {
+                    label: "2025",
+                    data: values2025,
+                    backgroundColor: backgroundChart11,
+                },
+                {
+                    label: "2024",
+                    data: values2024,
+                    backgroundColor: backgroundChart12,
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',
+            data: dataBar,
+            options: {
+                indexAxis: 'y',
+                elements: {
+                    bar: {
+                        borderWidth: 2,
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                    title: {
+                        display: true,
+                        text: `${chartTitle}`
+                    }
+                }
+            },
+        };
+
+        new Chart(ctx, config);
+    }
+
     createRadarChart("myRadarChart", "profit");
     createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
     createLineChart("myLineChart", "Free Cash Flow");    
@@ -432,8 +484,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Create html elements dinamically via JS to Pie Charts
     addBarChartCanvas("chart1Pie", "#chartsPie");
     addBarChartCanvas("chart2Pie", "#chartsPie");
-    addBarChartCanvas("chart3Pie", "#chartsPie");
-    addBarChartCanvas("chart4Pie", "#chartsPie");
 
 
     // Create Bar Charts (accounts not indicators)
@@ -451,8 +501,10 @@ document.addEventListener("DOMContentLoaded", function() {
         "Cash and cash equivalents", "Trade and other receivables", "Current tax Receivable"], 0, "chart1Pie", 2025, "Assets BreakDown");
     createPieChart(["Intangible assets", "Goodwill", "Property, plant and equipment", "Deferred tax asset",
         "Cash and cash equivalents", "Trade and other receivables", "Current tax Receivable"], 1, "chart2Pie", 2024, "Assets BreakDown");
-    createPieChart(["Share capital", "Other reserves", "Retained earnings", "Foreign exchange reserve"], 0, "chart3Pie", 2025, "Equity Composition");
-    createPieChart(["Share capital", "Other reserves", "Retained earnings", "Foreign exchange reserve"], 1, "chart4Pie", 2024, "Equity Composition");
+
+
+    createBarHorizontalChart("myHorizontalBarChart1", "equity", "Equity Composition Other Reserves and Retained Earnings");
+    createBarHorizontalChart("myHorizontalBarChart2", "equity2", "Equity Composition Share Capital and Foreign Exchange");
     
     // Create Doughnut Chart
     createDoughnutChart("myDoughnutChart", "profit", "Gross Profit");

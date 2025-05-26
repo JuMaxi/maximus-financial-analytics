@@ -517,8 +517,27 @@ document.addEventListener("DOMContentLoaded", function() {
         const freeCashFlow = calculateFreeCashFlow(); // £104.565 and £89.036
         const cashFlowDebtRatio = calculateCashFlowToDebtRatio(currentLiabilities); // 0.48 and 0.59
 
-        // "Cash generated from operating activities", "Net cash flow from investing activities"
         const indicators = {
+            "Share capital": {
+                values: [data.get("Share capital")[0], data.get("Share capital")[1]],
+                chartType: "bar",
+                group: "equity2"
+            },
+            "Other reserves": {
+                values: [data.get("Other reserves")[0], data.get("Other reserves")[1]],
+                chartType: "bar",
+                group: "equity"
+            },
+            "Retained earnings": {
+                values: [data.get("Retained earnings")[0], data.get("Retained earnings")[1]],
+                chartType: "bar",
+                group: "equity"
+            },
+            "Foreign exchange reserve": {
+                values: [data.get("Foreign exchange reserve")[0], data.get("Foreign exchange reserve")[1]],
+                chartType: "bar",
+                group: "equity2"
+            },
             "Revenue": {
                 values: [data.get("Revenue")[0], data.get("Revenue")[1]],
                 chartType: "bar",
