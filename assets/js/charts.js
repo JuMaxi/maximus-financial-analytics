@@ -8,6 +8,7 @@ const indicators = storedIndicators ? JSON.parse(storedIndicators) : {};
 
 // Chart.js code
 document.addEventListener("DOMContentLoaded", function() {
+    Chart.defaults.color = "#ddd";
     // Global variables
     // Purple-magenta-blue range palette
     const titleColor = "#f5f5f5";

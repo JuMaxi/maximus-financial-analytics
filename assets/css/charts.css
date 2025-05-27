@@ -1,12 +1,3 @@
-body {
-    padding: 25px;
-    background-color: #111525;
-}
-nav,
-footer {
-    background-color: #010820;
-}
-
 /* Bar charts */
 .bar-charts {
     width: 100% !important;
