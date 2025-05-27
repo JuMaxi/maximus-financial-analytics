@@ -10,6 +10,7 @@ const indicators = storedIndicators ? JSON.parse(storedIndicators) : {};
 document.addEventListener("DOMContentLoaded", function() {
     // Global variables
     // Purple-magenta-blue range palette
+    const titleColor = "#f5f5f5";
     const backgroundChart1 = "#960f88";
     const backgroundChart2 = "#441375";
     const backgroundChart3 = "#246C9A";
@@ -171,11 +172,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: "top"
+                        position: "top",
                     },
                     title: {
                         display: true,
-                        text: `${group} ${year}`
+                        align: "center",
+                        text: `${group} ${year}`,
+                        color: titleColor
                     }
                 }
             }
@@ -214,7 +217,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     },
                     title: {
                         display: true,
-                        text: chartTitle
+                        text: chartTitle,
+                        color: titleColor
                     }
                 }
             }
@@ -239,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
             labels:  ["2024", "2025"],
             datasets: [
                 {
-                    label: 'Free cash flow indicator from 2024 to 2025',
+                    label: "2024 to 2025",
                     data: [indicators[key].values[1], indicators[key].values[0]],
                     fill: false,
                     borderColor: backgroundChart3,
@@ -253,13 +257,15 @@ document.addEventListener("DOMContentLoaded", function() {
             data: dataLine,
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         position: 'top',
                     },
                     title: {
                         display: true,
-                        text: 'Free Cash Flow'
+                        text: 'Free Cash Flow',
+                        color: titleColor
                     }
                 }
             },
@@ -292,13 +298,15 @@ document.addEventListener("DOMContentLoaded", function() {
             data: dataBubble,
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         position: 'top',
                     },
                     title: {
                         display: true,
-                        text: 'Gross Margin'
+                        text: 'Gross Margin',
+                        color: titleColor
                     }
                 }
             },
@@ -346,7 +354,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     },
                     title: {
                         display: true,
-                        text: chartTitle
+                        text: chartTitle,
+                        color: titleColor
                     }
                 }
             }
@@ -398,6 +407,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 plugins: {
                     legend: {
                         display: true,
+                        position: "top",
+                    },
+                    title: {
+                        display: true,
+                        text: "Operating Margin",
+                        color: titleColor,
                     }
                 }
             },
@@ -448,7 +463,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     },
                     title: {
                         display: true,
-                        text: `${chartTitle}`
+                        text: `${chartTitle}`,
+                        color: titleColor
                     }
                 }
             },

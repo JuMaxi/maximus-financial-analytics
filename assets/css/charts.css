@@ -1,5 +1,10 @@
 body {
     padding: 25px;
+    background-color: #111525;
+}
+nav,
+footer {
+    background-color: #010820;
 }
 
 /* Bar charts */
@@ -92,4 +97,9 @@ body {
         min-height: 180px;
         max-height: 240px;
     }
+}
+
+.charts-background {
+    background-color: #161C31;
+    border-radius: 18px;
 }
