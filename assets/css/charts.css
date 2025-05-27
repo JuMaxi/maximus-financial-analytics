@@ -1,7 +1,6 @@
 /* Bar charts */
 .bar-charts {
-    width: 100% !important;
-    min-height: 300px;
+    min-height: 334px;
 }
 
 /* Gauge chart style */
@@ -72,8 +71,6 @@
 
 #myRadarChart {
     min-height: 220px;
-    max-height: 348px;
-    width: 100% !important;
     height: auto !important;
     aspect-ratio: 1 / 1;
     display: block;
