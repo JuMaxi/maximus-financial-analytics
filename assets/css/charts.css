@@ -14,12 +14,16 @@ body {
     width: 100%;         /* Use full width of the column */
 }
 
+.chart-container canvas {
+    height: 188px;
+}
+
 .needle {
     position: absolute;
-    bottom: 18%;
+    bottom: 4%;
     left: 50%;
     width: 2px; /* thinner for small charts */
-    height: 94px; /* reduce height */
+    height: 104px; /* reduce height */
     background: var(--secondary-color);
     transform-origin: bottom center;
     transform: translate(-50%, 0%) rotate(270deg);
@@ -40,7 +44,7 @@ body {
 
 .needle-center {
     position: absolute;
-    bottom: 18%;
+    bottom: 3%;
     left: 50%;
     width: 14px;
     height: 14px;
@@ -60,3 +64,12 @@ body {
     color: var(--secondary-color);
     z-index: 60;
 }
+/* Only target pie chart canvases */
+.pie-chart-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100% !important; /* never overflow the column */
+    height: 400px !important;   /* keep aspect ratio */
+}
+

@@ -60,7 +60,7 @@
         <!-- Bar charts and doughnut-->
         <section>
             <div class="container-fluid">
-                <div class="row">
+                <div class="row mb-5 py-3">
                     <!-- Bar Charts (left side) -->
                     <div class="col-12 col-lg-8">
                         <div class="row">
@@ -89,22 +89,24 @@
 
 
                 <div class="row">
-                <!-- Gauge charts -->
+                    <!-- Gauge charts -->
                     <div class="col-12 col-lg-6" id="chartsGauge">
                         <div class="row">
                         <!-- Gauge charts added here dynamically -->
                         </div>
-                    </div>
-
+                    </div>                    
                     <!-- Pie charts -->
                     <div class="col-12 col-lg-6 d-flex flex-column justify-content-around">
-                        <div class="pie-chart-wrapper">
-                            <canvas id="chartPie1"></canvas>
+                        <div>
+                            <canvas id="chartPie1" class="pie-chart-wrapper mb-4 py-2"></canvas>
                         </div>
-                        <div class="pie-chart-wrapper">
-                            <canvas id="chartPie2"></canvas>
+                        <div>
+                            <canvas id="chartPie2" class="pie-chart-wrapper mb-4 py-2"></canvas>
                         </div>
                     </div>
+
+
+                    
                 </div>
 
             </div>

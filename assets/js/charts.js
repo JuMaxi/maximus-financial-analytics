@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 labels: ["Red Zone", "Yellow Zone", "Green Zone"],
                 datasets: [
                     {
-                        data: [40, 80, 30],
+                        data: [33, 33, 33],
                         backgroundColor: [backgroundChart8, backgroundChart9, backgroundChart10],
                         cutout: "60%",
                         borderWidth: 0,
@@ -60,11 +60,11 @@ document.addEventListener("DOMContentLoaded", function() {
                         display: false
                     },
                     tooltip: {
-                        enabled: false
+                        enabled: true
                     },
                     title: {
                     display: true,
-                    text: key,
+                    text: `${key} ${year}`,
                     font: { size: 18 },
                     color: "#f5f5f5"
                 }
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Create a Bootstrap column wrapper
         const colDiv = document.createElement('div');
-        colDiv.className = "col-6 col-lg-6 d-flex align-items-center justify-content-center mb-3"; // Responsive column
+        colDiv.className = "col-12 col-sm-6 d-flex align-items-center justify-content-center mb-5"; // Responsive column
 
         // Create a wrapper for the gauge chart
         const wrapperDiv = document.createElement('div');
