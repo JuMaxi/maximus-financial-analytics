@@ -208,7 +208,6 @@ document.addEventListener("DOMContentLoaded", function() {
             type: "doughnut",
             data: dataToChart,
             options: {
-                responsive: true,
                 plugins: {
                     legend: {
                         position: "top"
@@ -395,6 +394,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     line: {
                         borderWidth: 3
                     }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                    }
                 }
             },
         };
@@ -430,16 +434,17 @@ document.addEventListener("DOMContentLoaded", function() {
             type: 'bar',
             data: dataBar,
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 indexAxis: 'y',
                 elements: {
                     bar: {
                         borderWidth: 2,
                     }
                 },
-                responsive: true,
                 plugins: {
                     legend: {
-                        position: 'right',
+                        position: 'top',
                     },
                     title: {
                         display: true,

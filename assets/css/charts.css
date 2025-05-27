@@ -64,6 +64,7 @@ body {
     color: var(--secondary-color);
     z-index: 60;
 }
+
 /* Only target pie chart canvases */
 .pie-chart-wrapper {
     display: flex;
@@ -73,3 +74,22 @@ body {
     height: 400px !important;   /* keep aspect ratio */
 }
 
+#myRadarChart {
+    min-height: 220px;
+    max-height: 348px;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    display: block;
+}
+
+.bar-horizontal-chart {
+    min-height: 300px;
+}
+
+@media (max-width: 575.98px) {
+    #myRadarChart {
+        min-height: 180px;
+        max-height: 240px;
+    }
+}
