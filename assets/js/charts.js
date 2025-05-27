@@ -89,16 +89,16 @@ document.addEventListener("DOMContentLoaded", function() {
     // Function to create gauge chart html elements dinamically via JS
     function addGaugeChartCanvas(key, year) {
         // Find the container where you want to add the gauge chart
-        const container = document.querySelector("#chartsGauge");
+        const container = document.querySelector(`#chartsGauge .row`);
         if (!container) return;
 
         // Create a Bootstrap column wrapper
         const colDiv = document.createElement('div');
-        colDiv.className = "col-12 col-sm-6 col-lg-3 mb-4"; // Responsive column
+        colDiv.className = "col-6 col-lg-6 d-flex align-items-center justify-content-center mb-3"; // Responsive column
 
         // Create a wrapper for the gauge chart
         const wrapperDiv = document.createElement('div');
-        wrapperDiv.className = "chart-container"; // Your custom styling
+        wrapperDiv.className = "chart-container"; // custom styling
         wrapperDiv.id = `gaugeContainer${key}${year}`;
 
         // Create the canvas element
@@ -168,6 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
             data: dataToChart,
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         position: "top"

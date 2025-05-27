@@ -80,30 +80,42 @@
                             </div>    
                         </div>
                     </div>
+
                     <!-- Doughnut Chart (right side) -->
                     <div class="col-12 col-lg-4 d-flex align-items-center justify-content-center mb-4 mb-lg-0">
                         <canvas id="myDoughnutChart"></canvas>
                     </div>
                 </div>
 
-            </div>
-        </section>
-    
-        <!-- Gauge charts -->
-        <section>
-            <div class="container-fluid py-5">
-                <div class="row" id="chartsGauge">
-                        <!-- Gauge charts will be added here dynamically -->
-                </div>
-            </div>
-        </section>
 
-        <!-- Pie charts -->
+                <div class="row">
+                <!-- Gauge charts -->
+                    <div class="col-12 col-lg-6" id="chartsGauge">
+                        <div class="row">
+                        <!-- Gauge charts added here dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Pie charts -->
+                    <div class="col-12 col-lg-6 d-flex flex-column justify-content-around">
+                        <div class="pie-chart-wrapper">
+                            <canvas id="chartPie1"></canvas>
+                        </div>
+                        <div class="pie-chart-wrapper">
+                            <canvas id="chartPie2"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    </section>
+    
+
+        
         <section>
             <div class="container-fluid py-5">
                 <div class="row" id="chartsPie">
-                    <canvas id="chartPie1"></canvas>
-                    <canvas id="chartPie2"></canvas>
+
                 </div>
             </div>
         </section>

@@ -2,19 +2,18 @@ body {
     padding: 25px;
 }
 
+/* Bar charts */
 .bar-charts {
     width: 100% !important;
     min-height: 300px;
 }
 
 /* Gauge chart style */
-
 .chart-container {
     position: relative;
     width: 100%;         /* Use full width of the column */
-    max-width: 250px;     /* Optional: limit max size */
-    margin: 0 auto;       /* Center inside column */
 }
+
 .needle {
     position: absolute;
     bottom: 18%;
@@ -61,4 +60,3 @@ body {
     color: var(--secondary-color);
     z-index: 60;
 }
-
