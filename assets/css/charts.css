@@ -72,7 +72,6 @@
 #myRadarChart {
     min-height: 220px;
     height: auto !important;
-    aspect-ratio: 1 / 1;
     display: block;
 }
 

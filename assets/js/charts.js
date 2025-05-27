@@ -400,6 +400,8 @@ document.addEventListener("DOMContentLoaded", function() {
             type: "radar",
             data: dataRadar,
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 elements: {
                     line: {
                         borderWidth: 3
