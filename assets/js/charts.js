@@ -212,6 +212,8 @@ document.addEventListener("DOMContentLoaded", function() {
             type: "doughnut",
             data: dataToChart,
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         position: "top"
