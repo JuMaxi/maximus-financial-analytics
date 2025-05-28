@@ -1,12 +1,27 @@
 /* Cards */
 .card1 {
     background: linear-gradient(to right, #04E2DF, #35A2DB, #5280D9, #6663D8);
+    color: var(--secondary-color);
 }
 
 .card2 {
     background: linear-gradient(to right, #d5a2e5, #cf7fe7, #d562f1, #b469f1);
+    color: var(--secondary-color);
 }
 
+.card3 {
+    background: linear-gradient(to right, #73bae9, #61ade0, #38a1e7, #059BFF);
+    color: var(--secondary-color);
+}
+
+.card4 {
+    background: linear-gradient(to right, #b893db, #be8feb, #a165da, #6F37A3);
+    color: var(--secondary-color);
+}
+
+.fa-2xl {
+    font-size: 4rem !important;
+}
 /* Bar charts */
 .bar-charts {
     min-height: 334px;
