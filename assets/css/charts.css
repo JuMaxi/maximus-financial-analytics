@@ -10,7 +10,7 @@
 }
 
 .chart-container canvas {
-    height: 188px;
+    height: 167px;
 }
 
 .needle {
@@ -60,15 +60,6 @@
     z-index: 60;
 }
 
-/* Only target pie chart canvases */
-.pie-chart-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 100% !important; /* never overflow the column */
-    height: 400px !important;   /* keep aspect ratio */
-}
-
 #myRadarChart {
     min-height: 220px;
     height: auto !important;
@@ -79,14 +70,23 @@
     min-height: 300px;
 }
 
-@media (max-width: 575.98px) {
-    #myRadarChart {
-        min-height: 180px;
-        max-height: 240px;
-    }
+.pie-chart-wrapper {
+    height: 315px;
+}
+
+.line-chart,
+.bubble-chart {
+    height: 170px;
 }
 
 .charts-background {
     background-color: #161C31;
     border-radius: 18px;
+}
+
+@media (max-width: 575.98px) {
+    #myRadarChart {
+        min-height: 180px;
+        max-height: 240px;
+    }
 }

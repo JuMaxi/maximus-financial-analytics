@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Create a Bootstrap column wrapper
         const colDiv = document.createElement('div');
-        colDiv.className = "col-12 col-sm-6 d-flex align-items-center justify-content-center mb-5"; // Responsive column
+        colDiv.className = "col-12 col-sm-6 d-flex align-items-center justify-content-center py-3 mb-2"; // Responsive column
 
         // Create a wrapper for the gauge chart
         const wrapperDiv = document.createElement('div');

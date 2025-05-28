@@ -56,27 +56,27 @@
     </nav>
 
     <!-- Main content -->
-    <main class="py-5 my-3">
+    <main class="pt-5 mt-3">
         <!-- Bar charts and doughnut-->
         <section>
-            <div class="container-fluid p-4 p-sm-5">
-                <div class="row mb-5">
+            <div class="container-fluid px-4 p-sm-5">
+                <div class="row pb-4 py-2">
                     <!-- Bar Charts (left side) -->
                     <div class="col-12 col-lg-7"> 
-                        <div class="pb-4 p-0 pb-lg-0 pe-lg-4">
+                        <div class="pb-4 px-0 py-4 pt-sm-0 pb-lg-0 pe-lg-4">
                             <div class="row charts-background">
                                 <!-- First row of bar charts -->
-                                <div class="col-12 col-md-6 mb-4 bar-charts">
+                                <div class="col-12 col-md-6 mb-4 bar-charts py-3">
                                     <canvas id="chartBar1"></canvas>
                                 </div>
-                                <div class="col-12 col-md-6 mb-4 bar-charts">
+                                <div class="col-12 col-md-6 mb-4 bar-charts py-3">
                                     <canvas id="chartBar2"></canvas>
                                 </div>
                                 <!-- Second row of bar charts -->
-                                <div class="col-12 col-md-6 mb-4 bar-charts">
+                                <div class="col-12 col-md-6 mb-4 bar-charts py-3">
                                     <canvas id="chartBar3"></canvas>
                                 </div>
-                                <div class="col-12 col-md-6 mb-4 bar-charts">
+                                <div class="col-12 col-md-6 mb-4 bar-charts py-3">
                                     <canvas id="chartBar4"></canvas>
                                 </div>    
                             </div>
@@ -85,13 +85,13 @@
                     </div>
 
                     <!-- Radar charts-->
-                    <div class="col-12 col-lg-5 d-flex align-items-center justify-content-center charts-background">
+                    <div class="col-12 col-lg-5 d-flex align-items-center justify-content-center charts-background py-3">
                         <canvas id="myRadarChart" class="radar-chart"></canvas>
                     </div>
                 </div>
 
 
-                <div class="row mb-5 justify-content-between">
+                <div class="row mb-4 justify-content-between">
                     <!-- Gauge charts -->
                     <div class="col-12 col-lg-5" id="chartsGauge">
                         <div class="pb-4 pb-lg-0 pe-lg-4">
@@ -100,41 +100,54 @@
                             </div>
                         </div>
                     </div>                    
-                    <!-- Pie charts -->
-                    <div class="col-12 col-lg-7 justify-content-center charts-background">
-                        <div>
-                            <canvas id="chartPie1" class="pie-chart-wrapper mb-5 py-2"></canvas>
+                    <div class="col-12 col-lg-7">
+                        <!-- Pie charts -->
+                        <div class="row charts-background">
+                            <div class="col-12 col-md-6 py-3 mb-2">
+                                <canvas id="chartPie1" class="pie-chart-wrapper"></canvas>
+                            </div>
+                            <div class="col-12 col-md-6 py-3 mb-2">
+                                <canvas id="chartPie2" class="pie-chart-wrapper"></canvas>
+                            </div>
                         </div>
-                        <div class="border"></div>
-                        <div class="justify-content-center">
-                            <canvas id="chartPie2" class="pie-chart-wrapper mb-5 py-2"></canvas>
+                        <!-- Line charts-->
+                        <div class="py-4">
+                            <div class="row charts-background">
+                                <div class="col-12 py-3 mb-2">
+                                    <canvas id="myLineChart" class=" line-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bubble charts-->
+                        <div class="row charts-background">
+                            <div class="col-12 py-3 mb-2">
+                                <canvas id="myBubbleChart" class="bubble-chart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row justify-content-between align-items-center">
-                        <!-- Doughnut Chart (right side) -->
-                        <div class="col-12 col-lg-4 mb-4 justify-content-center align-items-center charts-background">
-                            <canvas id="myDoughnutChart" class="mb-5"></canvas>
+                <div class="row mb-4 pb-lg-4 pb-xl-1">
+                    <!-- Horizontal bar charts -->
+                    <div class="col-12 col-lg-7"> 
+                        <div class="pe-lg-4 pb-4 pb-lg-0">
+                            <div class="row charts-background">
+                                <div class="col-12 col-md-6 py-3 mb-2">
+                                    <canvas id="myHorizontalBarChart1" class="bar-horizontal-chart"></canvas>
+                                </div>
+                                <div class="col-12 col-md-6 py-3 mb-2">
+                                    <canvas id="myHorizontalBarChart2" class="bar-horizontal-chart"></canvas>
+                                </div>
+                            </div>
                         </div>
-                        <!-- Horizontal bar charts -->
-                        <div class="col-12 col-lg-4 mb-4 justify-content-center align-items-center charts-background">
-                            <canvas id="myHorizontalBarChart1" class="mb-5 bar-horizontal-chart"></canvas>
-                        </div>
-                        <div class="col-12 col-lg-4 mb-4 justify-content-center align-items-center charts-background">
-                            <canvas id="myHorizontalBarChart2" class="mb-5 bar-horizontal-chart"></canvas>
-                        </div>
-
-                </div>
-                <div class="row row justify-content-between align-items-center">
-                    <!-- Line charts-->
-                    <div class="col-12 col-lg-6">
-                        <canvas id="myLineChart" class="mb-5 line-chart"></canvas>
+                        
                     </div>
-                    <!-- Bubble charts-->
-                    <div class="col-12 col-lg-6">
-                        <canvas id="myBubbleChart" class="mb-5 bubble-chart"></canvas>
-                     </div>
+
+                    <!-- Doughnut Chart -->
+                    <div class="col-12 col-lg-5 d-flex align-items-center py-4 mb-2 justify-content-center charts-background">
+                        <canvas id="myDoughnutChart"></canvas>
+                    </div>
                 </div>
             </div>
         </section>     
