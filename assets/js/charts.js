@@ -27,16 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const backgroundChart11 = "#8A3E8F";
     const backgroundChart12 = "#3A5F8A";
 
-    // function updateTotalRevenueValue() {
-    //     const revenue2025 = indicators["Revenue"].values[0];
-    //     const revenue2024 = indicators["Revenue"].values[1];
-
-    //     document.getElementById('totalRevenue2025').textContent = revenue2025;
-    //     document.getElementById('totalRevenue2024').textContent = revenue2024;
-    // }
-
-    // updateTotalRevenueValue();
-
     // Function to create Gauge chart
     function createGaugeChart(key, year, index) {
         const ctx2 = document.getElementById(`gaugeChart${key}${year}`).getContext("2d");
@@ -491,12 +481,20 @@ document.addEventListener("DOMContentLoaded", function() {
             
             const account = document.createElement("h5");
             account.textContent = labels[i];
+            account.style.paddingBottom = "10px";
+            account.style.fontSize = "22px";
 
             const paragraph2025 = document.createElement("p");
-            paragraph2025.textContent = values2025[i];
+            paragraph2025.textContent = values2025[i].toLocaleString("en-GB", {
+                style: "currency",
+                currency: "GBP"
+            });
 
             const paragraph2024 = document.createElement("p");
-            paragraph2024.textContent = values2024[i];
+            paragraph2024.textContent = values2024[i].toLocaleString("en-GB", {
+                style: "currency",
+                currency: "GBP"
+            });
 
             // Append the child elements to the card
             card.appendChild(account);
