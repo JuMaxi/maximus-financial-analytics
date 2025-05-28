@@ -483,18 +483,23 @@ document.addEventListener("DOMContentLoaded", function() {
             account.textContent = labels[i];
             account.style.paddingBottom = "10px";
             account.style.fontSize = "22px";
+            account.style.textShadow = "1px 1px 1px rgba(1, 8, 32, 0.34)";
 
             const paragraph2025 = document.createElement("p");
-            paragraph2025.textContent = values2025[i].toLocaleString("en-GB", {
+            paragraph2025.innerHTML = `${values2025[i].toLocaleString("en-GB", {
                 style: "currency",
                 currency: "GBP"
-            });
+            })}
+            <i class="fa-solid fa-arrow-up fa-xl" style="color: #389473;"></i>`;
+
+            paragraph2025.style.textShadow = "1px 1px 1px rgba(1, 8, 32, 0.22)";
 
             const paragraph2024 = document.createElement("p");
             paragraph2024.textContent = values2024[i].toLocaleString("en-GB", {
                 style: "currency",
                 currency: "GBP"
             });
+            paragraph2024.style.textShadow = "1px 1px 1px rgba(1, 8, 32, 0.22)";
 
             // Append the child elements to the card
             card.appendChild(account);
