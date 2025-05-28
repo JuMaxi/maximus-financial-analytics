@@ -1,3 +1,12 @@
+/* Cards */
+.card1 {
+    background: linear-gradient(to right, #04E2DF, #35A2DB, #5280D9, #6663D8);
+}
+
+.card2 {
+    background: linear-gradient(to right, #d5a2e5, #cf7fe7, #d562f1, #b469f1);
+}
+
 /* Bar charts */
 .bar-charts {
     min-height: 334px;

@@ -9,6 +9,8 @@ const indicators = storedIndicators ? JSON.parse(storedIndicators) : {};
 // Chart.js code
 document.addEventListener("DOMContentLoaded", function() {
     Chart.defaults.color = "#ddd";
+    Chart.defaults.borderColor = "#444";
+
     // Global variables
     // Purple-magenta-blue range palette
     const titleColor = "#f5f5f5";
@@ -359,7 +361,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         display: true,
                         text: chartTitle,
                         color: titleColor
-                    }
+                    },
                 }
             }
         });
@@ -477,6 +479,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
         new Chart(ctx, config);
     }
+
+    function writeCards(group) {
+        let bars = Object.keys(indicators).filter(k => indicators[k].group === group).map(k => indicators[k]);
+        let labels = Object.keys(indicators).filter(k => indicators[k].group === group);
+        let values2025 = bars.map(v => v.values[0]);
+        let values2024 = bars.map(v => v.values[1]);
+
+        for (let i = 0; i < values2025.length; i++) {
+            const card = document.getElementById(`card${i+1}`);
+            
+            const account = document.createElement("h5");
+            account.textContent = labels[i];
+
+            const paragraph2025 = document.createElement("p");
+            paragraph2025.textContent = values2025[i];
+
+            const paragraph2024 = document.createElement("p");
+            paragraph2024.textContent = values2024[i];
+
+            // Append the child elements to the card
+            card.appendChild(account);
+            card.appendChild(paragraph2025);
+            card.appendChild(paragraph2024);
+        }
+    }
+
+    writeCards("accounts");
 
     createRadarChart("myRadarChart", "profit");
     createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
