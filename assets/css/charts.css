@@ -23,10 +23,11 @@
     color: var(--secondary-color);
     min-height: 208px;
 }
-
+/* Change size font awesome icons */
 .fa-2xl {
     font-size: 4rem !important;
 }
+
 /* Bar charts */
 .bar-charts {
     min-height: 334px;
@@ -35,7 +36,7 @@
 /* Gauge chart style */
 .chart-container {
     position: relative;
-    width: 100%;         /* Use full width of the column */
+    width: 100%;         /* Full width of the column */
 }
 
 .chart-container canvas {

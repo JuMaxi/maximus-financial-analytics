@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     title: {
                     display: true,
                     text: `${key} ${year}`,
-                    font: { size: 18 },
+                    font: { size: 13 },
                     color: "#f5f5f5"
                 }
                 },
