@@ -38,22 +38,14 @@
                         <div class="col-12 col-lg-7 d-flex justify-content-center align-items-center mb-4 mb-lg-0">
                             <canvas id="modalChart"></canvas>
                         </div>
-                        <!-- Info area -->
                         <div class="col-12 col-lg-5 d-flex flex-column justify-content-between">
-                            <div id="modalChartInfo" class="mb-4">
-                                <!-- Chart info text will be injected here -->
-                            </div>
-                            <!-- Collapse button to display calculation info -->
-                            <div>
-                                <button class="btn-primary-custom-calculation mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCalculation" aria-expanded="false" aria-controls="collapseCalculation">
-                                    How is it calculated?
-                                </button>
-                                <div class="collapse" id="collapseCalculation">
-                                    <div class="card card-body p-2 collapse-calculation" id="calcCollapseContent">
-                                        <!-- Calculation info will be injected here -->
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Info area -->
+                            <div id="modalChartInfoText"></div>
+                            <div id="modalInterpInfo"></div>
+                            <div id="modalChartInfoTable"></div>
+                            <div id="modalCalcInfo"></div>
+                            <div id="modalChartCalculation" style="display:none"></div>
+                            <button id="toggleMeaningCalc" class="btn-primary-custom-calculation mb-2" type="button">How is it calculated?</button>
                         </div>
                     </div>
                 </div>

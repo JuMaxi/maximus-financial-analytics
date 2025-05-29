@@ -558,6 +558,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 info1: "Compares total debt to shareholders’ equity. It reflects how much debt a company uses for every unit of equity.",
                 info2: "A higher ratio suggests more reliance on debt (higher financial risk), while a lower ratio means the company is more equity-financed (potentially lower risk).",
                 interpretacion: {
+                    info: "Understanding your company chart:",
                     ratioRange: ["< 1.0", "= 1.0", "> 1.0", "> 2.0"],
                     meaning: ["More equity than debt", "Equal debt and equity", "More debt than equity", "Heavy reliance on debt"],
                     riskLevel: ["Low risk", "Balanced", "Higher risk", "Very high risk"],
@@ -571,81 +572,122 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function showChartModal(chartId, chartConfig, infoText, calcInfoList) {
-        // Show the modal
+    function showChartModal(chartId, chartConfig, infoText, interpInfo, interpTable, calcInfoText, calcHtml) {
         const modal = new bootstrap.Modal(document.getElementById('chartModal'));
         modal.show();
 
-        // Destroy previous chart instance if exists
         if (modalChartInstance) {
             modalChartInstance.destroy();
         }
 
-        // Render the chart in the modal
         const ctx = document.getElementById('modalChart').getContext('2d');
         modalChartInstance = new Chart(ctx, chartConfig);
 
         // Set info text
-        document.getElementById('modalChartInfo').innerHTML = infoText;
+        document.getElementById('modalChartInfoText').innerHTML = infoText;
 
-        // Set calculation info in collapse
-        const calcContent = document.getElementById('calcCollapseContent');
-        if (calcContent) {
-            calcContent.innerHTML = '';
-            calcInfoList.forEach(item => {
-                const div = document.createElement('div');
-                div.innerHTML = item;
-                calcContent.appendChild(div);
+        // Set interpretation info and table
+        document.getElementById('modalInterpInfo').innerHTML = interpInfo;
+        document.getElementById('modalChartInfoTable').innerHTML = interpTable;
+
+        // Set calculation info and calculation content
+        document.getElementById('modalCalcInfo').innerHTML = calcInfoText;
+        document.getElementById('modalChartCalculation').innerHTML = calcHtml;
+
+        // Initial state: show table and interpInfo, hide calculation and calcInfo
+        document.getElementById('modalInterpInfo').style.display = '';
+        document.getElementById('modalChartInfoTable').style.display = '';
+        document.getElementById('modalCalcInfo').style.display = 'none';
+        document.getElementById('modalChartCalculation').style.display = 'none';
+
+        const toggleBtn = document.getElementById('toggleMeaningCalc');
+        toggleBtn.textContent = 'How is it calculated?';
+
+        toggleBtn.onclick = function() {
+            const interpInfoDiv = document.getElementById('modalInterpInfo');
+            const tableDiv = document.getElementById('modalChartInfoTable');
+            const calcInfoDiv = document.getElementById('modalCalcInfo');
+            const calcDiv = document.getElementById('modalChartCalculation');
+            if (tableDiv.style.display === '' || tableDiv.style.display === 'block') {
+                tableDiv.style.display = 'none';
+                interpInfoDiv.style.display = 'none';
+                calcDiv.style.display = '';
+                calcInfoDiv.style.display = '';
+                toggleBtn.textContent = 'How is it interpreted?';
+            } else {
+                tableDiv.style.display = '';
+                interpInfoDiv.style.display = '';
+                calcDiv.style.display = 'none';
+                calcInfoDiv.style.display = 'none';
+                toggleBtn.textContent = 'How is it calculated?';
+            }
+        };
+    }
+    
+    /**
+     * Builds the modal content HTML from a chartInfo object.
+     * @param {Object} chartInfo - The info object from chartInfoMap.
+     * @returns {Object} { infoText, interpTable, calcHtml }
+     */
+    function buildModalContent(chartInfo) {
+        // 1. Info text (title and descriptions)
+        const infoText = `
+            <h5 style="text-align: center; padding: 3px 0px 5px 0px; font-size: 1rem; color: #f5f5f5;">${chartInfo.title}</h5>
+            <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info1}</p>
+            <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info2}</p>
+        `;
+
+        // 2. Interpretation info (above the table)
+        const interpInfo = `<p class="fw-bold mb-1">${chartInfo.interpretacion.info}</p>`;
+
+        // 2. Interpretation table
+        const interpKeys = Object.keys(chartInfo.interpretacion).filter(key => key !== "info");
+        const tableHeader = interpKeys.map(
+            key => `<th>${key.charAt(0).toUpperCase() + key.slice(1)}</th>`
+        ).join('');
+        let tableRows = '';
+        const numRows = chartInfo.interpretacion[interpKeys[0]].length;
+        for (let i = 0; i < numRows; i++) {
+            tableRows += '<tr>';
+            interpKeys.forEach(key => {
+                tableRows += `<td>${chartInfo.interpretacion[key][i]}</td>`;
             });
+            tableRows += '</tr>';
         }
+        const interpTable = `
+            <table class="table table-sm my-3">
+                <thead><tr>${tableHeader}</tr></thead>
+                <tbody>${tableRows}</tbody>
+            </table>
+        `;
+
+        // 4. Calculation info (above the calculation)
+        const calcInfoText = `<p class="fw-bold mb-1">How is this indicator calculated?</p>`;
+
+        // 3. Calculation HTML
+        const calcHtml = `
+            <div class="bg-light" style="color:#010820;">
+                <p><strong>${chartInfo.title} = </strong>${chartInfo.calculation.accounts[0]} / ${chartInfo.calculation.accounts[1]}</p>
+                <p></p>
+                <p>${chartInfo.calculation.info3}</p>
+                <p>${chartInfo.calculation.info4}</p>
+            </div>
+        `;
+
+        return { infoText, interpInfo, interpTable, calcInfoText, calcHtml };
     }
 
-    // 
     document.querySelectorAll('canvas').forEach(canvas => {
         canvas.addEventListener('click', function () {
             const config = chartConfigs[this.id];
-            const chartInfo = chartInfoMap[this.id]?.debtToEquity; // adapt as needed for other chart types
+            const chartInfo = chartInfoMap[this.id]?.debtToEquity; // adapt as needed
 
             if (config && chartInfo) {
-                // Build the interpretacion table
-                const interpKeys = Object.keys(chartInfo.interpretacion);
-                let tableHead = interpKeys.map(
-                    key => `<th>${key.charAt(0).toUpperCase() + key.slice(1)}</th>`
-                ).join('');
-                let tableRows = '';
-                const rowCount = chartInfo.interpretacion[interpKeys[0]].length;
-                for (let i = 0; i < rowCount; i++) {
-                    tableRows += '<tr>' + interpKeys.map(
-                        key => `<td>${chartInfo.interpretacion[key][i]}</td>`
-                    ).join('') + '</tr>';
-                }
-                const interpTable = `
-                    <table class="table table-sm table-bordered my-3">
-                        <thead><tr>${tableHead}</tr></thead>
-                        <tbody>${tableRows}</tbody>
-                    </table>
-                `;
-
-                // Info text (excluding calculation)
-                const infoText = `
-                    <h5>${chartInfo.title}</h5>
-                    <p>${chartInfo.info1}</p>
-                    <p>${chartInfo.info2}</p>
-                    ${interpTable}
-                `;
-
-                // Calculation info for the collapse
-                const calcInfoList = [
-                    `<strong>Accounts:</strong> ${chartInfo.calculation.accounts.join(', ')}`,
-                    `<p>${chartInfo.calculation.info3}</p>`,
-                    `<p>${chartInfo.calculation.info4}</p>`
-                ];
-
-                showChartModal(this.id, config, infoText, calcInfoList);
+                const { infoText, interpInfo, interpTable, calcInfoText, calcHtml } = buildModalContent(chartInfo);
+                showChartModal(this.id, config, infoText, interpInfo, interpTable, calcInfoText, calcHtml);
             } else if (config) {
-                showChartModal(this.id, config, "No info available.", []);
+                showChartModal(this.id, config, "No info available.", "", "", "", "");
             }
         });
     });
-
 });
