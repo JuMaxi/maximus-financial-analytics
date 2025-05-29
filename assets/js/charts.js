@@ -558,15 +558,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 info1: "Compares total debt to shareholders’ equity. It reflects how much debt a company uses for every unit of equity.",
                 info2: "A higher ratio suggests more reliance on debt (higher financial risk), while a lower ratio means the company is more equity-financed (potentially lower risk).",
                 interpretacion: {
-                    info: "Understanding your company chart:",
+                    info: "Understanding the indicator ratio",
                     ratioRange: ["< 1.0", "= 1.0", "> 1.0", "> 2.0"],
                     meaning: ["More equity than debt", "Equal debt and equity", "More debt than equity", "Heavy reliance on debt"],
                     riskLevel: ["Low risk", "Balanced", "Higher risk", "Very high risk"],
                 },
                 calculation: {
                     accounts: ["Total Liabilities", "Shareholders' Equity"],
-                    info3: "Total Liabilities: All debts and obligations the company owes.",
-                    info4: "Shareholders' Equity: What remains for shareholders after liabilities are subtracted from assets."
+                    info3: "All debts and obligations the company owes.",
+                    info4: "What remains for shareholders after liabilities are subtracted from assets."
                 }
             },
         }
@@ -632,13 +632,15 @@ document.addEventListener("DOMContentLoaded", function() {
     function buildModalContent(chartInfo) {
         // 1. Info text (title and descriptions)
         const infoText = `
-            <h5 style="text-align: center; padding: 3px 0px 5px 0px; font-size: 1rem; color: #f5f5f5;">${chartInfo.title}</h5>
-            <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info1}</p>
-            <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info2}</p>
+            <div class="p-4">
+                <h4 style="text-align: center; padding: 3px 0px 7px 0px; font-size: 1rem; color: #f5f5f5;" class="mb-3">${chartInfo.title}</h4>
+                <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info1}</p>
+                <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info2}</p>
+            </div>
         `;
 
         // 2. Interpretation info (above the table)
-        const interpInfo = `<p class="fw-bold mb-1">${chartInfo.interpretacion.info}</p>`;
+        const interpInfo = `<p class="mb-1 px-4" style="text-align: center;">${chartInfo.interpretacion.info}</p>`;
 
         // 2. Interpretation table
         const interpKeys = Object.keys(chartInfo.interpretacion).filter(key => key !== "info");
@@ -655,22 +657,26 @@ document.addEventListener("DOMContentLoaded", function() {
             tableRows += '</tr>';
         }
         const interpTable = `
-            <table class="table table-sm my-3">
-                <thead><tr>${tableHeader}</tr></thead>
-                <tbody>${tableRows}</tbody>
-            </table>
+            <div class="px-4">
+                <table class="table table-sm my-3">
+                    <thead><tr>${tableHeader}</tr></thead>
+                    <tbody>${tableRows}</tbody>
+                </table>
+            </div>
         `;
 
         // 4. Calculation info (above the calculation)
-        const calcInfoText = `<p class="fw-bold mb-1">How is this indicator calculated?</p>`;
+        const calcInfoText = `<p class="mb-1 px-4" style="text-align: center;">Understanding how it is calculated</p>`;
 
         // 3. Calculation HTML
         const calcHtml = `
-            <div class="bg-light" style="color:#010820;">
-                <p><strong>${chartInfo.title} = </strong>${chartInfo.calculation.accounts[0]} / ${chartInfo.calculation.accounts[1]}</p>
-                <p></p>
-                <p>${chartInfo.calculation.info3}</p>
-                <p>${chartInfo.calculation.info4}</p>
+            <div class="px-4 mb-3">
+                <div class="bg-light p-2 my-3" style="color:#010820;">
+                    <p><strong>${chartInfo.title} = </strong>${chartInfo.calculation.accounts[0]} / ${chartInfo.calculation.accounts[1]}</p>
+                    <p></p>
+                    <p><strong>${chartInfo.calculation.accounts[0]}: </strong>${chartInfo.calculation.info3}</p>
+                    <p><strong>${chartInfo.calculation.accounts[1]}: </strong>${chartInfo.calculation.info4}</p>
+                </div>
             </div>
         `;
 

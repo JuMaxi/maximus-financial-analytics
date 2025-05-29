@@ -147,9 +147,9 @@
     border-radius: 10px;
 }
 
-#collapseCalculation {
-    margin: 0 !important;
-    padding: 0 !important;
+/* Change the modal button to a light color (the X on the right corner)*/
+.modal-header .btn-close {
+  filter: brightness(0) invert(1);
 }
 
 @media (max-width: 575.98px) {
