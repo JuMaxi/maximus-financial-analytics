@@ -10,7 +10,6 @@ const indicators = storedIndicators ? JSON.parse(storedIndicators) : {};
 document.addEventListener("DOMContentLoaded", function() {
     Chart.defaults.color = "#ddd";
     Chart.defaults.borderColor = "#444";
-
     // Global variables
     // Purple-magenta-blue range palette
     const titleColor = "#f5f5f5";
@@ -29,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // This object is created to store a copy of the charts. So when the modal is in use, it will show the chart
     const chartConfigs = {};
-
+    
     // Function to create Gauge chart
     function createGaugeChart(key, year, index) {
         const ctx2 = document.getElementById(`gaugeChart${key}${year}`).getContext("2d");
@@ -549,9 +548,28 @@ document.addEventListener("DOMContentLoaded", function() {
     // Create Doughnut Chart
     createDoughnutChart("myDoughnutChart", "profit", "Gross Profit");
 
-    // Add this after your chart rendering code
-
+    // Function to work with bootstrap modal and the rendered charts
     let modalChartInstance = null;
+
+    const chartInfoMap = {
+        chartBar1: {
+            debtToEquity: {
+                title: "Debt-to-Equity Ratio",
+                info1: "Compares total debt to shareholders’ equity. It reflects how much debt a company uses for every unit of equity.",
+                info2: "A higher ratio suggests more reliance on debt (higher financial risk), while a lower ratio means the company is more equity-financed (potentially lower risk).",
+                interpretacion: {
+                    ratioRange: ["< 1.0", "= 1.0", "> 1.0", "> 2.0"],
+                    meaning: ["More equity than debt", "Equal debt and equity", "More debt than equity", "Heavy reliance on debt"],
+                    riskLevel: ["Low risk", "Balanced", "Higher risk", "Very high risk"],
+                },
+                calculation: {
+                    accounts: ["Total Liabilities", "Shareholders' Equity"],
+                    info3: "Total Liabilities: All debts and obligations the company owes.",
+                    info4: "Shareholders' Equity: What remains for shareholders after liabilities are subtracted from assets."
+                }
+            },
+        }
+    }
 
     function showChartModal(chartId, chartConfig, infoText, calcInfoList) {
         // Show the modal
@@ -570,22 +588,62 @@ document.addEventListener("DOMContentLoaded", function() {
         // Set info text
         document.getElementById('modalChartInfo').innerHTML = infoText;
 
-        // Set calculation info in dropdown
-        const calcMenu = document.getElementById('calcDropdownMenu');
-        calcMenu.innerHTML = '';
-        calcInfoList.forEach(item => {
-            const li = document.createElement('li');
-            li.innerHTML = `<span class="dropdown-item">${item}</span>`;
-            calcMenu.appendChild(li);
-        });
+        // Set calculation info in collapse
+        const calcContent = document.getElementById('calcCollapseContent');
+        if (calcContent) {
+            calcContent.innerHTML = '';
+            calcInfoList.forEach(item => {
+                const div = document.createElement('div');
+                div.innerHTML = item;
+                calcContent.appendChild(div);
+            });
+        }
     }
 
-    // Example: Attach click event to all charts
+    // 
     document.querySelectorAll('canvas').forEach(canvas => {
         canvas.addEventListener('click', function () {
             const config = chartConfigs[this.id];
-            if (config) {
-                showChartModal(this.id, config, "Chart info here", ["Step 1", "Step 2"]);
+            const chartInfo = chartInfoMap[this.id]?.debtToEquity; // adapt as needed for other chart types
+
+            if (config && chartInfo) {
+                // Build the interpretacion table
+                const interpKeys = Object.keys(chartInfo.interpretacion);
+                let tableHead = interpKeys.map(
+                    key => `<th>${key.charAt(0).toUpperCase() + key.slice(1)}</th>`
+                ).join('');
+                let tableRows = '';
+                const rowCount = chartInfo.interpretacion[interpKeys[0]].length;
+                for (let i = 0; i < rowCount; i++) {
+                    tableRows += '<tr>' + interpKeys.map(
+                        key => `<td>${chartInfo.interpretacion[key][i]}</td>`
+                    ).join('') + '</tr>';
+                }
+                const interpTable = `
+                    <table class="table table-sm table-bordered my-3">
+                        <thead><tr>${tableHead}</tr></thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
+                `;
+
+                // Info text (excluding calculation)
+                const infoText = `
+                    <h5>${chartInfo.title}</h5>
+                    <p>${chartInfo.info1}</p>
+                    <p>${chartInfo.info2}</p>
+                    ${interpTable}
+                `;
+
+                // Calculation info for the collapse
+                const calcInfoList = [
+                    `<strong>Accounts:</strong> ${chartInfo.calculation.accounts.join(', ')}`,
+                    `<p>${chartInfo.calculation.info3}</p>`,
+                    `<p>${chartInfo.calculation.info4}</p>`
+                ];
+
+                showChartModal(this.id, config, infoText, calcInfoList);
+            } else if (config) {
+                showChartModal(this.id, config, "No info available.", []);
             }
         });
     });

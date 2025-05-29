@@ -119,8 +119,9 @@
     background-color: #222b4b;
 }
 
-.chart-modal {
-    height: 400px !important;
+#modalChart {
+    max-height: 400px !important;
+    min-height: 280px !important;
 }
 
 .btn-primary-custom-calculation {
@@ -142,6 +143,11 @@
 
 .collapse-calculation {
     border-radius: 10px;
+}
+
+#collapseCalculation {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 @media (max-width: 575.98px) {

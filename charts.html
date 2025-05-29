@@ -36,7 +36,7 @@
                     <div class="row">
                         <!-- Chart area -->
                         <div class="col-12 col-lg-7 d-flex justify-content-center align-items-center mb-4 mb-lg-0">
-                            <canvas id="modalChart" class="chart-modal"></canvas>
+                            <canvas id="modalChart"></canvas>
                         </div>
                         <!-- Info area -->
                         <div class="col-12 col-lg-5 d-flex flex-column justify-content-between">
@@ -46,11 +46,11 @@
                             <!-- Collapse button to display calculation info -->
                             <div>
                                 <button class="btn-primary-custom-calculation mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCalculation" aria-expanded="false" aria-controls="collapseCalculation">
-                                    How to calculate it?
+                                    How is it calculated?
                                 </button>
                                 <div class="collapse" id="collapseCalculation">
-                                    <div class="card card-body collapse-calculation">
-                                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                    <div class="card card-body p-2 collapse-calculation" id="calcCollapseContent">
+                                        <!-- Calculation info will be injected here -->
                                     </div>
                                 </div>
                             </div>
