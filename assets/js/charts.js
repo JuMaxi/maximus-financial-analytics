@@ -671,7 +671,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // 3. Calculation HTML
         const calcHtml = `
             <div class="px-4 mb-3">
-                <div class="bg-light p-2 my-3" style="color:#010820;">
+                <div class="p-2 my-3 calculation" style="color:#010820;">
                     <p><strong>${chartInfo.title} = </strong>${chartInfo.calculation.accounts[0]} / ${chartInfo.calculation.accounts[1]}</p>
                     <p></p>
                     <p><strong>${chartInfo.calculation.accounts[0]}: </strong>${chartInfo.calculation.info3}</p>

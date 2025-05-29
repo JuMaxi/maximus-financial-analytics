@@ -152,6 +152,11 @@
   filter: brightness(0) invert(1);
 }
 
+.calculation {
+    border-radius: 10px;
+    background-color:  #e9e3e9;
+}
+
 @media (max-width: 575.98px) {
     #myRadarChart {
         min-height: 180px;
