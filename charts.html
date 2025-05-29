@@ -22,6 +22,46 @@
     <link rel="stylesheet" href="assets/css/charts.css">
     
 </head>
+
+<!-- Modal Structure (place before </body>) -->
+<div class="modal fade" id="chartModal" tabindex="-1" aria-labelledby="chartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chartModalLabel">Chart Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- Chart area -->
+                        <div class="col-12 col-lg-7 d-flex justify-content-center align-items-center mb-4 mb-lg-0">
+                            <canvas id="modalChart" class="chart-modal"></canvas>
+                        </div>
+                        <!-- Info area -->
+                        <div class="col-12 col-lg-5 d-flex flex-column justify-content-between">
+                            <div id="modalChartInfo" class="mb-4">
+                                <!-- Chart info text will be injected here -->
+                            </div>
+                            <!-- Collapse button to display calculation info -->
+                            <div>
+                                <button class="btn-primary-custom-calculation mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCalculation" aria-expanded="false" aria-controls="collapseCalculation">
+                                    How to calculate it?
+                                </button>
+                                <div class="collapse" id="collapseCalculation">
+                                    <div class="card card-body collapse-calculation">
+                                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
@@ -58,6 +98,7 @@
     <!-- Main content -->
     
     <main class="pt-5 mt-3">
+        <!-- Section to the 4 cards in the top of the page-->
         <section>
             <div class="container pt-5">
                 <div class="row" id="cards">
@@ -113,7 +154,7 @@
             </div>
         </section>
 
-
+        <!-- Section to the charts -->
         <section>
             <div class="container-fluid px-4 p-sm-5">
                 <div class="row pb-4 py-2">

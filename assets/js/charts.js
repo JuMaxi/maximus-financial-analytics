@@ -27,6 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const backgroundChart11 = "#8A3E8F";
     const backgroundChart12 = "#3A5F8A";
 
+    // This object is created to store a copy of the charts. So when the modal is in use, it will show the chart
+    const chartConfigs = {};
+
     // Function to create Gauge chart
     function createGaugeChart(key, year, index) {
         const ctx2 = document.getElementById(`gaugeChart${key}${year}`).getContext("2d");
@@ -177,6 +180,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         };
 
+        chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
         new Chart(ctx, config);
     }
 
@@ -219,6 +223,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         };
 
+        chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
         new Chart(ctx, config);
     }
 
@@ -266,6 +271,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
         };
 
+        chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
         new Chart(ctx, config);
     }
 
@@ -307,6 +313,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
         };
 
+        chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
         new Chart(ctx, config);
     }
 
@@ -317,24 +324,26 @@ document.addEventListener("DOMContentLoaded", function() {
         let labels = Object.keys(indicators).filter(k => indicators[k].chartType === "bar" && indicators[k].group === group);
         let values2025 = bars.map(v => v.values[0]);
         let values2024 = bars.map(v => v.values[1]);
+
+        const dataBar = {
+            labels: labels,
+            datasets: [
+                {
+                    label: "2025",
+                    data: values2025,
+                    backgroundColor: backgroundChart2,
+                },
+                {
+                    label: "2024",
+                    data: values2024,
+                    backgroundColor: backgroundChart1,
+                }
+            ]
+        };
         
-        new Chart(ctx, {
+        const config = {
             type: "bar",
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: "2025",
-                        data: values2025,
-                        backgroundColor: backgroundChart2
-                    },
-                    {
-                        label: "2024",
-                        data: values2024,
-                        backgroundColor:  backgroundChart1
-                    }
-                ]
-            },
+            data: dataBar,
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -354,7 +363,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     },
                 }
             }
-        });
+        }
+        
+        chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
+        new Chart(ctx, config);
     }    
     
     function createRadarChart(canvasId, group) {
@@ -366,7 +378,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         const dataRadar = {
-           labels: labels,
+            labels: labels,
             datasets: [{
                 label: "2025",
                 data: values2025,
@@ -414,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             },
         };
-
+        chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
         new Chart(ctx, config);
     }
 
@@ -467,6 +479,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
         };
 
+        chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
         new Chart(ctx, config);
     }
 
@@ -486,7 +499,7 @@ document.addEventListener("DOMContentLoaded", function() {
             account.style.textShadow = "1px 1px 1px rgba(1, 8, 32, 0.34)";
 
             const paragraph2025 = document.createElement("p");
-            paragraph2025.innerHTML = `${values2025[i].toLocaleString("en-GB", {
+            paragraph2025.innerHTML = `2025 - ${values2025[i].toLocaleString("en-GB", {
                 style: "currency",
                 currency: "GBP"
             })}
@@ -495,10 +508,10 @@ document.addEventListener("DOMContentLoaded", function() {
             paragraph2025.style.textShadow = "1px 1px 1px rgba(1, 8, 32, 0.22)";
 
             const paragraph2024 = document.createElement("p");
-            paragraph2024.textContent = values2024[i].toLocaleString("en-GB", {
+            paragraph2024.textContent = `2024 - ${values2024[i].toLocaleString("en-GB", {
                 style: "currency",
                 currency: "GBP"
-            });
+            })}`;
             paragraph2024.style.textShadow = "1px 1px 1px rgba(1, 8, 32, 0.22)";
 
             // Append the child elements to the card
@@ -535,5 +548,46 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Create Doughnut Chart
     createDoughnutChart("myDoughnutChart", "profit", "Gross Profit");
+
+    // Add this after your chart rendering code
+
+    let modalChartInstance = null;
+
+    function showChartModal(chartId, chartConfig, infoText, calcInfoList) {
+        // Show the modal
+        const modal = new bootstrap.Modal(document.getElementById('chartModal'));
+        modal.show();
+
+        // Destroy previous chart instance if exists
+        if (modalChartInstance) {
+            modalChartInstance.destroy();
+        }
+
+        // Render the chart in the modal
+        const ctx = document.getElementById('modalChart').getContext('2d');
+        modalChartInstance = new Chart(ctx, chartConfig);
+
+        // Set info text
+        document.getElementById('modalChartInfo').innerHTML = infoText;
+
+        // Set calculation info in dropdown
+        const calcMenu = document.getElementById('calcDropdownMenu');
+        calcMenu.innerHTML = '';
+        calcInfoList.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="dropdown-item">${item}</span>`;
+            calcMenu.appendChild(li);
+        });
+    }
+
+    // Example: Attach click event to all charts
+    document.querySelectorAll('canvas').forEach(canvas => {
+        canvas.addEventListener('click', function () {
+            const config = chartConfigs[this.id];
+            if (config) {
+                showChartModal(this.id, config, "Chart info here", ["Step 1", "Step 2"]);
+            }
+        });
+    });
 
 });
