@@ -39,14 +39,24 @@
                             <canvas id="modalChart"></canvas>
                         </div>
                         <div class="col-12 col-lg-5 d-flex flex-column justify-content-between">
-                            <!-- Info area -->
-                            <div id="modalChartInfoText"></div>
-                            <div id="modalInterpInfo"></div>
-                            <div id="modalChartInfoTable"></div>
-                            <div id="modalCalcInfo"></div>
-                            <div id="modalChartCalculation" style="display:none"></div>
-                            <div class="px-4">
-                                <button id="toggleMeaningCalc" class="btn-primary-custom-calculation mb-2" type="button">How is it calculated?</button>
+                            <ul class="nav nav-tabs mb-3" id="modalTabNav" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab">Test 1</button>
+                                </li>
+                            </ul>
+                            <!-- Tab 1 content -->
+                            <div class="tab-content" id="modalTabContent">
+                                <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                                <!-- Info area -->
+                                    <div id="modalChartInfoText"></div>
+                                    <div id="modalInterpInfo"></div>
+                                    <div id="modalChartInfoTable"></div>
+                                    <div id="modalCalcInfo"></div>
+                                    <div id="modalChartCalculation" style="display:none"></div>
+                                    <div class="px-4">
+                                        <button id="toggleMeaningCalc" class="btn-primary-custom-calculation mb-2" type="button">How is it calculated?</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
