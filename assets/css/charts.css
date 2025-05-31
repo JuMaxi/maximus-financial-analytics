@@ -157,6 +157,20 @@
     background-color:  #e9e3e9;
 }
 
+.custom-bg-table {
+    border-radius:10px;
+    overflow:hidden; 
+    background-color: #e9e3e9 !important;
+}
+
+.custom-bg-table,
+.custom-bg-table th,
+.custom-bg-table td {
+    background-color: #e9e3e9 !important;
+    border: 1px solid #222b4b !important; /* Bootstrap's default border color */
+    color: #222b4b !important;
+}
+
 @media (max-width: 575.98px) {
     #myRadarChart {
         min-height: 180px;

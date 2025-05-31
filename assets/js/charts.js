@@ -548,9 +548,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Create Doughnut Chart
     createDoughnutChart("myDoughnutChart", "profit", "Gross Profit");
 
-    // Function to work with bootstrap modal and the rendered charts
-    let modalChartInstance = null;
-
     const chartInfoMap = {
         chartBar1: {
             debtToEquity: {
@@ -569,80 +566,63 @@ document.addEventListener("DOMContentLoaded", function() {
                     info4: "What remains for shareholders after liabilities are subtracted from assets."
                 }
             },
-        }
-    }
-
-    function showChartModal(chartId, chartConfig, infoText, interpInfo, interpTable, calcInfoText, calcHtml) {
-        const modal = new bootstrap.Modal(document.getElementById('chartModal'));
-        modal.show();
-
-        if (modalChartInstance) {
-            modalChartInstance.destroy();
-        }
-
-        const ctx = document.getElementById('modalChart').getContext('2d');
-        modalChartInstance = new Chart(ctx, chartConfig);
-
-        // Set info text
-        document.getElementById('modalChartInfoText').innerHTML = infoText;
-
-        // Set interpretation info and table
-        document.getElementById('modalInterpInfo').innerHTML = interpInfo;
-        document.getElementById('modalChartInfoTable').innerHTML = interpTable;
-
-        // Set calculation info and calculation content
-        document.getElementById('modalCalcInfo').innerHTML = calcInfoText;
-        document.getElementById('modalChartCalculation').innerHTML = calcHtml;
-
-        // Initial state: show table and interpInfo, hide calculation and calcInfo
-        document.getElementById('modalInterpInfo').style.display = '';
-        document.getElementById('modalChartInfoTable').style.display = '';
-        document.getElementById('modalCalcInfo').style.display = 'none';
-        document.getElementById('modalChartCalculation').style.display = 'none';
-
-        const toggleBtn = document.getElementById('toggleMeaningCalc');
-        toggleBtn.textContent = 'How is it calculated?';
-
-        toggleBtn.onclick = function() {
-            const interpInfoDiv = document.getElementById('modalInterpInfo');
-            const tableDiv = document.getElementById('modalChartInfoTable');
-            const calcInfoDiv = document.getElementById('modalCalcInfo');
-            const calcDiv = document.getElementById('modalChartCalculation');
-            if (tableDiv.style.display === '' || tableDiv.style.display === 'block') {
-                tableDiv.style.display = 'none';
-                interpInfoDiv.style.display = 'none';
-                calcDiv.style.display = '';
-                calcInfoDiv.style.display = '';
-                toggleBtn.textContent = 'How is it interpreted?';
-            } else {
-                tableDiv.style.display = '';
-                interpInfoDiv.style.display = '';
-                calcDiv.style.display = 'none';
-                calcInfoDiv.style.display = 'none';
-                toggleBtn.textContent = 'How is it calculated?';
+        },
+        chartBar2: {
+            debtRatio: {
+                title: "Debt Ratio",
+                info1: "Measures the proportion of a company’s assets that are financed through debt.",
+                info2: "A higher ratio indicates greater leverage and financial risk, while a lower ratio suggests a more conservative use of debt.",
+                interpretacion: {
+                    info: "Understanding the indicator ratio",
+                    ratioRange: ["< 0.5", "= 0.5", "> 0.5", "> 0.75"],
+                    meaning: ["Low debt usage", "Balanced", "More debt-financed", "High debt burden"],
+                    riskLevel: ["Low risk", "Moderate", "High risk", "Very high risk"],
+                },
+                calculation: {
+                    accounts: ["Total Liabilities", "Total Assets"],
+                    info3: "All debts and obligations the company owes.",
+                    info4: "The total value of everything the company owns."
+                }
             }
-        };
+        },
+        chartBar3: {
+            equityRatio: {
+                title: "Equity Ratio",
+                info1: "Shows the proportion of a company’s total assets financed by shareholders' equity.",
+                info2: "A higher ratio indicates stronger equity funding, while a lower ratio suggests reliance on debt.",
+                interpretacion: {
+                    info: "Understanding the indicator ratio",
+                    ratioRange: ["< 0.3", "= 0.5", "> 0.5", "> 0.7"],
+                    meaning: ["Low equity", "Balanced", "Strong equity base", "Very strong equity base"],
+                    riskLevel: ["High risk", "Moderate", "Low risk", "Very low risk"],
+                },
+                calculation: {
+                    accounts: ["Shareholders' Equity", "Total Assets"],
+                    info3: "What remains for shareholders after liabilities are subtracted from assets.",
+                    info4: "The total value of everything the company owns."
+                }
+            }
+        }
     }
-    
+
     /**
      * Builds the modal content HTML from a chartInfo object.
      * @param {Object} chartInfo - The info object from chartInfoMap.
-     * @returns {Object} { infoText, interpTable, calcHtml }
-     */
+     * @returns {Object} { infoText, interpInfo, interpTable, calcInfoText, calcHtml }
+    */
     function buildModalContent(chartInfo) {
-        // 1. Info text (title and descriptions)
+        // Info text (title and descriptions)
         const infoText = `
             <div class="p-4">
-                <h4 style="text-align: center; padding: 3px 0px 7px 0px; font-size: 1rem; color: #f5f5f5;" class="mb-3">${chartInfo.title}</h4>
                 <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info1}</p>
                 <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info2}</p>
             </div>
         `;
 
-        // 2. Interpretation info (above the table)
+        // Interpretation info (above the table)
         const interpInfo = `<p class="mb-1 px-4" style="text-align: center;">${chartInfo.interpretacion.info}</p>`;
 
-        // 2. Interpretation table
+        // Interpretation table
         const interpKeys = Object.keys(chartInfo.interpretacion).filter(key => key !== "info");
         const tableHeader = interpKeys.map(
             key => `<th>${key.charAt(0).toUpperCase() + key.slice(1)}</th>`
@@ -657,23 +637,28 @@ document.addEventListener("DOMContentLoaded", function() {
             tableRows += '</tr>';
         }
         const interpTable = `
-            <div class="px-4">
-                <table class="table table-sm my-3">
-                    <thead><tr>${tableHeader}</tr></thead>
-                    <tbody>${tableRows}</tbody>
-                </table>
+            <div class="table-responsive px-4 mb-3">
+            <table class="table table-sm table-bordered my-3 custom-bg-table">
+                <thead>
+                <tr style="border-radius:10px;">
+                ${tableHeader}
+                </tr>
+                </thead>
+                <tbody>
+                ${tableRows}
+                </tbody>
+            </table>
             </div>
         `;
 
-        // 4. Calculation info (above the calculation)
+        // Calculation info (above the calculation)
         const calcInfoText = `<p class="mb-1 px-4" style="text-align: center;">Understanding how it is calculated</p>`;
 
-        // 3. Calculation HTML
+        // Calculation HTML
         const calcHtml = `
             <div class="px-4 mb-3">
-                <div class="p-2 my-3 calculation" style="color:#010820;">
+                <div class="p-2 my-3 calculation" style="color:#222b4b;">
                     <p><strong>${chartInfo.title} = </strong>${chartInfo.calculation.accounts[0]} / ${chartInfo.calculation.accounts[1]}</p>
-                    <p></p>
                     <p><strong>${chartInfo.calculation.accounts[0]}: </strong>${chartInfo.calculation.info3}</p>
                     <p><strong>${chartInfo.calculation.accounts[1]}: </strong>${chartInfo.calculation.info4}</p>
                 </div>
@@ -683,17 +668,103 @@ document.addEventListener("DOMContentLoaded", function() {
         return { infoText, interpInfo, interpTable, calcInfoText, calcHtml };
     }
 
+    /**
+     * Dynamically builds modal tabs and content from chartInfoMap.
+     * @param {Object} chartInfoMap - The info object from chartInfoMap.
+     */
+    function buildModalTabs(chartInfoMap) {
+        const tabNav = document.getElementById('modalTabNav');
+        const tabContent = document.getElementById('modalTabContent');
+        tabNav.innerHTML = '';
+        tabContent.innerHTML = '';
+
+        let first = true;
+        Object.entries(chartInfoMap).forEach(([tabKey, tabObj], idx) => {
+            // Each tabObj may have multiple indicators (e.g., debtToEquity, debtRatio, etc.)
+            Object.entries(tabObj).forEach(([indicatorKey, chartInfo]) => {
+                const tabId = `tab-${tabKey}-${indicatorKey}`;
+                // Tab button
+                const tabBtn = document.createElement('button');
+                tabBtn.className = `nav-link${first ? ' active' : ''}`;
+                tabBtn.id = `${tabId}-tab`;
+                tabBtn.setAttribute('data-bs-toggle', 'tab');
+                tabBtn.setAttribute('data-bs-target', `#${tabId}`);
+                tabBtn.type = 'button';
+                tabBtn.role = 'tab';
+                tabBtn.textContent = chartInfo.title;
+
+                const tabLi = document.createElement('li');
+                tabLi.className = 'nav-item';
+                tabLi.role = 'presentation';
+                tabLi.appendChild(tabBtn);
+                tabNav.appendChild(tabLi);
+
+                // Tab content
+                const tabPane = document.createElement('div');
+                tabPane.className = `tab-pane fade${first ? ' show active' : ''}`;
+                tabPane.id = tabId;
+                tabPane.role = 'tabpanel';
+                tabPane.setAttribute('aria-labelledby', `${tabId}-tab`);
+
+                // Build modal content for this indicator
+                const { infoText, interpInfo, interpTable, calcInfoText, calcHtml } = buildModalContent(chartInfo);
+
+                tabPane.innerHTML = `
+                    <div id="modalChartInfoText">${infoText}</div>
+                    <div id="modalInterpInfo">${interpInfo}</div>
+                    <div id="modalChartInfoTable">${interpTable}</div>
+                    <div id="modalCalcInfo" style="display:none">${calcInfoText}</div>
+                    <div id="modalChartCalculation" style="display:none">${calcHtml}</div>
+                    <div class="px-4">
+                        <button class="btn-primary-custom-calculation mb-2 toggleMeaningCalcBtn" type="button">How is it calculated?</button>
+                    </div>
+                `;
+                tabContent.appendChild(tabPane);
+
+                first = false;
+            });
+        });
+
+        // Add toggle logic for each tab's button
+        tabContent.querySelectorAll('.toggleMeaningCalcBtn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const parent = btn.closest('.tab-pane');
+                const interpInfoDiv = parent.querySelector('#modalInterpInfo');
+                const tableDiv = parent.querySelector('#modalChartInfoTable');
+                const calcInfoDiv = parent.querySelector('#modalCalcInfo');
+                const calcDiv = parent.querySelector('#modalChartCalculation');
+                if (tableDiv.style.display === '' || tableDiv.style.display === 'block') {
+                    tableDiv.style.display = 'none';
+                    interpInfoDiv.style.display = 'none';
+                    calcDiv.style.display = '';
+                    calcInfoDiv.style.display = '';
+                    btn.textContent = 'How is it interpreted?';
+                } else {
+                    tableDiv.style.display = '';
+                    interpInfoDiv.style.display = '';
+                    calcDiv.style.display = 'none';
+                    calcInfoDiv.style.display = 'none';
+                    btn.textContent = 'How is it calculated?';
+                }
+            });
+        });
+    }
+
+    // Update your canvas click event to use the dynamic tabs
     document.querySelectorAll('canvas').forEach(canvas => {
         canvas.addEventListener('click', function () {
             const config = chartConfigs[this.id];
-            const chartInfo = chartInfoMap[this.id]?.debtToEquity; // adapt as needed
-
-            if (config && chartInfo) {
-                const { infoText, interpInfo, interpTable, calcInfoText, calcHtml } = buildModalContent(chartInfo);
-                showChartModal(this.id, config, infoText, interpInfo, interpTable, calcInfoText, calcHtml);
-            } else if (config) {
-                showChartModal(this.id, config, "No info available.", "", "", "", "");
+            if (config) {
+                buildModalTabs(chartInfoMap); // <-- show all tabs!
+                const modal = new bootstrap.Modal(document.getElementById('chartModal'));
+                modal.show();
+                if (window.modalChartInstance) window.modalChartInstance.destroy();
+                const ctx = document.getElementById('modalChart').getContext('2d');
+                window.modalChartInstance = new Chart(ctx, config);
             }
         });
     });
+
+
+   
 });
