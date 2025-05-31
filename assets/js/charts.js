@@ -637,17 +637,17 @@ document.addEventListener("DOMContentLoaded", function() {
             tableRows += '</tr>';
         }
         const interpTable = `
-            <div class="table-responsive px-4 mb-3">
-            <table class="table table-sm table-bordered my-3 custom-bg-table">
-                <thead>
-                <tr style="border-radius:10px;">
-                ${tableHeader}
-                </tr>
-                </thead>
-                <tbody>
-                ${tableRows}
-                </tbody>
-            </table>
+            <div class="table-responsive px-4">
+                <table class="table table-sm table-bordered my-3 custom-bg-table">
+                    <thead>
+                        <tr style="border-radius:10px;">
+                            ${tableHeader}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
             </div>
         `;
 

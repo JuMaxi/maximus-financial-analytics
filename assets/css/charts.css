@@ -120,7 +120,7 @@
 }
 
 #modalChart {
-    max-height: 400px !important;
+    max-height: 500px !important;
     min-height: 280px !important;
 }
 
@@ -157,6 +157,7 @@
     background-color:  #e9e3e9;
 }
 
+/* Change style interpretation table */
 .custom-bg-table {
     border-radius:10px;
     overflow:hidden; 
@@ -169,6 +170,26 @@
     background-color: #e9e3e9 !important;
     border: 1px solid #222b4b !important; /* Bootstrap's default border color */
     color: #222b4b !important;
+}
+
+/* Make tabs smaller and adjust padding/font */
+.small-tabs .nav-link {
+    font-size: 1rem;
+    padding: 0.45rem 0.75rem;
+    min-height: 1.5rem;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Optional: reduce margin between tabs */
+.small-tabs .nav-item {
+    margin-right: 2px;
+}
+
+/* Make active tab more distinct */
+.small-tabs .nav-link.active {
+    background-color: #e9e3e9;
+    color: #222b4b;
+    border-color: #dee2e6 #dee2e6 #fff;
 }
 
 @media (max-width: 575.98px) {
