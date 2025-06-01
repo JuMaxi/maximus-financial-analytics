@@ -833,6 +833,398 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         },
+        chartPie1: {
+            intangibleAssets: {
+                title: "Intangible Assets",
+                info1: "Intangible assets are non-physical assets that provide value to the business, such as patents, trademarks, copyrights, and software.",
+                info2: "These assets are often critical to a company’s competitive advantage, especially in tech and brand-driven industries.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "An increase may result from acquisitions, R&D, or IP investments.",
+                    "Must be evaluated for impairment regularly, as their value can fluctuate.",
+                    "High intangible assets are common in tech, pharma, and media sectors.",
+                    "Not easily liquidated, so they don’t improve short-term financial flexibility."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Patents", "Trademarks", "Licenses", "Software"],
+                    info3: "Rights and creations that provide long-term economic benefits.",
+                    info4: "Valued based on acquisition cost or internal development."
+                }
+            },
+            goodwill: {
+                title: "Goodwill",
+                info1: "Goodwill arises when a company acquires another for more than the fair value of its net assets.",
+                info2: "It reflects brand reputation, customer relationships, and other intangibles not separately recognized.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Appears on the balance sheet only after acquisitions.",
+                    "High goodwill may indicate an aggressive acquisition strategy.",
+                    "Subject to annual impairment testing rather than amortization.",
+                    "Impairment losses can significantly affect profit."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Purchase Price", "Fair Value of Net Assets Acquired"],
+                    info3: "The premium paid over the fair value of acquired net assets.",
+                    info4: "Does not reflect a physical or separately identifiable asset."
+                }
+            },
+            propertyPlantEquipment: {
+                title: "Property, Plant and Equipment (PPE)",
+                info1: "PPE includes tangible fixed assets used in the production of goods and services, such as buildings, machinery, and vehicles.",
+                info2: "These are long-term assets and typically depreciated over their useful lives.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Growth in PPE may indicate expansion or capital investment.",
+                    "Stagnation or shrinkage might signal underinvestment or asset sales.",
+                    "Higher PPE can increase depreciation expenses.",
+                    "Asset efficiency should be measured against revenue generated."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Buildings", "Machinery", "Equipment", "Vehicles"],
+                    info3: "Physical assets used in operations.",
+                    info4: "Recorded at cost and depreciated over time."
+                }
+            },
+            deferredTaxAsset: {
+                title: "Deferred Tax Asset",
+                info1: "A deferred tax asset arises when a company has overpaid taxes or has deductible temporary differences to recover in the future.",
+                info2: "It represents future tax relief and is recorded on the balance sheet.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Often arises from tax losses carried forward or temporary differences.",
+                    "Must be supported by future taxable income to be realized.",
+                    "Can fluctuate with changes in tax laws or accounting adjustments.",
+                    "Not immediately liquid, but beneficial over time."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Tax Loss Carryforwards", "Temporary Differences"],
+                    info3: "Amounts deductible from future taxable income.",
+                    info4: "Recognized when it is probable they will be utilized."
+                }
+            },
+            cashAndCashEquivalents: {
+                title: "Cash and Cash Equivalents",
+                info1: "This includes the most liquid assets a company holds—cash on hand and short-term investments easily convertible to cash.",
+                info2: "It is a key indicator of the company’s liquidity and ability to meet short-term obligations.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "A high balance provides financial flexibility and resilience.",
+                    "Too much idle cash may suggest inefficient capital allocation.",
+                    "Declining trends may raise liquidity concerns.",
+                    "Important for calculating liquidity ratios like current and quick ratios."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Cash", "Bank Balances", "Short-Term Investments"],
+                    info3: "Funds available for immediate use.",
+                    info4: "Includes investments with maturities of 3 months or less."
+                }
+            },
+            tradeAndOtherReceivables: {
+                title: "Trade and Other Receivables",
+                info1: "This account includes money owed to the company by customers and other parties, typically from sales on credit.",
+                info2: "It represents expected future cash inflows and is considered a current asset.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Rising receivables may suggest growing sales, but also possible collection risks.",
+                    "Persistent high receivables can strain cash flow if collection is slow.",
+                    "Should be analyzed alongside bad debt provisions.",
+                    "Key for assessing working capital efficiency."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Trade Debtors", "Other Receivables"],
+                    info3: "Amounts customers owe for delivered goods/services.",
+                    info4: "Includes accrued income and prepayments."
+                }
+            },
+            currentTaxReceivable: {
+                title: "Current Tax Receivable",
+                info1: "Represents income tax payments made in excess of the current liability, which are expected to be refunded.",
+                info2: "It is recorded as a current asset on the balance sheet until settled with tax authorities.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "May result from overestimated tax payments or tax incentives.",
+                    "Usually a temporary balance resolved in the following tax cycle.",
+                    "Persistent tax receivables should be examined for underlying issues.",
+                    "Not a performance measure, but affects short-term liquidity."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Advance Income Taxes", "Tax Refunds Due"],
+                    info3: "Overpaid taxes expected to be recovered.",
+                    info4: "Typically settled within one year."
+                }
+            }
+        },
+        chartPie2: {
+            intangibleAssets: {
+                title: "Intangible Assets",
+                info1: "Intangible assets are non-physical assets that provide value to the business, such as patents, trademarks, copyrights, and software.",
+                info2: "These assets are often critical to a company’s competitive advantage, especially in tech and brand-driven industries.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "An increase may result from acquisitions, R&D, or IP investments.",
+                    "Must be evaluated for impairment regularly, as their value can fluctuate.",
+                    "High intangible assets are common in tech, pharma, and media sectors.",
+                    "Not easily liquidated, so they don’t improve short-term financial flexibility."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Patents", "Trademarks", "Licenses", "Software"],
+                    info3: "Rights and creations that provide long-term economic benefits.",
+                    info4: "Valued based on acquisition cost or internal development."
+                }
+            },
+            goodwill: {
+                title: "Goodwill",
+                info1: "Goodwill arises when a company acquires another for more than the fair value of its net assets.",
+                info2: "It reflects brand reputation, customer relationships, and other intangibles not separately recognized.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Appears on the balance sheet only after acquisitions.",
+                    "High goodwill may indicate an aggressive acquisition strategy.",
+                    "Subject to annual impairment testing rather than amortization.",
+                    "Impairment losses can significantly affect profit."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Purchase Price", "Fair Value of Net Assets Acquired"],
+                    info3: "The premium paid over the fair value of acquired net assets.",
+                    info4: "Does not reflect a physical or separately identifiable asset."
+                }
+            },
+            propertyPlantEquipment: {
+                title: "Property, Plant and Equipment (PPE)",
+                info1: "PPE includes tangible fixed assets used in the production of goods and services, such as buildings, machinery, and vehicles.",
+                info2: "These are long-term assets and typically depreciated over their useful lives.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Growth in PPE may indicate expansion or capital investment.",
+                    "Stagnation or shrinkage might signal underinvestment or asset sales.",
+                    "Higher PPE can increase depreciation expenses.",
+                    "Asset efficiency should be measured against revenue generated."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Buildings", "Machinery", "Equipment", "Vehicles"],
+                    info3: "Physical assets used in operations.",
+                    info4: "Recorded at cost and depreciated over time."
+                }
+            },
+            deferredTaxAsset: {
+                title: "Deferred Tax Asset",
+                info1: "A deferred tax asset arises when a company has overpaid taxes or has deductible temporary differences to recover in the future.",
+                info2: "It represents future tax relief and is recorded on the balance sheet.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Often arises from tax losses carried forward or temporary differences.",
+                    "Must be supported by future taxable income to be realized.",
+                    "Can fluctuate with changes in tax laws or accounting adjustments.",
+                    "Not immediately liquid, but beneficial over time."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Tax Loss Carryforwards", "Temporary Differences"],
+                    info3: "Amounts deductible from future taxable income.",
+                    info4: "Recognized when it is probable they will be utilized."
+                }
+            },
+            cashAndCashEquivalents: {
+                title: "Cash and Cash Equivalents",
+                info1: "This includes the most liquid assets a company holds—cash on hand and short-term investments easily convertible to cash.",
+                info2: "It is a key indicator of the company’s liquidity and ability to meet short-term obligations.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "A high balance provides financial flexibility and resilience.",
+                    "Too much idle cash may suggest inefficient capital allocation.",
+                    "Declining trends may raise liquidity concerns.",
+                    "Important for calculating liquidity ratios like current and quick ratios."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Cash", "Bank Balances", "Short-Term Investments"],
+                    info3: "Funds available for immediate use.",
+                    info4: "Includes investments with maturities of 3 months or less."
+                }
+            },
+            tradeAndOtherReceivables: {
+                title: "Trade and Other Receivables",
+                info1: "This account includes money owed to the company by customers and other parties, typically from sales on credit.",
+                info2: "It represents expected future cash inflows and is considered a current asset.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Rising receivables may suggest growing sales, but also possible collection risks.",
+                    "Persistent high receivables can strain cash flow if collection is slow.",
+                    "Should be analyzed alongside bad debt provisions.",
+                    "Key for assessing working capital efficiency."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Trade Debtors", "Other Receivables"],
+                    info3: "Amounts customers owe for delivered goods/services.",
+                    info4: "Includes accrued income and prepayments."
+                }
+            },
+            currentTaxReceivable: {
+                title: "Current Tax Receivable",
+                info1: "Represents income tax payments made in excess of the current liability, which are expected to be refunded.",
+                info2: "It is recorded as a current asset on the balance sheet until settled with tax authorities.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "May result from overestimated tax payments or tax incentives.",
+                    "Usually a temporary balance resolved in the following tax cycle.",
+                    "Persistent tax receivables should be examined for underlying issues.",
+                    "Not a performance measure, but affects short-term liquidity."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Advance Income Taxes", "Tax Refunds Due"],
+                    info3: "Overpaid taxes expected to be recovered.",
+                    info4: "Typically settled within one year."
+                }
+            }
+        },
+        myHorizontalBarChart1: {
+            otherReserves: {
+                title: "Other Reserves",
+                info1: "Other reserves represent components of equity that arise from transactions not related to share capital or retained earnings. These often include revaluation reserves, foreign currency translation reserves, or unrealized gains/losses.",
+                info2: "They provide insight into accumulated changes in value not captured in retained earnings, and are usually not distributable as dividends.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Increases may result from asset revaluations, hedging gains, or foreign currency translations.",
+                    "Volatility may be influenced by market movements, currency rates, or revaluation policies.",
+                    "Can provide insight into how a company handles unrealized items and comprehensive income.",
+                    "Not typically used for paying dividends or reinvestment decisions."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Revaluation Surplus", "Currency Translation Reserve", "Unrealized Gains/Losses"],
+                    info3: "Accumulated unrealized or non-operating equity movements.",
+                    info4: "Recorded under 'Other Comprehensive Income' in equity section."
+                }
+            },
+            retainedEarnings: {
+                title: "Retained Earnings",
+                info1: "Retained earnings are the cumulative net profits or losses that a company has retained after paying dividends to shareholders.",
+                info2: "This figure reflects the company’s ability to reinvest earnings into operations, pay off debt, or reserve for future use.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Growing retained earnings indicate profitable performance and reinvestment strategy.",
+                    "Declines may suggest dividend payouts, losses, or reserves for contingencies.",
+                    "Key for measuring long-term financial sustainability and self-financing capability.",
+                    "Often used in calculating Return on Equity (ROE)."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Net Profit", "Dividends Paid"],
+                    info3: "Cumulative net income retained in the business.",
+                    info4: "Calculated by adding current net income to retained earnings and subtracting dividends."
+                }
+            }
+        },
+        myHorizontalBarChart2: {
+            shareCapital: {
+                title: "Share Capital",
+                info1: "Share capital represents the total amount of capital that shareholders have invested in a company by purchasing its shares.",
+                info2: "It forms the foundation of the company’s equity and reflects the funding raised through issuing ordinary or preference shares.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Increases typically indicate new equity issued to raise funds.",
+                    "Stable share capital may reflect maturity or consistent ownership structure.",
+                    "Dilution of existing shares may occur if new shares are issued.",
+                    "Key for calculating ownership stakes and equity ratios."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Number of Shares Issued", "Par Value per Share"],
+                    info3: "Represents ownership interest contributed by shareholders.",
+                    info4: "Usually recorded at nominal or par value, excluding premiums."
+                }
+            },
+            foreignExchangeReserve: {
+                title: "Foreign Exchange Reserve",
+                info1: "Foreign exchange reserve (or currency translation reserve) reflects gains or losses resulting from translating foreign operations into the company’s reporting currency.",
+                info2: "It captures currency fluctuations that affect the value of foreign subsidiaries, impacting equity but not current-period profit.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Fluctuates based on exchange rate movements and international exposure.",
+                    "A growing reserve may indicate increasing foreign operations.",
+                    "Losses may result from currency depreciation in foreign markets.",
+                    "Non-cash in nature, yet it affects comprehensive income."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Foreign Currency Translation Adjustments"],
+                    info3: "Arises from converting foreign subsidiaries' financials into the group’s currency.",
+                    info4: "Part of Other Comprehensive Income; does not affect net profit directly."
+                }
+            }
+        },
+        myLineChart: {
+            freeCashFlow: {
+                title: "Free Cash Flow (FCF)",
+                info1: "Free Cash Flow represents the cash a company generates after accounting for operating expenses and capital expenditures. It reflects the money available to be distributed to investors or reinvested.",
+                info2: "It is a key measure of financial flexibility and health, especially important for evaluating a company’s ability to fund growth, pay dividends, or reduce debt.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Consistently positive FCF indicates strong cash generation and operational efficiency.",
+                    "Negative FCF may suggest high reinvestment or potential liquidity issues.",
+                    "Used by investors to assess sustainability and value creation.",
+                    "Volatility in FCF could result from irregular capital spending or seasonal changes in operations."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Cash Flow from Operating Activities", "Capital Expenditures"],
+                    info3: "Cash generated from core business activities (excluding financing or investing).",
+                    info4: "Spending on property, plant, equipment or other capital assets needed to sustain operations."
+                }
+            }
+        },
+        myBubbleChart: {
+            revenueVsProfit: {
+                title: "Revenue vs Profit After Tax",
+                info1: "This chart visualizes how total revenue relates to profit after tax, helping to assess how effectively a company turns sales into profit.",
+                info2: "It allows comparisons between companies, time periods, or business segments, highlighting operational efficiency and profitability margins.",
+                trendAndContext: {
+                    info: "Trend & Context",
+                    highlights: [
+                    "Larger bubbles often represent higher revenue or profit volumes.",
+                    "A high revenue with low profit may suggest high costs or inefficiencies.",
+                    "A low revenue with high profit can indicate a premium pricing strategy or lean cost structure.",
+                    "Tracking these metrics over time reveals growth patterns and profitability improvements or concerns."
+                    ]
+                },
+                calculation: {
+                    accounts: ["Revenue", "Profit After Tax"],
+                    info3: "Total income from goods sold or services rendered before any expenses are deducted.",
+                    info4: "Final profit after all operating costs, interest, taxes, and other expenses are subtracted."
+                }
+            }
+        },
         myDoughnutChart: {
             grossProfit: {
                 title: "Gross Profit",
