@@ -174,15 +174,15 @@
 
 /* Make tabs smaller and adjust padding/font */
 .small-tabs .nav-link {
-    font-size: 1rem;
-    padding: 0.45rem 0.75rem;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
     min-height: 1.5rem;
     border-radius: 8px 8px 0 0;
 }
 
 /* Optional: reduce margin between tabs */
 .small-tabs .nav-item {
-    margin-right: 2px;
+    margin-right: 1px;
 }
 
 /* Make active tab more distinct */
