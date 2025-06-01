@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Global variables
     // Purple-magenta-blue range palette
     let titleColor = "#f5f5f5";
+    let modalTextColor = "rgba(245, 245, 245, 0.9)";
     const backgroundChart1 = "#960f88";
     const backgroundChart2 = "#441375";
     const backgroundChart3 = "#246C9A";
@@ -1286,10 +1287,12 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     function buildModalContent(chartInfo) {
         // Info text (title and descriptions)
+        // 
+        // modaltextColor
         const infoText = `
             <div class="p-4">
-                <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info1}</p>
-                <p style="font-size: 0.95rem; color:rgba(245, 245, 245, 0.9);">${chartInfo.info2}</p>
+                <p style="font-size: 0.95rem; color:${modalTextColor};">${chartInfo.info1}</p>
+                <p style="font-size: 0.95rem; color:${modalTextColor};">${chartInfo.info2}</p>
             </div>
         `;
 
@@ -1439,6 +1442,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function darkTheme(){
         Chart.defaults.color = "#ddd";
         titleColor = "#f5f5f5";
+        modalTextColor = "rgba(245, 245, 245, 0.9)";
 
         const chartsBackgroundLightElements = document.querySelectorAll('div.charts-background-light');
 
@@ -1446,6 +1450,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     element.classList.remove('charts-background-light');
                     element.classList.add('charts-background');
                 });
+
+        const modalElements = document.querySelectorAll('div.modal-content-light');
+
+         // Found elements with charts-background, switch to charts-background-light
+        modalElements.forEach(element => {
+            element.classList.remove('modal-content-light');
+            element.classList.add('modal-content');
+        }); 
                 
         console.log(`Switched ${chartsBackgroundLightElements.length} elements from 'charts-background-light' to 'charts-background'`);
         document.documentElement.style.setProperty('--bs-body-bg', '#111525');
@@ -1458,12 +1470,21 @@ document.addEventListener("DOMContentLoaded", function() {
     function lightTheme(){
         Chart.defaults.color = "#7c0b84";
         titleColor = "#7c0b84";
+        modalTextColor = "rgba(0, 0, 0, 0.8)";
         const chartsBackgroundElements = document.querySelectorAll('div.charts-background');
 
          // Found elements with charts-background, switch to charts-background-light
         chartsBackgroundElements.forEach(element => {
             element.classList.remove('charts-background');
             element.classList.add('charts-background-light');
+        }); 
+
+        const modalElements = document.querySelectorAll('div.modal-content');
+
+         // Found elements with charts-background, switch to charts-background-light
+        modalElements.forEach(element => {
+            element.classList.remove('modal-content');
+            element.classList.add('modal-content-light');
         }); 
         
         console.log(`Switched ${chartsBackgroundElements.length} elements from 'charts-background' to 'charts-background-light'`);
@@ -1474,25 +1495,24 @@ document.addEventListener("DOMContentLoaded", function() {
         createAllCharts();
     }
 
-    function toggleChartBackgrounds() {
+    function toggleTheme() {
         // First, look for elements with 'charts-background' class
         const chartsBackgroundElements = document.querySelectorAll('div.charts-background');
         
         if (chartsBackgroundElements.length > 0) {
            lightTheme();
         } else {
-            // No elements with charts-background found, look for charts-background-light
             const chartsBackgroundLightElements = document.querySelectorAll('div.charts-background-light');
             
             if (chartsBackgroundLightElements.length > 0) {
                 darkTheme();
             } else {
-                console.log('No elements found with either class');
+                console.log('No theme detected');
             }
         }
     }
 
-    document.getElementById('theme-change').onclick = toggleChartBackgrounds;
+    document.getElementById('theme-change').onclick = toggleTheme;
 
     document.querySelectorAll('canvas').forEach(canvas => {
         canvas.addEventListener('click', function () {

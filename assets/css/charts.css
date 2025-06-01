@@ -124,6 +124,10 @@
     background-color: #222b4b;
 }
 
+.modal-content-light {
+    background-color: #fff7fe;
+}
+
 #modalChart {
     max-height: 500px !important;
     min-height: 280px !important;
