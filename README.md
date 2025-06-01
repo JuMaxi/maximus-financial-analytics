@@ -118,7 +118,7 @@ Layouts adapt dynamically to different screen sizes, making it easy to upload fi
 Both the HTML and CSS code for this project have been fully validated using the official **W3C Validation Services**:
 
 - [W3C Markup Validation Service](https://validator.w3.org/) – **No errors or warnings** found in the HTML.
-- [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) – **No errors or warnings** found in the CSS.
+- [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) – **No errors** found in the CSS.
 
 These validations ensure that the code follows web standards and promotes better accessibility, compatibility, and performance across browsers.
 
@@ -161,7 +161,25 @@ These are relatively small details and do not affect the core features, but addr
 
 ## Screenshots
 
+### Validation Screenshots
 
+Below are the screenshots confirming that both the HTML and CSS files for this project have passed validation using the official **W3C Validation Services** with no errors. The CSS validations presented a few warning that can be ignored.
+
+#### HTML Validation
+
+- **Homepage HTML**  
+  ![HTML Validation - Homepage](assets/images/validations/validation-html-homepage.webp)
+
+- **Charts Page HTML**  
+  ![HTML Validation - Charts Page](assets/images/validations/validations-html-charts.webp)
+
+#### CSS Validation
+
+- **Main Stylesheet (style.css)**  
+  ![CSS Validation - style.css](assets/images/validations/validation-style-css.webp)
+
+- **Charts CSS**  
+  ![CSS Validation - charts.css](assets/images/validations/validation-charts-css.webp)
 
 ---
 
