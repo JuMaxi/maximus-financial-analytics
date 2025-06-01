@@ -688,5 +688,36 @@ document.addEventListener("DOMContentLoaded", function() {
         return indicators;
     }
 
-    
+    function darkTheme(){
+        let titleColor = "#f5f5f5";
+        document.getElementById('theme-icon').innerHTML = '<i class="fa-solid fa-sun"></i>';
+        document.body.classList.remove('light-theme');
+        
+        document.documentElement.style.setProperty('--bs-body-bg', '#111525');
+        document.documentElement.style.setProperty('--background-color', '#111525');
+        document.documentElement.style.setProperty('--secondary-color', titleColor);
+    }
+
+    function lightTheme(){
+        let titleColor = "#010820";
+        document.getElementById('theme-icon').innerHTML = '<i class="fa-solid fa-moon"></i>';
+        document.body.classList.add('light-theme');
+
+        document.documentElement.style.setProperty('--bs-body-bg', '#ffeefa');
+        document.documentElement.style.setProperty('--background-color', '#f5f5f5');
+        document.documentElement.style.setProperty('--secondary-color', titleColor);
+    }
+
+    function toggleTheme() {
+        // First, look for elements with 'charts-background' class
+        const isSun = document.getElementsByClassName('fa-sun').length > 0;
+        
+        if (isSun) {
+           lightTheme();
+        } else {
+            darkTheme();
+        }
+    }
+
+    document.getElementById('theme-change').onclick = toggleTheme;
 })

@@ -3,6 +3,10 @@
 ---
 ![Mock-up Homepage](assets/images/Maximus-MockUp-Charts.webp)
 
+## Demo
+
+[Watch the demo video on YouTube](https://youtu.be/wREyLs9gU-g)
+
 ## Project Goal
 
 Maximus Financial Analytics is a web-based platform that allows users to submit financial statements for **automated analysis**. The system extracts key data from uploaded PDF reports and calculates **financial indicators**, presenting them in a clean and user-friendly format. The goal is to support users in making more **informed financial decisions** based on quick, accessible insights.
