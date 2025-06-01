@@ -412,6 +412,18 @@ document.addEventListener("DOMContentLoaded", function() {
                         borderWidth: 3
                     }
                 },
+                scales: {
+                    r: {
+                        pointLabels: {
+                            font: {
+                                size: 14
+                            }
+                        },
+                        ticks: {
+                            color: "#222b4b", // <-- grid value numbers
+                        }
+                    }
+                },
                 plugins: {
                     legend: {
                         display: true,
