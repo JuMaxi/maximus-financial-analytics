@@ -5,9 +5,10 @@
 ---
 ![Mock-up Homepage](assets/images/Maximus-MockUp-Charts-light-theme.webp)
 
-## Demo
+## Demo video
 
-[Watch the demo video on YouTube](https://youtu.be/wREyLs9gU-g)
+[![Watch the demo video on YouTube](https://img.youtube.com/vi/wREyLs9gU-g/0.jpg)](https://www.youtube.com/watch?v=wREyLs9gU-g)
+
 
 ## Project Goal
 
