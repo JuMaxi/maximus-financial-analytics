@@ -180,6 +180,10 @@
     border-radius: 8px 8px 0 0;
 }
 
+.small-tabs .nav-link:not(.active):hover {
+    color: #e9e3e9 !important;
+}
+
 /* Optional: reduce margin between tabs */
 .small-tabs .nav-item {
     margin-right: 1px;
@@ -190,6 +194,12 @@
     background-color: #e9e3e9;
     color: #222b4b;
     border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.custom-bg-table .list-group-item {
+    background-color: #e9e3e9 !important;
+    color: #222b4b !important;
+    border: 1px solid #dee2e6 !important;
 }
 
 @media (max-width: 575.98px) {
