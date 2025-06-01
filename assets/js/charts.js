@@ -1444,6 +1444,8 @@ document.addEventListener("DOMContentLoaded", function() {
         titleColor = "#f5f5f5";
         modalTextColor = "rgba(245, 245, 245, 0.9)";
 
+        document.getElementById('theme-icon').innerHTML = '<i class="fa-solid fa-sun"></i>';
+
         const chartsBackgroundLightElements = document.querySelectorAll('div.charts-background-light');
 
         chartsBackgroundLightElements.forEach(element => {
@@ -1471,6 +1473,9 @@ document.addEventListener("DOMContentLoaded", function() {
         Chart.defaults.color = "#7c0b84";
         titleColor = "#7c0b84";
         modalTextColor = "rgba(0, 0, 0, 0.8)";
+
+        document.getElementById('theme-icon').innerHTML = '<i class="fa-solid fa-moon"></i>';
+        
         const chartsBackgroundElements = document.querySelectorAll('div.charts-background');
 
          // Found elements with charts-background, switch to charts-background-light

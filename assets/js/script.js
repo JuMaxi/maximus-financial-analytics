@@ -687,4 +687,6 @@ document.addEventListener("DOMContentLoaded", function() {
         };
         return indicators;
     }
+
+    
 })
