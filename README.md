@@ -1,9 +1,12 @@
 # Maximus Financial Analytics
+
+🔗 **Live Site:** [Maximus Financial Analytics](https://jumaxi.github.io/maximus-financial-analytics/)
+
 ![Mock-up Homepage](assets/images/Maximus-MockUp-Homepage.webp)
 ---
-![Mock-up Homepage](assets/images/Maximus-MockUp-Charts.webp)
+![Mock-up Charts-dark-theme](assets/images/Maximus-MockUp-Charts.webp)
 ---
-![Mock-up Homepage](assets/images/Maximus-MockUp-Charts-light-theme.webp)
+![Mock-up Charts-light-theme](assets/images/Maximus-MockUp-Charts-light-theme.webp)
 
 ## Demo video
 
