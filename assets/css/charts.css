@@ -21,7 +21,7 @@
 .card4 {
     border-radius: 18px;
     color: var(--secondary-color);
-    min-height: 208px;
+    min-height: 272px;
 }
 /* Change size font awesome icons */
 .fa-2xl {
@@ -111,6 +111,11 @@
 
 .charts-background {
     background-color: #161C31;
+    border-radius: 18px;
+}
+
+.charts-background-light {
+    background-color: #fff7fe;
     border-radius: 18px;
 }
 

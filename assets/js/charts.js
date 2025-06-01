@@ -6,13 +6,19 @@ const data = new Map(stored ? JSON.parse(stored) : []);
 const storedIndicators = localStorage.getItem('indicators');
 const indicators = storedIndicators ? JSON.parse(storedIndicators) : {};
 
+// This object is created to store a copy of the charts. So when the modal is in use, it will show the chart
+const chartConfigs = {};
+
+// Saves a reference to the created chart so it can be destroyed
+const chartReferences = {};
+
 // Chart.js code
 document.addEventListener("DOMContentLoaded", function() {
     Chart.defaults.color = "#ddd";
     Chart.defaults.borderColor = "#444";
     // Global variables
     // Purple-magenta-blue range palette
-    const titleColor = "#f5f5f5";
+    let titleColor = "#f5f5f5";
     const backgroundChart1 = "#960f88";
     const backgroundChart2 = "#441375";
     const backgroundChart3 = "#246C9A";
@@ -26,14 +32,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const backgroundChart11 = "#8A3E8F";
     const backgroundChart12 = "#3A5F8A";
 
-    // This object is created to store a copy of the charts. So when the modal is in use, it will show the chart
-    const chartConfigs = {};
+
     
     // Function to create Gauge chart
     function createGaugeChart(key, year, index) {
         const ctx2 = document.getElementById(`gaugeChart${key}${year}`).getContext("2d");
         const indicator = indicators[key].values[index];
-        new Chart(ctx2, {
+        chartReferences[`gaugeChart${key}${year}`] = new Chart(ctx2, {
             type: indicators[key].chartType,
             data: {
                 labels: ["Red Zone", "Yellow Zone", "Green Zone"],
@@ -62,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     display: true,
                     text: `${key} ${year}`,
                     font: { size: 13 },
-                    color: "#f5f5f5"
+                    color: titleColor
                 }
                 },
                 animation: false,
@@ -87,6 +92,11 @@ document.addEventListener("DOMContentLoaded", function() {
         // Find the container where you want to add the gauge chart
         const container = document.querySelector(`#chartsGauge .row`);
         if (!container) return;
+
+        // Don't add again if already exists
+        if(document.getElementById(`gaugeChart${key}${year}`) !== null)
+            return;
+
 
         // Create a Bootstrap column wrapper
         const colDiv = document.createElement('div');
@@ -180,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
-        new Chart(ctx, config);
+        chartReferences[canvasId] = new Chart(ctx, config);
     }
 
     function createDoughnutChart(canvasId, group, chartTitle) {
@@ -223,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
-        new Chart(ctx, config);
+        chartReferences[canvasId] = new Chart(ctx, config);
     }
 
     function checkIfValueIsNegative(values) {
@@ -271,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
-        new Chart(ctx, config);
+        chartReferences[canvasId] = new Chart(ctx, config);
     }
 
     function createBubbleChart(canvasId, key1, key2) {
@@ -313,7 +323,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
-        new Chart(ctx, config);
+        chartReferences[canvasId] = new Chart(ctx, config);
     }
 
     function chartBarChart(canvasId, group, chartTitle) {
@@ -365,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
         chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
-        new Chart(ctx, config);
+        chartReferences[canvasId] = new Chart(ctx, config);
     }    
     
     function createRadarChart(canvasId, group) {
@@ -438,7 +448,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
         };
         chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
-        new Chart(ctx, config);
+        chartReferences[canvasId] = new Chart(ctx, config);
     }
 
     function createBarHorizontalChart(canvasId, group, chartTitle) {
@@ -491,7 +501,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         chartConfigs[canvasId] = JSON.parse(JSON.stringify(config)); // store a pure data copy
-        new Chart(ctx, config);
+        chartReferences[canvasId] = new Chart(ctx, config);
     }
 
     function writeCards(group) {
@@ -534,31 +544,42 @@ document.addEventListener("DOMContentLoaded", function() {
 
     writeCards("accounts");
 
-    createRadarChart("myRadarChart", "profit");
-    createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
-    createLineChart("myLineChart", "Free Cash Flow");    
+    function createAllCharts(){
+        createRadarChart("myRadarChart", "profit");
+        createBubbleChart("myBubbleChart", "Revenue", "Profit after tax");
+        createLineChart("myLineChart", "Free Cash Flow");    
 
 
-    // Create Bar Charts (accounts not indicators)
-    chartBarChart("chartBar1", "solvency", "Solvency Ratios");
-    chartBarChart("chartBar2", "accounts", "Revenue X Profit");
-    chartBarChart("chartBar3", "cash insights", "Cash Flow Insights");
-    chartBarChart("chartBar4", "cash flow", "Cash Flow and Solvency");
-  
+        // Create Bar Charts (accounts not indicators)
+        chartBarChart("chartBar1", "solvency", "Solvency Ratios");
+        chartBarChart("chartBar2", "accounts", "Revenue X Profit");
+        chartBarChart("chartBar3", "cash insights", "Cash Flow Insights");
+        chartBarChart("chartBar4", "cash flow", "Cash Flow and Solvency");
     
-    // Create Gauge Charts (ratio indicators)
-    selectIndicatorToGaugeChart();
+        
+        // Create Gauge Charts (ratio indicators)
+        selectIndicatorToGaugeChart();
 
-    // Create Pie Charts (accounts not indicators)
-    createPieChart("chartPie1", "Assets BreakDown", 0, 2025);
-    createPieChart("chartPie2", "Assets BreakDown", 1, 2024);
+        // Create Pie Charts (accounts not indicators)
+        createPieChart("chartPie1", "Assets BreakDown", 0, 2025);
+        createPieChart("chartPie2", "Assets BreakDown", 1, 2024);
 
-    // Create Horizontal Bar Charts
-    createBarHorizontalChart("myHorizontalBarChart1", "equity", "Equity Composition Other Reserves and Retained Earnings");
-    createBarHorizontalChart("myHorizontalBarChart2", "equity2", "Equity Composition Share Capital and Foreign Exchange");
+        // Create Horizontal Bar Charts
+        createBarHorizontalChart("myHorizontalBarChart1", "equity", "Equity Composition Other Reserves and Retained Earnings");
+        createBarHorizontalChart("myHorizontalBarChart2", "equity2", "Equity Composition Share Capital and Foreign Exchange");
+        
+        // Create Doughnut Chart
+        createDoughnutChart("myDoughnutChart", "profit", "Gross Profit");
+    }
+
+    createAllCharts();
+
+    function destroyAllCharts(){
+        for (const [key, value] of Object.entries(chartReferences)) {
+           value.destroy();
+        }
+    }
     
-    // Create Doughnut Chart
-    createDoughnutChart("myDoughnutChart", "profit", "Gross Profit");
 
     const chartInfoMap = {
         chartBar1: {
@@ -1415,6 +1436,64 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function darkTheme(){
+        Chart.defaults.color = "#ddd";
+        titleColor = "#f5f5f5";
+
+        const chartsBackgroundLightElements = document.querySelectorAll('div.charts-background-light');
+
+        chartsBackgroundLightElements.forEach(element => {
+                    element.classList.remove('charts-background-light');
+                    element.classList.add('charts-background');
+                });
+                
+        console.log(`Switched ${chartsBackgroundLightElements.length} elements from 'charts-background-light' to 'charts-background'`);
+        document.documentElement.style.setProperty('--bs-body-bg', '#111525');
+        document.documentElement.style.setProperty('--background-color', '#111525');
+        document.documentElement.style.setProperty('--secondary-color', titleColor);
+        destroyAllCharts();
+        createAllCharts();
+    }
+
+    function lightTheme(){
+        Chart.defaults.color = "#7c0b84";
+        titleColor = "#7c0b84";
+        const chartsBackgroundElements = document.querySelectorAll('div.charts-background');
+
+         // Found elements with charts-background, switch to charts-background-light
+        chartsBackgroundElements.forEach(element => {
+            element.classList.remove('charts-background');
+            element.classList.add('charts-background-light');
+        }); 
+        
+        console.log(`Switched ${chartsBackgroundElements.length} elements from 'charts-background' to 'charts-background-light'`);
+        document.documentElement.style.setProperty('--bs-body-bg', '#ffeefa');
+        document.documentElement.style.setProperty('--background-color', '#ffeefa');
+        document.documentElement.style.setProperty('--secondary-color', titleColor);
+        destroyAllCharts();
+        createAllCharts();
+    }
+
+    function toggleChartBackgrounds() {
+        // First, look for elements with 'charts-background' class
+        const chartsBackgroundElements = document.querySelectorAll('div.charts-background');
+        
+        if (chartsBackgroundElements.length > 0) {
+           lightTheme();
+        } else {
+            // No elements with charts-background found, look for charts-background-light
+            const chartsBackgroundLightElements = document.querySelectorAll('div.charts-background-light');
+            
+            if (chartsBackgroundLightElements.length > 0) {
+                darkTheme();
+            } else {
+                console.log('No elements found with either class');
+            }
+        }
+    }
+
+    document.getElementById('theme-change').onclick = toggleChartBackgrounds;
+
     document.querySelectorAll('canvas').forEach(canvas => {
         canvas.addEventListener('click', function () {
             const config = chartConfigs[this.id];
@@ -1424,6 +1503,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 modal.show();
                 if (window.modalChartInstance) window.modalChartInstance.destroy();
                 const ctx = document.getElementById('modalChart').getContext('2d');
+
+                if(window.modalChartInstance !== undefined){
+                    window.modalChartInstance.destroy();
+                }
                 window.modalChartInstance = new Chart(ctx, config);
             }
         });

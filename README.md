@@ -1,7 +1,7 @@
 # Maximus Financial Analytics
-![Mock-up Homepage](assets/images/Maximus-MockUp-Homepage.png)
+![Mock-up Homepage](assets/images/Maximus-MockUp-Homepage.webp)
 ---
-![Mock-up Homepage](assets/images/Maximus-MockUp-Charts.png)
+![Mock-up Homepage](assets/images/Maximus-MockUp-Charts.webp)
 
 ## Project Goal
 
@@ -78,10 +78,17 @@ The design of **Maximus Financial Analytics** focuses on clarity, professionalis
 
 The color scheme is based on dark tones to convey seriousness and trust, using the following core colors defined in CSS variables:
 
-- **Primary Color (`--primary-color: #121212`):** A very dark, almost black tone used for strong contrasts and key interface elements.  
-- **Accent Color (`--accent-color: #3498DB`):** A bright blue shade that highlights important actions and interactive components.  
-- **Secondary Color (`--secondary-color: #f5f5f5`):** A light gray used primarily for text and UI details to maintain readability.  
-- **Background Color (`--background-color: #353839`):** A neutral dark gray serving as the main background, offering a professional and modern base.
+- **Primary Color (`--primary-color: #010820`)**  
+  A deep navy blue that establishes a strong, authoritative presence for primary interface elements and headers.
+
+- **Accent Color (`--accent-color: #3498DB`)**  
+  A vivid, modern blue used to draw attention to interactive components like buttons and highlights.
+
+- **Secondary Color (`--secondary-color: #f5f5f5`)**  
+  A soft, light gray ideal for supporting text, icons, and subtle UI details, enhancing readability.
+
+- **Background Color (`--background-color: #111525`)**  
+  A rich, dark indigo tone that creates a sleek and immersive backdrop for the entire interface.
 
 These colors create a sleek, modern interface with high readability and professionalism.
 
