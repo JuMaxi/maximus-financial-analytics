@@ -2,6 +2,8 @@
 ![Mock-up Homepage](assets/images/Maximus-MockUp-Homepage.webp)
 ---
 ![Mock-up Homepage](assets/images/Maximus-MockUp-Charts.webp)
+---
+![Mock-up Homepage](assets/images/Maximus-MockUp-Charts-light-theme.webp)
 
 ## Demo
 
