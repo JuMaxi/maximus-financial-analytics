@@ -113,6 +113,58 @@ Layouts adapt dynamically to different screen sizes, making it easy to upload fi
 
 --- 
 
+## HTML & CSS Validation
+
+Both the HTML and CSS code for this project have been fully validated using the official **W3C Validation Services**:
+
+- [W3C Markup Validation Service](https://validator.w3.org/) – **No errors or warnings** found in the HTML.
+- [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) – **No errors or warnings** found in the CSS.
+
+These validations ensure that the code follows web standards and promotes better accessibility, compatibility, and performance across browsers.
+
+## Light & Dark Theme Support
+
+This website includes a built-in **light and dark theme toggle**, allowing users to switch between themes based on their preference.
+
+- **Light Mode**: Clean and bright interface for daytime or well-lit environments.
+- **Dark Mode**: Eye-friendly, low-light interface ideal for night-time browsing.
+
+Users can easily switch between themes for a more comfortable and personalized browsing experience.
+
+## Notes on Minor Improvements
+
+While the project is fully functional and achieves its intended purpose, a few minor areas for enhancement were noted during development. These do not impact the overall usability but could be refined in future updates for improved maintainability and polish.
+
+### Chart Functions
+
+The JavaScript functions used to generate the charts work as expected. However, since many chart configurations share similar structures, there is room to refactor them into more reusable functions to reduce code repetition.
+
+### Gauge Chart Responsiveness
+
+The gauge charts display correctly in most cases, but their responsiveness could be improved on smaller screens. Adjusting their scaling behavior would help maintain a more consistent appearance across devices.
+
+### Modal Button Behavior (Light Theme)
+
+In the light theme, the modal buttons currently do not switch between general information and calculation views as intended. This works correctly in the dark theme and is likely due to a small JavaScript issue in the dynamically generated content.
+
+---
+
+## Light Theme – Small Layout Enhancements
+
+Although the light theme is fully functional, most styling and layout attention was focused on the dark theme. As a result, a few light theme-specific elements could benefit from minor adjustments:
+
+- **General layout tweaks** to enhance visual consistency and clarity.
+- **Uploaded file field** on the homepage could be more clearly styled to match the overall light theme.
+- **Modal buttons**, as mentioned above, could use a fix to align behavior with the dark mode version.
+
+These are relatively small details and do not affect the core features, but addressing them in the future would help bring both themes to the same level of refinement.
+
+## Screenshots
+
+
+
+---
+
 ## Credits & Resources
 
 - **pdf.js**:  
@@ -133,14 +185,3 @@ Layouts adapt dynamically to different screen sizes, making it easy to upload fi
   - [Codepen UI Inspiration](https://codepen.io/haiiaaa/pen/rNVbmYy)
 
 ---
-
-## 📸 Screenshots
-
-Soon the screenshots with all my pages. I am working in styling my charts.
-
----
-
-
-
-
-

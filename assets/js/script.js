@@ -43,11 +43,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!file || file.type !== 'application/pdf') {
             alert("Please select a PDF file.");
 
-        // Reset UI state
-        processingMessage.style.display = 'none';
-        loadFile.disabled = false;
-        loadFile.textContent = 'Start Analyzing';
-        return;
+            // Reset UI state
+            processingMessage.style.display = 'none';
+            loadFile.disabled = false;
+            loadFile.textContent = 'Start Analyzing';
+            return;
         }
 
         // Read the file using file reader

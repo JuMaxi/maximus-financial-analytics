@@ -10,7 +10,7 @@
 
 body {
     background-color: var(--background-color);
-    font-family: 'Merriweather', serif;
+    font-family: 'Merriweather', serif, Helvetica, Arial, sans-serif; /* Helvetica and Arial are Fallback Fonts */
     color: var(--secondary-color);
     
 }
@@ -29,7 +29,7 @@ nav {
 }
 
 h1, h2, h3, h4, h5, h6, nav, .navbar-brand {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif, Helvetica, Arial, sans-serif;
 }
 
 .nav-item > a {

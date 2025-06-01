@@ -23,38 +23,40 @@
     
 </head>
 
-<!-- Modal Structure (place before </body>) -->
-<div class="modal fade" id="chartModal" tabindex="-1" aria-labelledby="chartModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="chartModalLabel">Chart Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <!-- Chart area -->
-                        <div class="col-12 col-lg-7 d-flex justify-content-center align-items-center mb-4 mb-lg-0">
-                            <canvas id="modalChart"></canvas>
-                        </div>
-                        <div class="col-12 col-lg-5 d-flex flex-column justify-content-between">
-                            <ul class="nav nav-tabs mb-3 small-tabs" id="modalTabNav" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab">Test 1</button>
-                                </li>
-                            </ul>
-                            <!-- Tab 1 content -->
-                            <div class="tab-content" id="modalTabContent">
-                                <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                                <!-- Info area -->
-                                    <div id="modalChartInfoText"></div>
-                                    <div id="modalInterpInfo"></div>
-                                    <div id="modalChartInfoTable"></div>
-                                    <div id="modalCalcInfo"></div>
-                                    <div id="modalChartCalculation" style="display:none"></div>
-                                    <div class="px-4">
-                                        <button id="toggleMeaningCalc" class="btn-primary-custom-calculation mb-2" type="button">How is it calculated?</button>
+<body>
+    <!-- Modal Structure -->
+    <div class="modal fade" id="chartModal" tabindex="-1" aria-labelledby="chartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chartModalLabel">Chart Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- Chart area -->
+                            <div class="col-12 col-lg-7 d-flex justify-content-center align-items-center mb-4 mb-lg-0">
+                                <canvas id="modalChart"></canvas>
+                            </div>
+                            <div class="col-12 col-lg-5 d-flex flex-column justify-content-between">
+                                <ul class="nav nav-tabs mb-3 small-tabs" id="modalTabNav" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab">Test 1</button>
+                                    </li>
+                                </ul>
+                                <!-- Tab 1 content -->
+                                <div class="tab-content" id="modalTabContent">
+                                    <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                                    <!-- Info area -->
+                                        <div id="modalChartInfoText"></div>
+                                        <div id="modalInterpInfo"></div>
+                                        <div id="modalChartInfoTable"></div>
+                                        <div id="modalCalcInfo"></div>
+                                        <div id="modalChartCalculation" style="display:none"></div>
+                                        <div class="px-4">
+                                            <button id="toggleMeaningCalc" class="btn-primary-custom-calculation mb-2" type="button">How is it calculated?</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -64,9 +66,7 @@
             </div>
         </div>
     </div>
-</div>
 
-<body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid d-flex align-items-center justify-content-between">
@@ -102,10 +102,10 @@
     </nav>
 
     <!-- Main content -->
-    
     <main class="pt-5 mt-3">
         <!-- Section to the 4 cards in the top of the page-->
         <section>
+            <h1 class="visually-hidden">Section to cards</h1>
             <div class="container pt-5">
                 <div class="row" id="cards">
                     <div class="col-12 col-md-6 col-lg-3">
@@ -162,6 +162,7 @@
 
         <!-- Section to the charts -->
         <section>
+            <h1 class="visually-hidden">Section to charts</h1>
             <div class="container-fluid px-4 p-sm-5">
                 <div class="row pb-4 py-2">
                     <!-- Bar Charts (left side) -->
