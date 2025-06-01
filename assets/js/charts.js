@@ -502,7 +502,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 style: "currency",
                 currency: "GBP"
             })}
-            <i class="fa-solid fa-arrow-up fa-xl" style="color: #389473;"></i>`;
+            <i class="fa-solid fa-arrow-up fa-xl" style="color: #09d506;"></i>`;
 
             paragraph2025.style.textShadow = "1px 1px 1px rgba(1, 8, 32, 0.22)";
 
